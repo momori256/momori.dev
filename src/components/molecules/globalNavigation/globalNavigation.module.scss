@@ -1,0 +1,31 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .icons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: auto 0;
+
+    li {
+      display: block;
+      margin-right: var(--space-m);
+
+      p {
+        color: var(--foreground-rgb);
+        margin: 0;
+      }
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .faicon {
+    display: block;
+    margin: 0 auto;
+  }
+}

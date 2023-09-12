@@ -1,0 +1,39 @@
+@use "../../../app/constants.scss" as g;
+
+.root {
+  h1 {
+    margin-bottom: var(--font-size-l);
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .profile {
+      margin-top: var(--space-2l);
+    }
+  }
+}
+
+@media screen and (max-width: g.$breakp-m) {
+  .root {
+    .flex {
+      flex-direction: column;
+
+      text-align: center;
+
+      .profile {
+        width: 100px;
+        height: 100px;
+        margin-top: 0;
+      }
+    }
+
+    .icons {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--space-l);
+    }
+  }
+}

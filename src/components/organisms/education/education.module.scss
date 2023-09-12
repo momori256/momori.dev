@@ -1,0 +1,9 @@
+.root {
+  > li {
+    margin-bottom: var(--space-l);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

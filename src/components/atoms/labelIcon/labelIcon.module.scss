@@ -1,0 +1,13 @@
+.root {
+  display: block;
+
+  .faicon {
+    display: block;
+    margin: 0 auto var(--space-2s) auto;
+  }
+
+  p {
+    margin: 0;
+    color: var(--foreground-rgb);
+  }
+}

@@ -1,0 +1,13 @@
+@use "../../../app/constants.scss" as g;
+
+.main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--padding-main-l);
+}
+
+@media screen and (max-width: g.$breakp-m) {
+  .main {
+    padding: 0 var(--padding-main-m);
+  }
+}

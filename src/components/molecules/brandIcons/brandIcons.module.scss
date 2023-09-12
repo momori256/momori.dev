@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  justify-content: flex-start;
+
+  li {
+    margin-right: var(--space-m);
+  }
+
+  li:last-child {
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-2s) 0;
+
+  li {
+    margin-right: var(--space-m);
+    margin-bottom: 0;
+    white-space: pre-wrap;
+  }
+
+  li:last-child {
+    margin-right: 0;
+  }
+}
