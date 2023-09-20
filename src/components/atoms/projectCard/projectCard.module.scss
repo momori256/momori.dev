@@ -33,9 +33,5 @@
   .root {
     margin: var(--space-m) 0;
     padding: var(--space-m) var(--space-l);
-
-    &:hover {
-      border-right: none;
-    }
   }
 }
