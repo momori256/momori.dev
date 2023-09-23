@@ -173,17 +173,6 @@
         }
       }
     }
-
-    :global(pre.mermaid) {
-      svg {
-        display: block;
-        margin: 0 auto;
-
-        text {
-          font-size: var(--font-size-m) !important; // overwrite mermaid.
-        }
-      }
-    }
   }
 }
 

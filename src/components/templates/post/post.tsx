@@ -42,18 +42,6 @@ const Post: React.FC<{ post: Post }> = ({ post }) => {
           dangerouslySetInnerHTML={{ __html: post.html }}
         ></div>
       </main>
-
-      <Script
-        id="mermaidjs"
-        type="module"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-         mermaid.initialize({startOnLoad: true});
-         mermaid.contentLoaded();`,
-        }}
-      />
     </div>
   );
 };

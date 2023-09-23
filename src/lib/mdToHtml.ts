@@ -1,4 +1,3 @@
-import rehypeMermaid from "./rehypeMermaid";
 import getHighlighter from "./shikiHilighter"
 
 import { remark } from "remark";
@@ -24,13 +23,12 @@ const mdToHtml: (md: string) => Promise<string> = async (md) => {
     .use(remarkToc, { maxDepth: 3, tight: true })
     .use(remarkMath)
     .use(remarkGemoji)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeKatex)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, { behavior: "wrap" })
-    .use(rehypeMermaid)
     .use(rehypePrettyCode, { getHighlighter })
-    .use(rehypeStringify)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(md);
   return result.toString();
 };
