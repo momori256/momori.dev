@@ -1,4 +1,4 @@
-import getHighlighter from "./shikiHilighter"
+import getHighlighter from "./shikiHilighter";
 
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
