@@ -1,39 +1,37 @@
 ---
-title: "Start backend development with \"Zero To Production In Rust\""
+title: "Embarking on Backend Development with \"Zero To Production In Rust\""
 date: "2024-02-04"
 tags: "rust, backend"
-imagePath: "/blog/relocation-to-vancouver/mark-olsen-K5j1KgecVC8-unsplash.jpg"
-photoByName: "Mark Olsen"
-photoByUrl: "https://unsplash.com/@markolsen?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+imagePath: "/blog/zero-to-production-in-rust/scott-rodgerson-5v235ueAU58-unsplash.jpg"
+photoByName: "Scott Rodgerson"
+photoByUrl: "https://unsplash.com/@scottrodgerson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 photoOnName: "Unsplash"
-photoOnUrl: "https://unsplash.com/photos/K5j1KgecVC8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+photoOnUrl: "https://unsplash.com/photos/a-black-and-white-photo-of-the-word-boo-on-a-machine-5v235ueAU58?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
 # Embarking on Backend Development with "Zero To Production In Rust"
 
-I will summarize what I learned from [Zero To Production In Rust](https://www.zero2prod.com/index.html), which is a book on backend development in Rust.
+In this blog post, I will share insights gained from [Zero To Production In Rust](https://www.zero2prod.com/index.html), a comprehensive guide to backend development in Rust.
 
-Through development of a newsletter app, this book covers various topics that are important for the develepment of an API server.
+Through the development of a newsletter app, this book covers various important topics for developing an API server.
 
-## TDD and User Story
+## TDD and User Stories: A Shared Vision
 
-This book consistently starts implementation with tests, which is called Test Driven Development (TDD). While I have heard of it, I personally did not understand its benefit. However, I have realize that one of the biggest value of TDD is to share the vision with others. If you proceed implemention with other people, in a situation like doing pair programming or writing a tech book, TDD is effective to share what you are going to do.
+This book adopts Test Driven Development (TDD) as a consistent approach, starting implementation with tests. This improves code reliability and, more importantly, facilitates a shared vision when collaborating with others. I think it is effective, especially in scenarios like pair programming. 
 
-User story plays a similar role in this book. It clarify what the goal is. TDD and user stories it easier to follow this book.
+User stories play a complementary role by clarifying the goals. TDD and user stories make following this book a seamless experience.
 
 ## CI/CD
 
-Before actually wrting code, we made it sure that our main branch is always production-ready by CI (Continuous Integration). Rust provides testing framework (cargo test), linter (cargo clippy), and formatter (cargo fmt) out of the box. Moreover, Rust ecosystem offers code coverage tool ([tarpaulin](https://github.com/xd009642/tarpaulin)), and valunerability checker ([audit](https://crates.io/crates/cargo-audit)).
+Before coding, the book emphasizes maintaining a deployable main branch through Continuous Integration (CI). Rust streamlines the process with its built-in tools like `cargo test` for testing, `cargo clippy` for linting, and `cargo fmt` for formatting. Moreover, the Rust ecosystem enriches CI with tools like [tarpaulin](https://github.com/xd009642/tarpaulin) for code coverage and [audit](https://crates.io/crates/cargo-audit) for vulnerability checks.
 
-I found it a good practice to arrange CI at the begging of the development, though wrintg the setting file is not very straightforward, so I will probably have to copy and edit it from somewhere for a while.
+While setting up CI can be challenging, the book's early commitment to CI highlights its importance in backend development.
 
-CD (Continuous Development) is also covered in this book. Even though CI and CD can be troublesome as they often depends on each platform, this book does not hesitate to talk about them just because they are indeed important for backend development. I admire the authro's attitude.
+Continuous Development (CD) is also discussed. Though CI and CD can be troublesome as they often depend on each platform, this book does not hesitate to delve into these topics. I was impressed by the author's commitment to providing a holistic understanding of backend development.
 
 ## Actix Web
 
-[Actix Web](https://actix.rs/) is a web framework that is used in this book entirely. Rust has several frameworks, and Actix Web is one of the most mature ones.
-
-Adding a endpoint is farly simple thanks to its `get` macro.
+[Actix Web](https://actix.rs/), a mature web framework for Rust, is used in this book entirely. A basic endpoint setup is simple thanks to its `get` macro:
 
 ```rs
 use actix_web::{get, App, HttpResponse, HttpServer};
@@ -52,9 +50,9 @@ async fn main() -> std::io::Result<()> {
 }
 ```
 
-Surprizeingly, this small code accomplishes multithreading REST API servers.
+Surprisingly, this small code effortlessly accomplishes a multithreaded REST API server.
 
-Extracting values, for example query parameters, is also simple. Accessing `http://127.0.0.1:8080/add?lhs=4&rhs=9` shows `4 + 9 = 13`.
+Extracting values, such as query parameters, is intuitive as well. Accessing `http://127.0.0.1:8080/add?lhs=4&rhs=9` in a browser displays `4 + 9 = 13`.
 
 ```rs
 use actix_web::{get, web, App, HttpResponse, HttpServer};
@@ -80,26 +78,26 @@ async fn main() -> std::io::Result<()> {
 }
 ```
 
-Actix Web can be instrumented using Middleware, and this book shows some examples like logging or session management.
+This book also explores Actix Web's extensibility through its middleware system. Logging and session management are used as examples.
 
-## Authentication
+## Authentication: Navigating the Security Landscape
 
-When it comes to a newsletter app, authentication must not be avoided before sending newsletters. Authentication sounds complicated and tedious, but this book delves into it, explaining essential topics.
+Authentication is a must when publishing a newsletter. Authentication might sound complicated and tedious, but this book delves into it, explaining essential topics.
 
 The starting point is relatively simple [Basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#basic_authentication). This is based on username and password, and these credentials are sent to the server via `Authorization` HTTP header (`Authorization: Basic <credential>`, credential is a base64-encoded string of `username:password`).
 
-This book goes to SHA, Argon2, and session based authentication to enhance security. Additionally, HMAC (Hash-based Message Authentication Code) is covered during implementing messaging from server to client.
+This book includes SHA, Argon2, and session-based authentication for better security. Additionally, Hash-based Message Authentication Code (HMAC) is covered for secure server-to-client messaging.
 
-The volume of authentication part is large, which tells me that backend development is inevitably related to security.
+The substantial volume spared on authentication proves its crucial role in backend development.
 
-## Useful library
+## Useful Libraries: Leveraging Rust's Ecosystem
 
-Rust's ecosystem is so powerful that it provides a wide variety of libraries that do heavy-lifting instead of us. [sqlx](https://github.com/launchbadge/sqlx) is a SQL toolkit featuring compile-time query checking, used to deal with DBMS including PostgreSQL, MySQL, and SQLite. [serde](https://github.com/serde-rs/serde) is a dominant libary for (de)serializing data structure. [config](https://github.com/mehcode/config-rs) simplifies configuration, reading a file such as JSON, TOML, or YAML, according to a user-defined struct.
+Rust's ecosystem provides powerful libraries that do the heavy lifting. [sqlx](https://github.com/launchbadge/sqlx) is a SQL toolkit featuring compile-time query checking. [serde](https://github.com/serde-rs/serde) is a pivotal library for (de)serializing data structure. [config](https://github.com/mehcode/config-rs) simplifies configuration, reading a file such as JSON, TOML, or YAML and constructing a struct.
 
-This bool levarages several libraries, and at the same time, explains the usage and internals of each library if necessary. This way of adapting library tells me the right balance between utilizing exsisting libraries and understanding them.
+This book not only utilizes these libraries but also explains their usage and internals to an appropriate extent, striking a balance between leveraging existing tools and understanding them.
 
 ## Conclusion
 
-This book gave me an overview of backend development. The features of the newsletter app in this book are only registering and sending emails. At first, I thought this was not very hard, but eventually, I understood each part can be devided into small peices, and every peice has its own difficulty. Newsletter turned out to be an amazing educational resource. Through the journey, this book keeps explaining necessary things in an appropriate way, which I believe is awesome.
+"Zero To Production in Rust" provides a comprehensive overview of backend development. While the newsletter app only has two features, subscribing to the newsletter and sending emails, I ended up realizing this app is a good educational resource as each feature is divided into smaller pieces and each one has its difficulty. This book properly explains essential concepts at every step.
 
-While this book provides a great overview of various topics, it does not mean this book alone is enough. Each topic, for instance, CI or authentication, is large enough to write a dedicated book. I think I can prepare to learn things further.
+While this book covers a broad range of topics, it serves as a stepping stone. Each topic, like CI or authentication, is substantial enough to be a dedicated book. This book acts as a guide to further learning about specific topics in backend development.
