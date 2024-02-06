@@ -11,25 +11,25 @@ photoOnUrl: "https://unsplash.com/photos/brown-wooden-crate-with-black-backgroun
 
 # Rust Error Handling: thiserror, anyhow, and When to Use Each
 
-In this blog post, we'll cover how to streamline error handling in Rust with [thiserror](https://docs.rs/thiserror/latest/thiserror/) and [anyhow](https://docs.rs/anyhow/latest/anyhow/), and discuss when to use each library.
+In this blog post, we'll explore strategies for streamlining error handling in Rust using two popular libraries: [thiserror](https://docs.rs/thiserror/latest/thiserror/) and [anyhow](https://docs.rs/anyhow/latest/anyhow/). We'll discuss their features, use cases, and provide insights on when to choose each library.
 
-## tl;dr
+## TL;DR
 
 - `thiserror` generate `source()` of `std::error::Error`, `impl Display`, and `impl From`
-- `anyhow` put any `std::error::Error` together
-- While `thiserror` provides a user with detailed error information, `anyhow` hides internal detail
+- `anyhow` consolidates `std::error::Error`
+- While `thiserror` provides detailed error information for specific reactions, `anyhow` hides internal details
 
 ## Table of Contents
 
 ## Return Different Error Types from Function
 
-Let's create a function for illustration. `decode()` has 3 steps:
+Let's start by creating a function `decode()` for illustration. The function has 3 steps:
 
 1. Read contents from a file named input
 1. Decode each line as a base64 string
 1. Print each decoded string
 
-The question is what type `decode` should return.
+The challenge is determining the return type for decode since `std::fs::read_to_string()`, base64 `decode()`, and `String::from_utf8()` each return different error types.
 
 ```rs
 use base64::{self, engine, Engine};
@@ -44,9 +44,7 @@ fn decode() -> /* ? */ {
 }
 ```
 
-`std::fs::read_to_string()` returns `std::io::Error`, base64 `decode()` returns `base64::DecodeError`, and `String::from_utf8()` returns `std::string::FromUtf8Error`. Therefore, the return type must represent all of these types.
-
-One way is to use trait object `Box<dyn std::error::Error>`. This works because all those types implements `std::error::Error`.
+One approach is to use trait object: `Box<dyn std::error::Error>`. This works because all those types implement `std::error::Error`.
 
 ```rs
 fn decode() -> Result<(), Box<dyn std::error::Error>> {
@@ -54,16 +52,7 @@ fn decode() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-This can be appropriate in some cases, but the disadvantage is that the caller can not know the actual error occurred in `decode()`. The way to respond to the error is limited:
-
-```rs
-fn main() {
-    let result = decode();
-    println!("{result:?}");
-}
-```
-
-If it is desired to handle each errors in different ways, using `enum` is a good approach.
+While this is suitable in some cases, it limits the caller's ability to discern the actual error that occurred in `decode()`. Then, using `enum` is a good approach if it is desired to handle each error in different ways.
 
 ```rs
 enum AppError {
@@ -79,7 +68,7 @@ By implementing `std::error::Error` trait, we can semantically mark `AppError` a
 impl std::error::Error for AppError {}
 ```
 
-This code doesn't compile, because `AppError` doesn't satisfy the constraints required by `std::error::Error`, implemention of `Display` and `Debug`:
+However, this code doesn't compile because `AppError` doesn't satisfy the constraints required by `std::error::Error`, implementation of `Display` and `Debug`:
 
 ```
 error[E0277]: `AppError` doesn't implement `std::fmt::Display`
@@ -95,7 +84,7 @@ pub trait Error: Debug + Display {
 }
 ```
 
-The code will be like this after implementing required traits:
+The code will be like this after implementing the required traits:
 
 ```rs
 impl std::error::Error for AppError {
@@ -178,6 +167,7 @@ fn main() {
 ```
 
 We did several things to use our custom error type fluently:
+
 - implement `std::error::Error`
 - implement `Debug` and `Display`
 - implement `From`
@@ -210,11 +200,11 @@ impl std::fmt::Debug for AppError {
 }
 ```
 
-`#[error]` macro creates `Display`, `#[from]` macro creates implemention of `From` and and `source()` of `std::error::Error`. The implementation of `Debug` remains to provide detailed error messages, but `#derive[Debug]` can also be used if it's enough:
+`#[error]` macro generates `Display`, `#[from]` macro handles `From` implementations and `source()` for `std::error::Error`. The implementation of `Debug` remains to provide detailed error messages, but `#derive[Debug]` can also be used if it's enough:
 
 ```
 
-// Manual implemention of Debug
+// The manual implementation of Debug
 Failed to decode the input.
         Caused by: InvalidPadding
 
@@ -224,7 +214,7 @@ DecodeError(InvalidPadding)
 
 ## Deal with Any Error with `anyhow`
 
-`anyhow` offers another way to simplify error handling, which is similar to `Box<dyn std::error::Error>>` approach:
+`anyhow` offers an alternative method for simplifying error handling, which is similar to `Box<dyn std::error::Error>>` approach:
 
 ```rs
 fn decode() -> Result<(), anyhow::Error> {
@@ -237,16 +227,15 @@ fn decode() -> Result<(), anyhow::Error> {
 }
 ```
 
-It compiles as types that implements `std::error::Error` can be converted to `anyhow::Error`. The error message will be like:
+It compiles since types implementing `std::error::Error` can be converted to `anyhow::Error`. The error message will be like:
 
 ```
 Invalid padding
 ```
 
-If you want to enrich it, you can use `context()`:
+For enhanced error messages, `context()` can be used:
 
 ```rs
-// let bytes = engine::general_purpose::STANDARD.decode(line)?;
 let bytes = engine::general_purpose::STANDARD
     .decode(line)
     .context("Failed to decode the input")?;
@@ -265,14 +254,15 @@ Now our error handling is streamlined thanks to the `anyhow`'s type conversion a
 
 ## Comparison between `thiserror` and `anyhow`
 
-`thiserror` and `anyhow` might look similar, but they serve different purposes. `thiserror` suits a scenario where you want to allow the user of the function to react differently depending on the actual error type. On the other hand, `anyhow` deal with every error all together, so it is appropriate to hide the internal detail from the user.
+While `thiserror` and `anyhow` might seem similar, they serve different purposes. `thiserror` is suitable when users need to react differently based on the actual error type. On the other hand, `anyhow` is effective when internal details can be hidden from the user.
 
-In this sense, it's often said that `thiserror` is for library, and `anyhow` is for application. This saying is true to some extent, considering that library developers tend to want to give precise information to users (programmers), and application doesn't have to show detailed error information to its users.
+In this sense, it's often said that `thiserror` is for a library, and `anyhow` is for an application. This saying is true to some extent, considering that library developers tend to want to give precise information to users (programmers), and applications don't have to show detailed error information to their users.
 
 ## Conclusion
 
-We covered when `thiserror` and `anyhow` come in handy, and how to differentiate them.
+In conclusion, we've explored the distinctive features of thiserror and anyhow and discussed scenarios where each library shines. By choosing the right tool for the job, Rust developers can significantly simplify error handling and enhance code maintainability.
 
-- `thiserror` simplifies the implementation of cutom error types
+- `thiserror` simplifies the implementation of custom error types
 - `anyhow` integrates any `std::error::Error`
-- `thiserror` enables users to react to the error, and `anyhow` provides simplified information to them
+- `thiserror` is ideal for library development where detailed information is beneficial for users (programmers).
+- `anyhow` is Suited for applications where internal details are not crucial, providing simplified information to users.
