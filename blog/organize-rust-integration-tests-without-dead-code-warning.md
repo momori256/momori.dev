@@ -11,13 +11,13 @@ photoOnUrl: "https://unsplash.com/photos/a-black-and-white-photo-of-the-word-boo
 
 # Organize Rust Integration Tests Without Dead Code Warning
 
-In this blog post, I will share my knowledge of the ways to organize integration tests in Rust.
+In this blog post, we'll explore effective strategies for organizing integration tests in Rust, addressing challenges like dead code warnings and maximizing modularity.
 
 ## Table of Contents
 
 ## Integration Testing In Rust
 
-Conventionally, integration tests files are placed in `tests` directory at the top level of a project.
+Conventionally, integration test files are placed in `tests` directory at the top level of a project.
 
 Create a project for explanation.
 
@@ -57,9 +57,11 @@ fn integration_test_works() {
 
 `cargo test` executes all tests in this project including ones in `tests` directory.
 
-## How to make a utility file
+## How To Make A Utility File
 
-Let's say the project has grown big and you want to split code into multiple files and make util.rs, extracting common functionalities. If you create `tests/util.rs` and run `cargo test`, the result will include the follong section.
+As projects grow, the need to organize code into utility files becomes apparent. This section explores the creation of a utility file and how to prevent Cargo from treating it as an independent integration test.
+
+Let's say the project has grown big and you want to split code into multiple files and make `util.rs`, extracting common functionalities. If you create `tests/util.rs` and run `cargo test`, the result will include the following section.
 
 ```
      Running tests/util.rs (target/debug/deps/util-56f0a00bc4335220)
@@ -69,7 +71,7 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-Cargo regard util.rs as an integration test file. That's because each file under `tests` directory is compiled to an indivisual executable. The following command exemplifies it:
+Cargo regard `util.rs` as an integration test file. That's because each file under `tests` directory is compiled into an individual executable. The following command exemplifies it:
 
 ```
 ❯ ./target/debug/deps/util-56f0a00bc4335220
@@ -79,7 +81,7 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-To avoid having useless output, we can use mod.rs to tell Cargo that it is not an integration test. The folder structure will be like:
+To avoid having unnecessary output, we can use `mod.rs` to tell Cargo that it's not an integration test. The folder structure will be like:
 
 ```
 tests
@@ -88,7 +90,7 @@ tests
    └── mod.rs
 ```
 
-mod.rs:
+`mod.rs`:
 
 ```rs
 // tests/util/mod.rs
@@ -112,7 +114,7 @@ fn integration_test_works() {
 This method is discussed in The Book's [Submodules in Integration Tests
 ](https://doc.rust-lang.org/book/ch11-03-test-organization.html#submodules-in-integration-tests) section.
 
-Add another utility function to mod.rs:
+Let's see what happens when adding another utility function to `mod.rs`:
 
 ```rs
 // tests/util/mod.rs
@@ -133,15 +135,17 @@ warning: function `init_db` is never used
   = note: `#[warn(dead_code)]` on by default
 ```
 
-The warning remains even when there is a new file using both of `setup_test()` and `init_db()`. The reason is that integration_test.rs and mod.rs are compiled as an independent crate, where `init_db()` is actually not refered to.
+The warning remains even if there is a new file using both `setup_test()` and `init_db()`. The reason is that `integration_test.rs` and `mod.rs` are compiled as an independent crate, where `init_db()` is not referred to.
 
-To remove this warning, every test file must use every functions in mod.rs, which is hard to justify. Adding `#[allow(dead_code)]` to all functions in mod.rs is also not optimal. Some people complain about this cargo's behavior ([cargo test incorrectly warns for dead code](https://github.com/rust-lang/rust/issues/46379)), but resolving it seems not to be straightforward (as it comes from natural behavior when treating each file under `tests` as single crate).
+To remove this warning, every test file must use every function in `mod.rs,` which is hard to justify. Adding `#[allow(dead_code)]` to all functions in `mod.rs` is also not optimal. Some people complain about this cargo's behavior ([cargo test incorrectly warns for dead code](https://github.com/rust-lang/rust/issues/46379)), but resolving it seems not to be straightforward (as it comes from natural behavior when treating each file under `tests` as a single crate).
 
-There is a good way to address this issue.
+However, there is a good way to address this issue.
 
 ## One Integration Test Crate With Modules
 
-Having multiple crates in `tests` can be trouble, so let's have only one.
+Managing multiple crates in the `tests` directory can cause the issue. Learning how to put tests into one crate with modules enhances organization and eliminates dead code warnings.
+
+We can make a crate with submodules like below:
 
 ```
 tests
@@ -152,9 +156,9 @@ tests
    └── util.rs
 ```
 
-Now there is only one crate named `integration_tests`, whose source file is main.rs.
+Now there is only one crate named `integration_tests`, whose source file is `main.rs`.
 
-main.rs only declare submodules:
+`main.rs` only declare submodules:
 
 ```rs
 // main.rs
@@ -190,9 +194,9 @@ fn init_db_works() {
 }
 ```
 
-`cargo test` does no longer warn dead code.
+`cargo test` no longer warns dead code.
 
-By following this structure, files can easily organized using ordinal module system. Suppose that `test_a.rs` becomes bigger and should be devided. `test_a` folder now has `helper.rs` and `submod.rs`:
+By following this structure, files can easily organized using the ordinal module system. Suppose that `test_a.rs` has become bigger and should be divided. `test_a` folder now has `helper.rs` and `submod.rs`:
 
 ```
 tests
@@ -205,7 +209,7 @@ tests
 └── util.rs
 ```
 
-test_a.rs:
+`test_a.rs`:
 
 ```rs
 // tests/test_a.rs
@@ -213,14 +217,14 @@ mod helper;
 mod submod;
 ```
 
-helper.rs:
+`helper.rs`:
 
 ```rs
 // tests/test_a/helper.rs
 pub fn help() {}
 ```
 
-submod.rs:
+`submod.rs`:
 
 ```rs
 // tests/test_a/submod.rs
@@ -238,11 +242,11 @@ fn integration_test_works() {
 
 This idea comes from [Zero To Production In Rust](https://www.lpalmieri.com/posts/skeleton-and-principles-for-a-maintainable-test-suite/#sharing-test-helpers) and [Delete Cargo Integration Tests](https://matklad.github.io/2021/02/27/delete-cargo-integration-tests.html).
 
-But why does this work? The reason is hidden Cargo's convention.
+But why does this work? The reason is implicit Cargo's convention.
 
 ## Cargo's Convention
 
-As Cargo follows convention-over-configuration rules, it treats some files or folders specially by default, such as `src/main.rs` or `tests`. `tests/<subdirectory>/main.rs` is a special file as well, and it enables integration tests to have multiple source files. We can confirm that `<subdirectory>` is used as the name of executable in the way mentioned above:
+As Cargo follows convention-over-configuration rules, it treats some files or folders specially by default, such as `src/main.rs` or `tests`. `tests/<subdirectory>/main.rs` is a special file as well, and it enables integration tests to have multiple source files. We can confirm that `<subdirectory>` is used as the name of the executable:
 
 ```
 ❯ ./target/debug/deps/integration_tests-ca7ad20fbad0fa3b
@@ -254,11 +258,11 @@ test test_b::init_db_works ... ok
 test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-This convention is mentioned in [The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html).
+This convention is described in [The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html).
 
 ## Explicitly Specify The Source File In Cargo.toml
 
-You can use whatever file as a source file as you want by specifying the file path in Cargo.toml:
+You can control the name of the source file by specifying the file path in `Cargo.toml`:
 
 ```
 // Cargo.toml
@@ -269,13 +273,13 @@ path = "tests/tests.rs"
 
 In this example, `tests/tests.rs` plays the same role as that of `tests/main.rs`, and the name of the output executable is `integration`.
 
-In the real world, [ripgrep](https://github.com/BurntSushi/ripgrep) uses this method, so please check its `Cargo.toml` and `tests` if you are interested.
+In the real world, [ripgrep](https://github.com/BurntSushi/ripgrep) uses this method. Please check its `Cargo.toml` and `tests` if you are interested.
 
 ## Conclusion
 
-I explained how to organize Rust integration code.
+In this guide, we've covered various techniques for organizing Rust integration tests, addressing common challenges, and leveraging Cargo's conventions. By adopting these strategies, you can maintain a clean, modular, and warning-free codebase for your Rust projects.
 
 1. `tests/util.rs` is considered an independent integration test
-1. `tests/util/mod.rs` is not an integration test, but might cause `dead code` warning
-1. `tests/integration/main.rs` removes the warning and can leverage module system
+1. `tests/util/mod.rs` is not an integration test, but might cause `dead code` warnings
+1. `tests/integration/main.rs` removes the warning and can leverage the module system
 1. naming rule can be changed by `[[test]]` section in Cargo.toml
