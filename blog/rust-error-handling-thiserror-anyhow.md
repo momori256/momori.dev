@@ -2,11 +2,11 @@
 title: "Rust Error Handling: thiserror, anyhow, and When to Use Each"
 date: "2024-02-06"
 tags: "rust, error-handling"
-imagePath: "/blog/organize-rust-integration-tests-without-dead-code-warning/dimas-aditya-8dvTZPVEJWk-unsplash.jpg"
-photoByName: "dimas aditya"
-photoByUrl: "https://unsplash.com/@dimasadityawicaksana?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+imagePath: "/blog/rust-error-handling-thiserror-anyhow/emily-morter-8xAA0f9yQnE-unsplash.jpg"
+photoByName: "Emily Morter"
+photoByUrl: "https://unsplash.com/@emilymorter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 photoOnName: "Unsplash"
-photoOnUrl: "https://unsplash.com/photos/brown-wooden-crate-with-black-background-8dvTZPVEJWk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+photoOnUrl: "https://unsplash.com/photos/question-mark-neon-signage-8xAA0f9yQnE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
 # Rust Error Handling: thiserror, anyhow, and When to Use Each
@@ -15,8 +15,8 @@ In this blog post, we'll explore strategies for streamlining error handling in R
 
 ## TL;DR
 
-- `thiserror` generate `source()` of `std::error::Error`, `impl Display`, and `impl From`
-- `anyhow` consolidates `std::error::Error`
+- `thiserror` simplifies the implementation of custom error type, removing boilerplates
+- `anyhow` consolidates errors that implement `std::error::Error`
 - While `thiserror` provides detailed error information for specific reactions, `anyhow` hides internal details
 
 ## Table of Contents
