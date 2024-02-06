@@ -1,0 +1,278 @@
+---
+title: "Rust Error Handling: thiserror, anyhow, and When to Use Each"
+date: "2024-02-06"
+tags: "rust, error-handling"
+imagePath: "/blog/organize-rust-integration-tests-without-dead-code-warning/dimas-aditya-8dvTZPVEJWk-unsplash.jpg"
+photoByName: "dimas aditya"
+photoByUrl: "https://unsplash.com/@dimasadityawicaksana?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+photoOnName: "Unsplash"
+photoOnUrl: "https://unsplash.com/photos/brown-wooden-crate-with-black-background-8dvTZPVEJWk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+---
+
+# Rust Error Handling: thiserror, anyhow, and When to Use Each
+
+In this blog post, we'll cover how to streamline error handling in Rust with [thiserror](https://docs.rs/thiserror/latest/thiserror/) and [anyhow](https://docs.rs/anyhow/latest/anyhow/), and discuss when to use each library.
+
+## tl;dr
+
+- `thiserror` generate `source()` of `std::error::Error`, `impl Display`, and `impl From`
+- `anyhow` put any `std::error::Error` together
+- While `thiserror` provides a user with detailed error information, `anyhow` hides internal detail
+
+## Table of Contents
+
+## Return Different Error Types from Function
+
+Let's create a function for illustration. `decode()` has 3 steps:
+
+1. Read contents from a file named input
+1. Decode each line as a base64 string
+1. Print each decoded string
+
+The question is what type `decode` should return.
+
+```rs
+use base64::{self, engine, Engine};
+
+fn decode() -> /* ? */ {
+    let input = std::fs::read_to_string("input")?;
+    for line in input.lines() {
+        let bytes = engine::general_purpose::STANDARD.decode(line)?;
+        println!("{}", String::from_utf8(bytes)?);
+    }
+    Ok(())
+}
+```
+
+`std::fs::read_to_string()` returns `std::io::Error`, base64 `decode()` returns `base64::DecodeError`, and `String::from_utf8()` returns `std::string::FromUtf8Error`. Therefore, the return type must represent all of these types.
+
+One way is to use trait object `Box<dyn std::error::Error>`. This works because all those types implements `std::error::Error`.
+
+```rs
+fn decode() -> Result<(), Box<dyn std::error::Error>> {
+  // ...
+}
+```
+
+This can be appropriate in some cases, but the disadvantage is that the caller can not know the actual error occurred in `decode()`. The way to respond to the error is limited:
+
+```rs
+fn main() {
+    let result = decode();
+    println!("{result:?}");
+}
+```
+
+If it is desired to handle each errors in different ways, using `enum` is a good approach.
+
+```rs
+enum AppError {
+    ReadError(std::io::Error),
+    DecodeError(base64::DecodeError),
+    StringError(std::string::FromUtf8Error),
+}
+```
+
+By implementing `std::error::Error` trait, we can semantically mark `AppError` as an error type.
+
+```rs
+impl std::error::Error for AppError {}
+```
+
+This code doesn't compile, because `AppError` doesn't satisfy the constraints required by `std::error::Error`, implemention of `Display` and `Debug`:
+
+```
+error[E0277]: `AppError` doesn't implement `std::fmt::Display`
+error[E0277]: `AppError` doesn't implement `Debug`
+```
+
+The definition of `std::error::Error` represents the consensus of minimum requirements of an error type in Rust. An error should have two forms of description for users (`Display`) and programmers (`Debug`), and should provide its root cause.
+
+```rs
+pub trait Error: Debug + Display {
+    fn source(&self) -> Option<&(dyn Error + 'static)> { ... }
+    // ...
+}
+```
+
+The code will be like this after implementing required traits:
+
+```rs
+impl std::error::Error for AppError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        use AppError::*;
+        match self {
+            ReadError(e) => Some(e),
+            DecodeError(e) => Some(e),
+            StringError(e) => Some(e),
+        }
+    }
+}
+
+impl std::fmt::Display for AppError { // Error message for users.
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        use AppError::*;
+        let message = match self {
+            ReadError(_) => "Failed to read the file.",
+            DecodeError(_) => "Failed to decode the input.",
+            StringError(_) => "Failed to parse the decoded bytes.",
+        };
+        write!(f, "{message}")
+    }
+}
+
+impl std::fmt::Debug for AppError { // Error message for programmers.
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{self}")?;
+        if let Some(e) = self.source() { // <-- Use source() to retrive the root cause.
+            writeln!(f, "\tCaused by: {e:?}")?;
+        }
+        Ok(())
+    }
+}
+```
+
+Finally, we can use `AppError` in `decode()`:
+
+```rs
+fn decode() -> Result<(), AppError> {
+    let input = std::fs::read_to_string("input").map_err(AppError::ReadError)?;
+    // ...
+```
+
+`map_err()` is used to convert `std::io::Error` to `AppError::ReadError`. To use `?` operator for better flow, we can implement `From` trait for `AppError`:
+
+```rs
+impl From<std::io::Error> for AppError {
+    fn from(value: std::io::Error) -> Self {
+        AppError::ReadError(value)
+    }
+}
+
+impl From<base64::DecodeError> for AppError {
+    fn from(value: base64::DecodeError) -> Self {
+        AppError::DecodeError(value)
+    }
+}
+
+impl From<std::string::FromUtf8Error> for AppError {
+    fn from(value: std::string::FromUtf8Error) -> Self {
+        AppError::StringError(value)
+    }
+}
+
+fn decode() -> Result<(), AppError> {
+    let input = std::fs::read_to_string("input")?;
+    for line in input.lines() {
+        let bytes = engine::general_purpose::STANDARD.decode(line)?;
+        println!("{}", String::from_utf8(bytes)?);
+    }
+    Ok(())
+}
+
+fn main() {
+    if let Err(error) = decode() {
+        println!("{error:?}");
+    }
+}
+```
+
+We did several things to use our custom error type fluently:
+- implement `std::error::Error`
+- implement `Debug` and `Display`
+- implement `From`
+
+These can be verbose and tedious, but fortunately, `thiserror` automatically generates most of them.
+
+## Remove Boilerplates with `thiserror`
+
+The code above is simplified using `thiserror`:
+
+```rs
+#[derive(thiserror::Error)]
+enum AppError {
+    #[error("Failed to read the file.")]
+    ReadError(#[from] std::io::Error),
+    #[error("Failed to decode the input.")]
+    DecodeError(#[from] base64::DecodeError),
+    #[error("Failed to parse the decoded bytes.")]
+    StringError(#[from] std::string::FromUtf8Error),
+}
+
+impl std::fmt::Debug for AppError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{self}")?;
+        if let Some(e) = self.source() {
+            writeln!(f, "\tCaused by: {e:?}")?;
+        }
+        Ok(())
+    }
+}
+```
+
+`#[error]` macro creates `Display`, `#[from]` macro creates implemention of `From` and and `source()` of `std::error::Error`. The implementation of `Debug` remains to provide detailed error messages, but `#derive[Debug]` can also be used if it's enough:
+
+```
+
+// Manual implemention of Debug
+Failed to decode the input.
+        Caused by: InvalidPadding
+
+// #[derive(Debug)]
+DecodeError(InvalidPadding)
+```
+
+## Deal with Any Error with `anyhow`
+
+`anyhow` offers another way to simplify error handling, which is similar to `Box<dyn std::error::Error>>` approach:
+
+```rs
+fn decode() -> Result<(), anyhow::Error> {
+    let input = std::fs::read_to_string("input")?;
+    for line in input.lines() {
+        let bytes = engine::general_purpose::STANDARD.decode(line)?;
+        println!("{}", String::from_utf8(bytes)?);
+    }
+    Ok(())
+}
+```
+
+It compiles as types that implements `std::error::Error` can be converted to `anyhow::Error`. The error message will be like:
+
+```
+Invalid padding
+```
+
+If you want to enrich it, you can use `context()`:
+
+```rs
+// let bytes = engine::general_purpose::STANDARD.decode(line)?;
+let bytes = engine::general_purpose::STANDARD
+    .decode(line)
+    .context("Failed to decode the input")?;
+```
+
+Then, the error message will be:
+
+```
+Failed to decode the input
+
+Caused by:
+    Invalid padding
+```
+
+Now our error handling is streamlined thanks to the `anyhow`'s type conversion and `context()`.
+
+## Comparison between `thiserror` and `anyhow`
+
+`thiserror` and `anyhow` might look similar, but they serve different purposes. `thiserror` suits a scenario where you want to allow the user of the function to react differently depending on the actual error type. On the other hand, `anyhow` deal with every error all together, so it is appropriate to hide the internal detail from the user.
+
+In this sense, it's often said that `thiserror` is for library, and `anyhow` is for application. This saying is true to some extent, considering that library developers tend to want to give precise information to users (programmers), and application doesn't have to show detailed error information to its users.
+
+## Conclusion
+
+We covered when `thiserror` and `anyhow` come in handy, and how to differentiate them.
+
+- `thiserror` simplifies the implementation of cutom error types
+- `anyhow` integrates any `std::error::Error`
+- `thiserror` enables users to react to the error, and `anyhow` provides simplified information to them
