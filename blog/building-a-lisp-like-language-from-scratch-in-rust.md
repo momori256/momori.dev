@@ -1,23 +1,27 @@
 ---
 title: "Building a Lisp-like Language from scratch in Rust"
-date: "2024-03-03"
+date: "2024-03-04"
 tags: "rust, interpreter, lisp"
-imagePath: "/blog/building-a-lisp-like-language-from-scratch-in-rust/emily-morter-8xAA0f9yQnE-unsplash.jpg"
-photoByName: "Emily Morter"
-photoByUrl: "https://unsplash.com/@emilymorter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+imagePath: "/blog/building-a-lisp-like-language-from-scratch-in-rust/nada-gamal-isHJwLRMpqs-unsplash.jpg"
+photoByName: "Nada Gamal"
+photoByUrl: "https://unsplash.com/@nada_gamal?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 photoOnName: "Unsplash"
-photoOnUrl: "https://unsplash.com/photos/question-mark-neon-signage-8xAA0f9yQnE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+photoOnUrl: "https://unsplash.com/photos/red-lipstick-on-white-table-isHJwLRMpqs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
-# Building a Lisp-like Language from scratch in Rust
+# Building a Lisp-like Language from Scratch in Rust
 
-The other day, I read the article [Risp (in (Rust) (Lisp))](https://stopa.io/post/222) by Stepan Parunashvili, which is an exciting tutotial of building Lisp in Rust. It was so inspiring that I came to want to do it by myself, and I created **lip**, an interpreted language designed for performing logical operations using a Lisp-like syntax, which includes logical operations (not, and, or), branching, lambda, and variable definition.
+This post delves into building an interpreter for a Lisp-like language using Rust. No knowledge beyond Rust basics is required to follow this post.
 
-In this post, we'll see how to build an interpreter for Lisp-like language. The language we'll build is **lp**, a small version of lip designed for illustration created by extracting essential parts of lip. Building an iterpreter may sound mysterious, but no knowledge other than Rust basics is requried to read this post.
+## Table of Contents
 
-This post contains all necessary code, but the entire code is available of [the repository](https://github.com/momori256/lip).
+## Inspiration and Project Overview
 
-To get an overview, examples of lp are like:
+Inspired by Stepan Parunashvili's article [Risp (in (Rust) (Lisp))](https://stopa.io/post/222), I created **lip**, an interpreted language designed for logical operations with a Lisp-like syntax. This supports logical operations (not, and, or), branching (if expression), lambda functions, and variable definition.
+
+This post guides you through the process of building an interpreter, focusing on the core functionalities of tokenizing, parsing, and evaluating expressions. While it may sound complex, the process only requires basic Rust knowledge. The language we'll build is **lp**, a distilled version of lip designed for illustration. The [live demo](https://momori256.github.io/lip/lp/www/) of an lp interpreter is accessible via a browser, and the complete code is available on [GitHub](https://github.com/momori256/lip).
+
+Here are some examples of lp code:
 
 **Literal (T = true, F = false)**
 
@@ -34,10 +38,6 @@ T
 => false
 ```
 
-This may look wired especially if not familiar with Lisp. Lisp uses prefix notation, so the operator comes first, followed by as many operands as you want.
-
-The original Lisp obviously has number type. `(+ 1 2 3 4)` means `1 + 2 + 3 + 4`, and interestingly, `(+)` is 0. The same thing applies to lp: `(& T T F F)` means `(true & true & false & false)`, and `(&)` is true.
-
 **If expression**
 
 ```
@@ -48,15 +48,19 @@ The original Lisp obviously has number type. `(+ 1 2 3 4)` means `1 + 2 + 3 + 4`
 => false
 ```
 
-## Table of Contents
+The logical operations may look weird especially if not familiar with Lisp. Lisp uses prefix notation, where the operator comes first, followed by as many operands as you want.
 
-## Overview of implementation steps
+The original Lisp has a number type. `(+ 1 2 3 4)` means `1 + 2 + 3 + 4`, and interestingly, `(+)` is 0. The same thing applies to lp: `(& T T F F)` means `(true & true & false & false)`, and `(&)` is true.
 
-Given an lp expression `(& T (| F T))`, what will happen until it is evaluated to true at the end? The process contains 3 steps: tokenize, parse, and evaluate.
+## Implementation Steps
 
-`Tokenize` means converting the string into a sequence of tokens, valid symbols of lp. `(& T (| F T))` is tokenized to `[left paren, and, true, left paren, or, ...]`.
+To understand how lp code is evaluated, let's break down the process into three steps: tokenize, parse, and evaluate. We'll use the expression `(& T (| F T))` as an example.
 
-The next step is constructing an abstract syntax tree (AST) by `parsing` the tokens. AST is a tree expression of code, and the expression `(& T (| F T))` is described in an AST like:
+Imagine the lp code as a sentence. **Tokenization** is like splitting the sentence into individual words and punctuation marks. In our example, `(& T (| F T))` is tokenized into an array like `[left paren, and, true, left paren, or, ...]`.
+
+Once we have the tokens, we need to understand their structure and meaning. Parsing involves arranging the tokens in a way that reflects their relationships. This is similar to how we understand the grammar of a sentence.
+
+For our example, **parsing** creates an abstract syntax tree (AST), which is a tree-like representation of the expression. The AST for `(& T (| F T))` looks like this:
 
 ```
    and
@@ -66,7 +70,7 @@ true  or
  false  true
 ```
 
-Once the AST is built, the last task is `evaluating` it, meaning actually computing the value by traversing the AST. The AST above will be evaluated from the leaves to the root:
+The last task is `evaluation`. Here, the AST is used to compute the final value of the expression. We traverse the AST starting from the leaves to the root:
 
 ```
    and
@@ -86,11 +90,11 @@ true true
   true
 ```
 
-Now, let's get started.
+Now that we have grasped the overview of the implementation steps, let's get started with tokenize.
 
 ## Tokenize
 
-Firstly, valid tokens must be defined:
+Let's commence by defining valid tokens:
 
 ```rs
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
@@ -140,7 +144,7 @@ fn tokenize_example_works() -> Result<(), LpErr> {
 }
 ```
 
-You might notice this, but actually tokinizing lp is simple because it is almost tokenized from the start! Each token is separeted by whitespace except for `(` and `)`. Thus, add a whitespace to the parentathes and split:
+Tokenizing lp is simple because it is almost tokenized from the start! Each token is separated by whitespace except for `(` and `)`. To achieve tokenization, add whitespace to the parenthesis and split the expression:
 
 ```rs
 pub fn tokenize(expr: &str) -> Result<Vec<Token>, LpErr> {
@@ -161,11 +165,11 @@ pub fn tokenize(expr: &str) -> Result<Vec<Token>, LpErr> {
 }
 ```
 
-That's it. By the way, the above implementation shows an effective way of using `collect()`. `collect()`for the iterator of `Result<T, U>` can produce `Result<Vec<T>, U>`, building `Vec<U>` by gathering `Ok<T>`, or leaving `Err<U>` if the iterator contains `Err`.
+That's it. By the way, the implementation above shows an effective use of `collect()`. It transforms the iterator of `Result<T, U>` into `Result<Vec<T>, U>`, constructing `Vec<U>` by accumulating `Ok<T>`. If the iterator contains `Err<U>`, the result will be `Err<U>`.
 
 ## Parse
 
-Before parsing an expression, it's necessary to define what expression is in lp. Expressions of lp are primitives (`T` and `F`) or logical operations:
+Before diving into parsing expressions, let's establish what constitutes an expression in lp. Expressions in lp can be primitives (`T` and `F`) or logical operations:
 
 ```rs
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -175,7 +179,7 @@ pub enum Expr {
 }
 ```
 
-Again, the following test clarifies what is expected:
+Again, our expectations are clarified by the following test:
 
 ```rs
 #[test]
@@ -198,11 +202,11 @@ fn or(operands: &[Expr]) -> Expr {
 }
 ```
 
-I believe the helper functions and constants (`and`, `or`, `T`, `F`) simplify the test code: `and(&[T, or(&[F, T])])` looks concise compared to `Expr::Call(Operator::And, vec![T, Expr::Call(Operator::Or, vec![F, T])])`.
+The helper functions and constants (`and`, `or`, `T`, `F`) simplify the test code. For instance, `and(&[T, or(&[F, T])])` looks concise compared to `Expr::Call(Operator::And, vec![T, Expr::Call(Operator::Or, vec![F, T])])`.
 
-For implementing `parse`, the important insight is that the lp expressions have the recursive structure, meaning `Expr::Call` contains `Expr`, which leads us to think about recursive function to parse it:
+In implementing `parse`, the crucial insight is that lp expression has a recursive structure, where `Expr::Call` contains `Expr`. This naturally leads us to consider  a recursive function for parsing:
 
-```
+```rs
 // Returns parsed Expr and the number of consumed tokens if succeeded.
 fn parse(tokens: &[Token]) -> Result<(Expr, usize), LpErr> {
     if tokens[0] != Token::Lparen {
@@ -229,41 +233,41 @@ fn parse(tokens: &[Token]) -> Result<(Expr, usize), LpErr> {
 }
 ```
 
-The first two parts have nothing special. If the expression starts without `(`, it must be `T` or `F`. If the first token is `(`, the following token must be an operator.
+The initial parts of the function handle non-special cases. If the expression doesn't start with `(`, it must be `T` or `F`. If the first token is `(`, the subsequent token is expected to be an operator.
 
-The most interesting part is parsing operands. It parses expressions while keeping track of the current position.
+The most intriguing aspect lies in parsing operands. It parses expressions while maintaining the current position.
 
-The first `parse` start from the head, and take `(` and `&` tokens:
+The first call to `parse` starts from the head, encountering `(` and `&` tokens:
 
 ```
 ▼
 (& T (| F T))
 ```
 
-The second `parse` is called recursively and starts from `tokens[2]`. It consumes one token `T` and returns:
+The second `parse` is called recursively and starts from `tokens[2]`. processing a single token `T` and returns:
 
 ```
    ▼
 (& T (| F T))
 ```
 
-The third `parse` is called recursively again, starting from `tokens[3]`. This time, it is the beggining of `or`expression, so the same process of parsing operands starts.
+The third recursive call commences from `tokens[3]`. This time, it marks the start of an `or` expression, initiating the operand-parsing process.
 
 ```
      ▼
 (& T (| F T))
 ```
 
-After parsing `or`, `p` points to the last token, which must be `)`:
+After parsing `or`, the position `p` points to the last token, which should be `)`:
 
 ```
             ▼
 (& T (| F T))
 ```
 
-Lastly, wrap the function and expose only the necessary result:
+Finally, we encapsulate the function and expose only the necessary result:
 
-```
+```rs
 pub fn parse(tokens: &[Token]) -> Result<Expr, LpErr> {
     let (expr, _) = parse_internal(tokens)?;
     Ok(expr)
@@ -276,7 +280,7 @@ fn parse_internal(tokens: &[Token]) -> Result<Expr, LpErr> {
 
 ## Evaluate
 
-Once the hardest part `parse` is done, the rest is remarkably simple! Before talking about the implementation, let's get started with test:
+After conquering the challenging part of `parse`, the remainder is surprisingly straightforward! Before delving into the implementation, let's get started with a test:
 
 ```rs
 #[test]
@@ -290,7 +294,7 @@ fn eval_example_works() -> Result<(), LpErr> {
 }
 ```
 
-As the AST has a recursive structure, naturally the evalation function `eval` is recursive as well.
+Given the recursive structure of AST, it's only natural that the evaluation function `eval` mirrors this recursive design:
 
 ```rs
 #[derive(Debug, PartialEq, Eq)]
@@ -300,24 +304,24 @@ pub enum Value {
 
 pub fn eval(expr: &Expr) -> Result<Value, LpErr> {
     match expr {
-        Expr::Bool(b) => Ok(Value::Bool(*b)), // base case of recursion
+        Expr::Bool(b) => Ok(Value::Bool(*b)), // Base case of recursion
         Expr::Call(operator, operands) => {
             let operands: Vec<bool> = operands
                 .iter()
-                .map(|o| match eval(o) { // eval operands
+                .map(|o| match eval(o) { // Eval operands
                     Ok(Value::Bool(b)) => Ok(b),
                     _ => Err(LpErr::Eval(format!("invalid operand: {o:?}"))),
                 })
                 .collect::<Result<Vec<bool>, LpErr>>()?;
 
-            let value = match operator { // computing the result
+            let value = match operator { // Compute the result
                 Operator::And => operands.into_iter().all(|o| o),
                 Operator::Or => operands.into_iter().any(|o| o),
                 Operator::Not => {
                     let len = operands.len();
                     if len != 1 {
                         return Err(LpErr::Eval(format!(
-                            "not must have 1 operands, not {len}"
+                            "not must have 1 operand, not {len}"
                         )));
                     }
                     !operands[0]
@@ -329,11 +333,11 @@ pub fn eval(expr: &Expr) -> Result<Value, LpErr> {
 }
 ```
 
-Finally, we can evaluate lp code. To wrap things up, let's create a REPL, an interactive environment.
+Now, the lp code can be evaluated. To wrap things up, let's create a REPL, an interactive environment.
 
 ## REPL (Read-Evalueate-Print Loop)
 
-Many interpreted languages have REPL, for example, running `python` launches its REPL, Ruby has `irb`, and even Rust has one such as [evcxr](https://github.com/evcxr/evcxr). Why not lp has one.
+Many interpreted languages boast a REPL. For instance, running `python` launches its REPL, Ruby has `irb`, and even Rust offers one like [evcxr](https://github.com/evcxr/evcxr). Why not have one for lp?
 
 ```rs
 use std::io::{self, Write};
@@ -365,7 +369,7 @@ fn main() -> io::Result<()> {
 }
 ```
 
-Let's play with it:
+Let's engage with it:
 
 ```
 lp> (& T (| F T))
@@ -375,15 +379,15 @@ lp> (|)
 lp> :exit
 ```
 
-Implementing `std::fmt::Display` for `Value` is a good way to provide nicer output. Feel free to do so.
+Implementing `std::fmt::Display` for `Value` is a good way to provide a more user-friendly output. Feel free to do so.
 
 ## If Expression
 
-lp can evaluate complicated expressions, but still it lacks a lot of features that ordinary languages have, like if, for, or function.
+While lp can deal with complex expressions, it still lacks many features found in ordinary languages, such as `if`, `for`, or function definition.
 
-Fortunately, adding some features is not very hard. I'll share how to implement `if` expression. The expected result is like the following:
+Fortunately, incorporating some additional features is not overly complicated. Take `if` as an example. The expected result is like the following:
 
-```
+```rs
 #[test]
 fn eval_if_works() -> Result<(), LpErr> {
     // if false { true } else { false | false } => false
@@ -395,7 +399,7 @@ fn eval_if_works() -> Result<(), LpErr> {
 }
 ```
 
-Let's go through from `tokenize` to `eval`. First, new keyword must be added to `Token`:
+Let's walk through the process from `tokenize` to `eval`. First, a new keyword must be added to `Token`:
 
 ```rs
 pub enum Token {
@@ -418,9 +422,9 @@ pub fn tokenize(expr: &str) -> Result<Vec<Token>, LpErr> {
 }
 ```
 
-`parse` also shoud be modified:
+`parse` also needs modification:
 
-```
+```rs
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Expr {
     Bool(bool),
@@ -453,9 +457,9 @@ fn parse_if(tokens: &[Token]) -> Result<(Expr, usize), LpErr> {
 }
 ```
 
-The implementation of `parse_if` is simple because it leverages the existing code. It calls `parse_internal` 3 times to parse condition, then-clause, and else-clause.
+The implementation of `parse_if` is straightforward as it leverages existing code. It calls `parse_internal` three times to parse the condition, then-clause, and else-clause.
 
-The last part `eval` is also straightforward:
+The last part, `eval`, is also uncomplicated:
 
 ```rs
 pub fn eval(expr: &Expr) -> Result<Value, LpErr> {
@@ -471,12 +475,12 @@ pub fn eval(expr: &Expr) -> Result<Value, LpErr> {
     }
 ```
 
-It may be benefitial to mention that it uses [raw identifier](https://doc.rust-lang.org/rust-by-example/compatibility/raw_identifiers.html) `r#else` to use `else` as a variable.
+It's worth mentioning that it uses [raw identifier](https://doc.rust-lang.org/rust-by-example/compatibility/raw_identifiers.html) with `r#else` to use `else` as a variable.
 
-If expression is implemented relatively easily as it is built on top of existing logic. However, function or defining variable requires more work. Try it by yourself if interested, and check out and use [lip repo](https://github.com/momori256/lip) as a reference.
+`If` is implemented relatively easily. However, adding functions or variable definitions requires more work. Feel free to explore these aspects on your own, and check out and use the [lip repo](https://github.com/momori256/lip) as a reference.
 
 ## Conclusion
 
-We went through the implementation of an interpreter, demysifying it. Both Rust's powerfull features and Lisp's simple sytax makes it easy to parse lp. 
+In this exploration of interpreter implementation, we demystified the process by leveraging Rust's powerful features and embracing Lisp's straightforward syntax.
 
-I believe interpreter can be a good practice beyond hello world or to-do app. There are a plenty of room for improvement, and it'll be a good exercise.
+The journey through building an interpreter extends beyond the typical "hello world" or to-do app projects. It serves as a valuable exercise, showcasing the elegance and flexibility that Rust offers.
