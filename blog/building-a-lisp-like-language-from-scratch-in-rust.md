@@ -1,5 +1,5 @@
 ---
-title: "Building a Lisp-like Language from scratch in Rust"
+title: "Building a Lisp-like Language from Scratch in Rust"
 date: "2024-03-04"
 tags: "rust, interpreter, lisp"
 imagePath: "/blog/building-a-lisp-like-language-from-scratch-in-rust/nada-gamal-alR4kJif9W0-unsplash.jpg"
