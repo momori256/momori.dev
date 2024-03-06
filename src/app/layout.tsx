@@ -1,6 +1,5 @@
 import "./globals.scss";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import { getBaseUrl } from "@/lib/url";
 import Footer from "@/components/organisms/footer/footer";
@@ -9,8 +8,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Head from "next/head";
 config.autoAddCss = false;
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const siteName = "momori.dev";
 
@@ -65,7 +62,7 @@ export default function RootLayout({
         />
       </Head>
 
-      <body className={inter.className}>
+      <body>
         {children}
         <footer>
           <Footer />

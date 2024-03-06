@@ -2,7 +2,7 @@
 title: "Deploying a Rust WebAssembly (WASM) App to GitHub Pages"
 date: "2024-03-05"
 tags: "rust, webassembly, githubpages"
-imagePath: "blog/deploying-a-rust-wasm-app-to-github-pages/vadim-sherbakov-osSryggkso4-unsplash.jpg"
+imagePath: "/blog/deploying-a-rust-wasm-app-to-github-pages/vadim-sherbakov-osSryggkso4-unsplash.jpg"
 photoByName: "Vadim Sherbakov"
 photoByUrl: "https://unsplash.com/@madebyvadim?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 photoOnName: "Unsplash"
