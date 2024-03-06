@@ -51,7 +51,7 @@ wasm-bindgen = "0.2.91"
 
 Along with adding `wasm-bindgen` as a dependency, the `[lib]` section is also added, specifying the `crate-type` to generate WASM code.
 
-In `lib.rs`, we'll add `#[wasm_bindgen]` attribute to a `struct` and `impl` block, indicating these Rust code should be callable from JavaScript.
+In `lib.rs`, we'll add `#[wasm_bindgen]` attribute to a `struct` and `impl` block, indicating these Rust codes should be callable from JavaScript.
 
 ```rs
 use wasm_bindgen::prelude::*;
@@ -71,7 +71,7 @@ impl Repl {
 }
 ```
 
-To build the file for the WASM app, we'll use [wasm-pack](https://github.com/rustwasm/wasm-pack), a tool covering from building Rust to generating a package to be publish to `npm`, though We won't publish our package in this post. Install `wasm-pack` CLI tool by running `cargo install wasm-pack` and execute the following command:
+To build the file for the WASM app, we'll use [wasm-pack](https://github.com/rustwasm/wasm-pack), a tool covering from building Rust to generating a package to be published to `npm`, though We won't publish our package in this post. Install `wasm-pack` CLI tool by running `cargo install wasm-pack` and execute the following command:
 
 ```sh
 wasm-pack build --target web --no-pack --out-dir ./www/pkg
@@ -152,7 +152,7 @@ The crucial part here is the initial part of `index.js`, where the initializatio
 
 We can test this app with a local HTTP server, like `miniserve www --index "index.html" -p 8080`.
 
-Before pushing it to GitHub, don't forget to include the `www/pkg` by deleting `www/pkg/.gitignore`. See the [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) to set up your repository. If you leave the default options, the app will be accessed on https://username.github.io/lp/www/.
+Before pushing it to GitHub, don't forget to include the `www/pkg` by deleting `www/pkg/.gitignore`. See the [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) to set up your repository. If you leave the default options, the app will be accessed at https://username.github.io/lp/www/.
 
 ## wasm-pack and webpack
 
@@ -240,6 +240,6 @@ Run `npm run serve` to launch a web server and open http://localhost:8080. Befor
 We have covered how to leverage `wasm-bindgen`, `wasm-pack`, and `webpack` to integrate Rust with a JavaScript frontend. For further exploration and comprehensive details, consider referring to the following resources:
 
 - [Deploying Rust and WebAssembly](https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html): The `wasm-pack` document about possible build targets.
-- [Compiling from Rust to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_Wasm): A tutorial of bulding a `hello world` WASM app.
+- [Compiling from Rust to WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_Wasm): A tutorial for building a `hello world` WASM app.
 - [JavaScript to Rust and Back Again: A wasm-bindgen Tale](https://hacks.mozilla.org/2018/04/javascript-to-rust-and-back-again-a-wasm-bindgen-tale/): An article about what `wasm-bindgen` is and how it works.
 - [Hello wasm-pack!](https://hacks.mozilla.org/2018/04/hello-wasm-pack/): The purpose of `wasm-pack` and the explanation of its process.
