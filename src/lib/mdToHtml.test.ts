@@ -68,7 +68,7 @@ describe("mdToHtml", () => {
       '<h2 id="header3"><a aria-hidden="true" tabindex="-1" href="#header3"><span class="icon icon-link"></span></a>Header3</h2>';
 
     const result = await mdToHtml(expected);
-    expect(result).toBe("");
+    expect(result).toBe(expected);
   });
 
   test("gemoji", async () => {
