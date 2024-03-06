@@ -1,5 +1,5 @@
 ---
-title: "Deploying a Rust WASM App to GitHub Pages"
+title: "Deploying a Rust WebAssembly (WASM) App to GitHub Pages"
 date: "2024-03-05"
 tags: "rust, webassembly, githubpages"
 imagePath: "blog/deploying-a-rust-wasm-app-to-github-pages/vadim-sherbakov-osSryggkso4-unsplash.jpg"
@@ -25,7 +25,7 @@ The project we'll use is called `lp`, a logical operation language that [I creat
 
 ## wasm-pack without bundler
 
-The project structure looks like this, and the entire code is available on [GitHub](https://github.com/momori256/lip/blob/main/lp/src/lib.rs).
+The project structure looks like this, and the entire code is available on [GitHub](https://github.com/momori256/lip/tree/main/lp).
 
 ```
 lp
@@ -152,7 +152,7 @@ The crucial part here is the initial part of `index.js`, where the initializatio
 
 We can test this app with a local HTTP server, like `miniserve www --index "index.html" -p 8080`.
 
-Before pushing it to GitHub, don't forget to include the `www/pkg` by deleting `www/pkg/.gitignore`. See the [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) to set up your repository. If you leave the default options, the app will be accessed on https://<username>.github.io/lp/www/.
+Before pushing it to GitHub, don't forget to include the `www/pkg` by deleting `www/pkg/.gitignore`. See the [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) to set up your repository. If you leave the default options, the app will be accessed on https://username.github.io/lp/www/.
 
 ## wasm-pack and webpack
 
