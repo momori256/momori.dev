@@ -1,29 +1,31 @@
 ---
-title: "Rust Error Handling: thiserror, anyhow, and When to Use Each"
-date: "2024-04-21"
+title: "Step-by-Step Guide to Building a WebSocket Chat App with Axum and React"
+date: "2024-04-22"
 tags: "axum, rust, react, websocket"
-imagePath: "/blog/rust-error-handling-thiserror-anyhow/emily-morter-8xAA0f9yQnE-unsplash.jpg"
-photoByName: "Emily Morter"
-photoByUrl: "https://unsplash.com/@emilymorter?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+imagePath: "/blog/building-a-chat-app-with-axum-and-react/jason-leung-mZNRsYE9Qi4-unsplash.jpg"
+photoByName: "Jason Leung"
+photoByUrl: "https://unsplash.com/@ninjason?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 photoOnName: "Unsplash"
-photoOnUrl: "https://unsplash.com/photos/question-mark-neon-signage-8xAA0f9yQnE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+photoOnUrl: "https://unsplash.com/photos/white-neon-light-signage-on-wall-mZNRsYE9Qi4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
 ---
 
-# A WebSocket Chat App with Axum and React
+# Step-by-Step Guide to Building a WebSocket Chat App with Axum and React
 
-We'll go through how to build a fullstack chat app using WebSocket. The backend will be build with [Axum](https://github.com/tokio-rs/axum), a backend framework for Rust, and [Shuttle](https://www.shuttle.rs/), a development platform. [React](https://react.dev/) and [Vite](https://vitejs.dev/) will be used for the frontend.
+In this guide, we'll walk through the process of creating a full-stack chat app using WebSocket. Our backend will be built with [Axum](https://github.com/tokio-rs/axum), a powerful Rust backend framework, and [Shuttle](https://www.shuttle.rs/), a development platform, while the frontend will be developed using [React](https://react.dev/) and [Vite](https://vitejs.dev/).
 
 We'll cover
 
-- WebSocket in Axum and React
-- Generating unique IDs using nanoid
-- Telemetry with tracing
+- Utilizing WebSocket in Axum and React.
+- Generating unique identifiers using nanoid.
+- Incorporating telemetry with tracing for enhanced logging.
 
-The entire code is available on [GitHub](https://github.com/momori256/fullstack-wschat).
+You can find the complete code for this project on [GitHub](https://github.com/momori256/fullstack-wschat).
+
+## Table of Contents
 
 ## Setup
 
-To begin with, let's create a new repository for this project.
+Let's start by creating a new repository for this project:
 
 ```
 mkdir fullstack-wschat && cd fullstack-wschat
@@ -32,7 +34,7 @@ mkdir frontend backend
 
 ## Frontend - Test
 
-I personally prefer getting started with so small piece of code that I can comprehend what's going on. Implementing both frontend and backend simultaneously can be challenging, so let's regard this single `index.html` as our frontend at this stage:
+For simplicity, let's commence with a minimal frontend implementation. We'll start with a single `index.html` file:
 
 ```html
 <!doctype html>
@@ -63,21 +65,21 @@ I personally prefer getting started with so small piece of code that I can compr
 </html>
 ```
 
-A socket is initialized by connecting ws://locahost:8000, and event handlers are assigned. The button sends a message. As simple as that.
+This simple HTML file establishes a WebSocket connection to ws://localhost:8000 and provides a button to send a test message.
 
-Reference
+Reference:
 
 - [WebSocket - MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket).
 
 ## Backend - Echo Server
 
-In `backend` directory, run the following command to initialize it with Shuttle:
+In the `backend` directory, let's initialize our project with Shuttle:
 
 ```
 cargo shuttle init . --template axum
 ```
 
-Here is the Cargo.toml that includes all dependency needed in this posts:
+Here's the Cargo.toml with the required dependencies:
 
 ```
 [package]
@@ -95,7 +97,7 @@ tokio = "1.28.2"
 tracing = "0.1.40"
 ```
 
-Update the main.rs as the following:
+And here is the main.rs:
 
 ```rs
 use axum::{
@@ -124,9 +126,7 @@ async fn handle_socket(_ws: WebSocket) {
 }
 ```
 
-Some boilerplate codes are included, but the last function `handle_socket` is the most important.
-
-As a starting point, we create an echo server rather than a chat server for the ease of development. Just exchanging data through WebSocket is as simple as the following:
+We'll create an echo server that simply reflects any messages it receives:
 
 ```rs
 async fn handle_socket(mut ws: WebSocket) {
@@ -143,15 +143,15 @@ async fn handle_socket(mut ws: WebSocket) {
 }
 ```
 
-We can `recv()` from the socket and `send()` a message to it. Let's see if the backend works properly using the frontend. Run the server by executing `cargo shuttle run`, and open the `index.html` in your browser. If succeeded, you can see some messages in the developer console.
+We can `recv()` from the socket and `send()` a message to it. Let's see if the backend works properly using the frontend. Run the server by executing `cargo shuttle run`, and open the `index.html` in your browser. If succeeds, you can see some messages in the developer console.
 
-Reference
+Reference:
 
 - [Module axum::extract::ws - Axum](https://docs.rs/axum/latest/axum/extract/ws/index.html)
 
 ## Backend - Broadcast
 
-We need to handle multiple connections to implement chat function. Imagine that three client have connections to the server.
+To handle multiple connections and enable chat functionality, we need to implement a broadcast mechanism. Imagine that three clients have connections to the server. When client A sends a message, the server needs to broadcast the received message to all clients.
 
 ```
            ┌────────┐
@@ -163,18 +163,18 @@ We need to handle multiple connections to implement chat function. Imagine that 
 └────────┘ └────────┘ └────────┘
 ```
 
-When client A sends a message, the server needs to broadcast the received message to all clients. Each connection is handled as a task, some process executed by Tokio runtime asynchronouslly. Thus, we need a way to exchange data among all tasks. How do we achieve this behavior? Incidentlly, [Tokio](https://tokio.rs/) provides the exact channel [broadcasat](https://docs.rs/tokio/latest/tokio/sync/broadcast/fn.channel.html).
+Every incoming connection is treated as an independent task, a process executed asynchronously by the Tokio runtime. Consequently, we need a way to facilitate data exchange among these tasks. Fortunately, Tokio offers the precise tool for this purpose: the [broadcast](https://docs.rs/tokio/latest/tokio/sync/broadcast/fn.channel.html) channel.
 
-We can create a sender (or transmitter) and a recever like:
+We initialize a sender (or transmitter) and a receiver as follows:
 
 ```rs
 let (tx, mut rx1) = broadcast::channel(16);
 let mut rx2 = tx.subscribe();
 ```
 
-In our case, each task needs to listen to broadcast channel in addition to the client socket. Therefore, the broadcast transmitter `tx` should be shared as a state. Let's implement state sharing:
+In our scenario, each task must monitor the broadcast channel while handling client sockets. Hence, the broadcast transmitter `tx` needs to be shared as a state. Let's proceed with implementing state sharing
 
-```
+```rs
 use axum::{
     extract::{
         ws::{Message, WebSocket},
@@ -218,7 +218,7 @@ async fn handle_socket(ws: WebSocket, app: AppState) {
 }
 ```
 
-The `broadcast_tx` is wrapped with `Mutex` and `Arc` so that multiple tasks can share it safely. As I mentioned earlier, the handler needs to receive data from two sources: the broadcast channel and the client. Suppose that we have functions for those, we can write code like:
+The `broadcast_tx` is wrapped with `Mutex` and `Arc` to ensure safe sharing among multiple. As mentioned earlier, the handler must process data from two sources: the broadcast channel and the client. Let's outline the implementation with the following code:
 
 ```rs
 use futures_util::{
@@ -241,9 +241,9 @@ async fn handle_socket(ws: WebSocket, app: AppState) {
 }
 ```
 
-The first line is splitting the socket into a sender and a receiver. It's not necessary, but we can use the socket for writing and reading concurrently. Furthermore, it's a little more efficient than locking the whole socket. The `split()` function is provided by the crate [futures_util](https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.16/futures_util/stream/struct.SplitStream.html), so don't forget to run `cargo add futures-util`.
+The initial line splits the socket into a sender and a receiver. While not strictly necessary, this setup enables concurrent read and write operations on the socket and can enhance efficiency compared to locking the entire socket. The `split()` function is provided by the [futures_util](https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.16/futures_util/stream/struct.SplitStream.html) crate.
 
-Let's implement `recv_from_client` first as we've already implemented it partly. When a message has arrived, send it to the broadcast channel instead of returning it to the client.
+Let's start by implementing `recv_from_client`. When a message arrives, we'll forward it to the broadcast channel instead of returning it to the client:
 
 ```rs
 async fn recv_from_client(
@@ -261,7 +261,7 @@ async fn recv_from_client(
 }
 ```
 
-The remaining part is `recv_broadcast`:
+Now, let's complete the implementation with `recv_broadcast`:
 
 ```rs
 async fn recv_broadcast(
@@ -276,24 +276,24 @@ async fn recv_broadcast(
 }
 ```
 
-That's it. Let's test it using the frontend again.
+With this setup, we're ready to test our app using the frontend once again.
 
-Reference
+Reference:
 
 - [Read and write concurrently - Axum](https://docs.rs/axum/latest/axum/extract/ws/index.html#read-and-write-concurrently)
 
 ## Frontend - React
 
-The last part is to build a frontend. Our current implementation is just a single HTML file. Let's replace it with React.
+To complete our app, we'll build the frontend using React. Currently, our implementation consists of a single HTML file. Let's migrate it to React.
 
-The first thing to do is to setup the environment with Vite by running the following command in `frontend` directory. We're going to use React with TypeScript.
+First, let's set up the environment with Vite by executing the following commands within the `frontend` directory. We'll be using React with TypeScript.
 
 ```
 npm create vite@latest .
 npm install
 ```
 
-I don't talk much about the implementation of the frontend.
+Now, let's dive into the frontend implementation:
 
 ```tsx
 import { FormEvent, useEffect, useState } from "react";
@@ -304,7 +304,8 @@ export default function App() {
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8000/");
-    socket.onmessage = (e: MessageEvent<string>) => setMessages((prev) => [...prev, e.data]);
+    socket.onmessage = (e: MessageEvent<string>) =>
+      setMessages((prev) => [...prev, e.data]);
     setSocket(socket);
     return () => socket.close();
   }, []);
@@ -336,13 +337,19 @@ export default function App() {
 }
 ```
 
-Now the socket is initialized using `useEffect`. The messages list is managed as a state, and we can send a message through `<form>`.
+In this React component:
+
+- We initialize the WebSocket connection within a useEffect hook, ensuring it only happens once when the component mounts.
+- We set up a listener for incoming messages, updating the state with each new message received.
+- A form allows users to input and send messages, with the submit function handling the form submission by sending the message through the WebSocket connection.
+
+With this implementation, our frontend is now fully functional.
 
 ## Improvement - Client ID
 
-So far, users can't tell who sent each message. We can indentify users by assigning IDs when they've connected. When it comes to ID, there are some ways to generate it (UUID or auto-incremented integer). We're going to use [nanoid](https://docs.rs/nanoid/latest/nanoid/) for this project.
+Up until now, users can't identify who sent each message. To address this, We'll assign unique IDs to clients when they connect. We'll use [nanoid](https://docs.rs/nanoid/latest/nanoid/) for this purpose.
 
-Let's get started with backend. We need a sturct that represents a message:
+Let's get started with backend. We'll define a sturct to represent a message:
 
 ```rs
 #[derive(Clone)]
@@ -366,7 +373,7 @@ struct AppState {
 }
 ```
 
-Then, generate an ID for each client and pass it to the handler:
+Next, we'll generate an ID for each client and pass it to the handler:
 
 ```rs
 use nanoid::nanoid;
@@ -381,7 +388,7 @@ async fn handle_socket(ws: WebSocket, app: AppState, client_id: String) {
 }
 ```
 
-We can combine the `client_id` to build a message in `recv_from_client`:
+In the `recv_from_client` function, we'll combine the `client_id` with a message:
 
 ```rs
 async fn recv_from_client(
@@ -405,7 +412,7 @@ async fn recv_from_client(
 }
 ```
 
-To send an ID to the client with message, we can use a simple format like `client_id:message`:
+To send the client ID along with the message to the client, we'll use a simple format like `client_id:message`:
 
 ```rs
 async fn recv_broadcast(
@@ -431,9 +438,9 @@ async fn recv_broadcast(
 }
 ```
 
-We should notify the client ID to the client when the connection is establised:
+We'll also notify the client of their ID when the connection is established:
 
-```
+```rs
 async fn handle_socket(ws: WebSocket, app: AppState, client_id: String) {
     let (ws_tx, ws_rx) = ws.split();
     let ws_tx = Arc::new(Mutex::new(ws_tx));
@@ -458,9 +465,9 @@ async fn send_id_to_client(
 }
 ```
 
-Adjust the frontend to handle the message.
+Now, let's update the frontend to handle the message.
 
-```
+```tsx
 type Message = {
   clientId: string;
   body: string;
@@ -485,9 +492,9 @@ export default function App() {
 }
 ```
 
-It would be nice to show IDs:
+Finally, we'll display the IDs alongside the messages:
 
-```
+```tsx
 return (
   <>
     <h1>WebSocket Chat App</h1>
@@ -509,7 +516,7 @@ return (
 );
 ```
 
-By the way, feel free to style it to your hearts content. For your reference, mine is here:
+Feel free to apply your preferred styling. For reference, a simple CSS style is provided:
 
 ```tsx
 // src/index.css
@@ -558,19 +565,17 @@ return (
 
 ## Improvement - tracing
 
-Let's expemriment with [tracing](https://docs.rs/tracing/latest/tracing/) to improve the logging of our server.
+Let's experiment with [tracing](https://docs.rs/tracing/latest/tracing/) to improve the logging of our server.
 
-As far as I know, there are two main logging crates in Rust: [log](https://docs.rs/log/0.4.21/log/) and tracing. Both crates provide interfaces, which are implemented by other crates.
+In Rust, there are two main logging crates: [log](https://docs.rs/log/0.4.21/log/) and tracing. While both provide logging interfaces, `tracing` offers more structured logging compared to `log`.
 
- Compared to `log`, `tracing` allows us to have log messages that have a consistant structure. `log` is relatively easy to use, so we'll explore how to use `tracing`.
+`tracing` revolves around three main concepts.
 
-tracing consists of three main concepts.
+- Span: Represents a time interval that contains events.
+- Event: A moment when something happened.
+- Subscriber: The component responsible for writing logs.
 
-- span: time interval that contains events
-- event: a moment when something happened
-- subscriber: actually writes logs
-
-An example would probably expresses those concepts.
+Let's illustrate these concepts with an example:
 
 ```rs
 use tracing::{event, info, span, Level};
@@ -599,24 +604,23 @@ fn add(a: i32, b: i32) -> i32 {
 }
 ```
 
-`tracing_subscriber` is the subscriber responsible for outputting logs, which is initialized with some options. `span!` macro creates a new span, and events happen inside of the span. The function `add` is decorated with `instrument`, a macro that automatically creates a new span every time the function is executed.
+In this example, `tracing_subscriber` is initialized with some options. The `span!` macro creates a new span, and events occur within that span. The `add` function is decorated with `instrument`, a macro that automatically creates a new span every time the function is executed.
 
-The output will look like:
+When executed by `RUST_LOG=trace cargo run`, the output will look something like this:
 
 ```
-$ RUST_LOG=trace cargo run
 2024-04-22T02:53:36.184122Z  INFO my-span: tracing_sample: event 1
 2024-04-22T02:53:36.184180Z  WARN my-span: tracing_sample: event 2
 2024-04-22T02:53:36.184210Z  INFO my-span:add{a=5 b=19}: tracing_sample: inside add
 ```
 
-Each line is an event comprised of date, time, log level, span name, and a message.
+Each line represents an event, including date, time, log level, span name, and message.
 
-Notice that an environment variable `RUST_LOG` was passed. The `tracing_subscriber` was initialized with `EnvFilter::from_default_env()`. Since the default log level is `ERROR`, we need to specify a lower priority threshhold to display logs in the above example.
+In the above example, the environment variable `RUST_LOG` was set to specify logging configuration. The `tracing_subscriber` was initialized with `EnvFilter::from_default_env()`. Since the default log level is `ERROR`, we needed to specify a lower priority threshold to display logs.
 
-Let's apply this to our server to track how each client connects and disconnects:
+To integrate tracing into our server and track client connections and disconnections, we can modify the `handle_socket` function:
 
-```
+```rs
 use tracing::{error, info};
 
 #[tracing::instrument(skip(ws, app))]
@@ -642,9 +646,9 @@ async fn handle_socket(ws: WebSocket, app: AppState, client_id: String) {
 }
 ```
 
-We just added `instrument` and some logging to the `handle_socket` function. We don't have to write initialization code as Shuttle takes care of it by default.
+We've added `instrument` and some logging to the `handle_socket` function. The initialization code is automatically handled by Shuttle.
 
-The output will be like:
+The output will resemble:
 
 ```
 2024-04-21T00:00:01.665-00:00 [Runtime] Starting on 127.0.0.1:8000
@@ -653,6 +657,8 @@ The output will be like:
 2024-04-21T00:00:04.423-00:00 [Runtime]  INFO handle_socket{client_id="6khXi"}: fullstack_wschat::web_socket: disconnected
 ```
 
-Our project is too small to fully realize the importance of tracing, but I hope this provides the key to understanding of it.
+Although our project may not fully demonstrate the significance of tracing due to its size, this example provides a foundation for understanding its utility.
 
 ## Conclusion
+
+In this post, we provided an overview of using WebSocket and building a full-stack application with Axum and React. We explored enhancements such as implementing broadcast functionality with Tokio's broadcast channel, integrating client IDs for user identification, and leveraging tracing for improved logging.
