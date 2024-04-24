@@ -13,7 +13,7 @@ case "$command" in
         hugo serve -D $@
         ;;
     "pub")
-	rm -r publish
+	rm -r public
 	hugo $@
         ;;
     *)
