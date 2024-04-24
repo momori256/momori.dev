@@ -30,7 +30,7 @@ UseHugoToc = true
   enabled = true
   title = "Momori Nakano"
   subtitle = "Softwar Engineer in Vancouver, from Japan"
-  imageUrl = "/android-chrome-512x512.png"
+  imageUrl = "/profile.png"
   imageTitle = "profile"
 
     [[params.profileMode.buttons]]
