@@ -1,4 +1,4 @@
-baseURL = "https://momori256.github.io/momori.dev/"
+baseURL = "https://momori256.github.io/"
 languageCode = "en-us"
 title = "Momori Nakano"
 theme = ["PaperMod"]
