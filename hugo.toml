@@ -2,7 +2,6 @@ baseURL = "https://example.org/"
 languageCode = "en-us"
 title = "Momori Nakano"
 theme = ["PaperMod"]
-publishDir = "doc"
 
 [params]
 defaultTheme = "dark"
