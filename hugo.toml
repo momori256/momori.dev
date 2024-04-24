@@ -1,0 +1,77 @@
+baseURL = "https://example.org/"
+languageCode = "en-us"
+title = "Momori Nakano"
+theme = ["PaperMod"]
+publishDir = "doc"
+
+[params]
+defaultTheme = "dark"
+showToc = true
+ShowShareButtons = true
+ShowCodeCopyButtons = true
+ShowReadingTime = true
+ShowBreadCrumbs = true
+ShowPostNavLinks = true
+ShowRssButtonInSectionTermList = true
+UseHugoToc = true
+
+  [params.cover]
+  alt = "cover"
+  hidden = true
+
+  [params.assets]
+  disableHLJS = false
+  favicon = "/favicon.ico"
+  favicon16x16 = "/favicon-16x16.png"
+  favicon32x32 = "/favicon-32x32.png"
+  apple_touch_icon = "/apple-touch-icon.png"
+  safari_pinned_tab = "/safari-pinned-tab.svg"
+
+  [params.profileMode]
+  enabled = true
+  title = "Momori Nakano"
+  subtitle = "Softwar Engineer in Vancouver, from Japan"
+  imageUrl = "/android-chrome-512x512.png"
+  imageTitle = "profile"
+
+    [[params.profileMode.buttons]]
+    name = "Archive"
+    url = "/archive/"
+
+    [[params.profileMode.buttons]]
+    name = "Search"
+    url = "/search/"
+
+    [[params.profileMode.buttons]]
+    name = "Tags"
+    url = "/tags/"
+
+  [[params.socialIcons]]
+  name = "github"
+  title = "GitHub Account"
+  url = "https://github.com/momori256"
+
+  [[params.socialIcons]]
+  name = "LinkedIn"
+  title = "LinkedIn Account"
+  url = "https://www.linkedin.com/in/momori-nakano/"
+
+[[menu.main]]
+name = "Archive"
+url = "/archive/"
+
+[[menu.main]]
+name = "Search"
+url = "/search/"
+
+[[menu.main]]
+name = "Tags"
+url = "/tags/"
+
+[outputs]
+home = [ "HTML", "RSS", "JSON" ]
+
+[markup.highlight]
+guessSyntax = true
+lineNos = true
+style = "catppuccin-frappe"

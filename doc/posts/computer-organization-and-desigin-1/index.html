@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>『コンピュータの構成と設計 上』でソフトとハードを股に掛ける | Momori Nakano</title>
+<meta name="keywords" content="cs">
+<meta name="description" content="『コンピュータの構成と設計 MIPS Edition 第 6 版 上』 はコンピュータ・アーキテクチャの教科書です.
+2 名の著者パターソン&amp;ヘネシーの名前を取ってパタへネという愛称で知られています. ヘネパタという紛らわしい愛称が付けられている『コンピュータ・アーキテクチャ』はより上級者向けの内容です.
+本書はソフトウェアとハードウェアの境界付近についての本です. コンピュータの中核的な仕組みを説明し, プログラムを書く上でどうやってハードウェアを活用すればよいかという視点で語られます. コンピュータの中身を知りたい方におすすめです.
+Moore の法則の終わり プロセッサは数百ものトランジスタが搭載された集積回路によって実現されている. トランジスタを始めとする半導体素子の材料になるのはシリコンという砂に含まれている物質だ. 円柱状のシリコン結晶を 0.1mm ほどに薄くスライスしたウェハ (wafer) を格子状にカットすると, 小さなチップができる.
+チップ一つ当たりのトランジスタ数が 2 年で倍増するという, Intel の創始者の一人である Gordon Moore の予想「Moore の法則」は 50 年間に渡って正しかった. しかしいつまでも指数的な成長が続くわけではない. 消費電力の増加とともに発熱が増え, ついには冷却性能の限界を迎えたのだ. ここに来てプロセッサ開発者は方針転換を余儀なくされた. 一つのプロセッサの性能が頭打ちとなったので, 一つの CPU に複数のプロセッサを搭載することにしたのである.
+マルチコア CPU の性能を引き出すにはプログラムの努力が欠かせない. 現代は, ソフトウェアエンジニアもハードのことを考えなければならない時代なのである.
+MIPS について 本書で取り扱われる MIPS という命令セットは, 命令数を抑えシンプルさを重視して設計された. フォーマットが単純であれば規則性が保たれ, 回路の実装が容易となる. そして単純な回路は消費電力を抑えらる.
+スマートフォンの時代 (ポスト PC 時代) において, 消費電力は命令セットの良し悪しを決める鍵となった. MIPS と同様の思想を持って設計された ARMv8 や RISC-V が脚光を浴びるのは自然な流れであった.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/computer-organization-and-desigin-1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.364d6b9256fe5f2d0b7be3f86155a0ceaa731e7ce41aaee3cb04a613cd629a45.css" integrity="sha256-Nk1rklb&#43;Xy0Le&#43;P4YVWgzqpzHnzkGq7jywSmE81imkU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/computer-organization-and-desigin-1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Momori Nakano (Alt + H)">Momori Nakano</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archive/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      『コンピュータの構成と設計 上』でソフトとハードを股に掛ける
+    </h1>
+    <div class="post-meta"><span title='2022-10-05 00:00:00 +0000 UTC'>October 5, 2022</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#moore-の法則の終わり">Moore の法則の終わり</a></li>
+    <li><a href="#mips-について">MIPS について</a></li>
+    <li><a href="#コンピュータの内側">コンピュータの内側</a></li>
+    <li><a href="#プロセッサの実装">プロセッサの実装</a></li>
+    <li><a href="#結び">結び</a></li>
+    <li><a href="#moore-の法則の終わり-1">Moore の法則の終わり</a></li>
+    <li><a href="#mips-について-1">MIPS について</a></li>
+    <li><a href="#コンピュータの内側-1">コンピュータの内側</a></li>
+    <li><a href="#プロセッサの実装-1">プロセッサの実装</a></li>
+    <li><a href="#結び-1">結び</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p><a href="https://bookplus.nikkei.com/atcl/catalog/21/S70090/">『コンピュータの構成と設計 MIPS Edition 第 6 版 上』</a> はコンピュータ・アーキテクチャの教科書です.<br>
+2 名の著者パターソン&amp;ヘネシーの名前を取ってパタへネという愛称で知られています. ヘネパタという紛らわしい愛称が付けられている『コンピュータ・アーキテクチャ』はより上級者向けの内容です.</p>
+<p>本書はソフトウェアとハードウェアの境界付近についての本です. コンピュータの中核的な仕組みを説明し, プログラムを書く上でどうやってハードウェアを活用すればよいかという視点で語られます. コンピュータの中身を知りたい方におすすめです.</p>
+<h2 id="moore-の法則の終わり">Moore の法則の終わり<a hidden class="anchor" aria-hidden="true" href="#moore-の法則の終わり">#</a></h2>
+<p>プロセッサは数百ものトランジスタが搭載された集積回路によって実現されている. トランジスタを始めとする半導体素子の材料になるのはシリコンという砂に含まれている物質だ. 円柱状のシリコン結晶を 0.1mm ほどに薄くスライスしたウェハ (wafer) を格子状にカットすると, 小さなチップができる.</p>
+<p>チップ一つ当たりのトランジスタ数が 2 年で倍増するという, Intel の創始者の一人である Gordon Moore の予想「Moore の法則」は 50 年間に渡って正しかった. しかしいつまでも指数的な成長が続くわけではない. 消費電力の増加とともに発熱が増え, ついには冷却性能の限界を迎えたのだ. ここに来てプロセッサ開発者は方針転換を余儀なくされた. 一つのプロセッサの性能が頭打ちとなったので, 一つの CPU に複数のプロセッサを搭載することにしたのである.<br>
+マルチコア CPU の性能を引き出すにはプログラムの努力が欠かせない. 現代は, ソフトウェアエンジニアもハードのことを考えなければならない時代なのである.</p>
+<h2 id="mips-について">MIPS について<a hidden class="anchor" aria-hidden="true" href="#mips-について">#</a></h2>
+<p>本書で取り扱われる MIPS という命令セットは, 命令数を抑えシンプルさを重視して設計された. フォーマットが単純であれば規則性が保たれ, 回路の実装が容易となる. そして単純な回路は消費電力を抑えらる.<br>
+スマートフォンの時代 (ポスト PC 時代) において, 消費電力は命令セットの良し悪しを決める鍵となった. MIPS と同様の思想を持って設計された ARMv8 や RISC-V が脚光を浴びるのは自然な流れであった.</p>
+<p>MIPS のフォーマットはシンプルである. まず, 全ての命令が 32bit の固定幅を持つ. 算術/論理演算は全て二項演算で, 2 つのオペランドと 1 つの結果格納先を指定する. オペランドにメモリ上の値を指定することはできず, 事前にメモリ上の値をレジスタにロードしておかなければならない.<br>
+二項演算しかないということは NOT のような基本的な単項演算が存在しないということだ. MIPS では代わりに NOR(=Not Or) を用いて NOT を計算する (<code>x NOR 0 = NOT x</code>). 基本的な演算を削除する選択をしてまでもシンプルさを優先するのだ.<br>
+MISP に対して x86 は複雑である. 命令長からして 7-15bit と可変だし, 命令数は 1400 以上もある. 40 年以上に渡る開発の歴史の中で互換性を保ちつつ進歩を続けて来たのは驚異的だが, 実態としては複雑であるというしかないだろう. 見ようによっては混沌の中にも秩序があるのかも知れないが, とにかく一見すると複雑そうに見えるのは確かである.</p>
+<h2 id="コンピュータの内側">コンピュータの内側<a hidden class="anchor" aria-hidden="true" href="#コンピュータの内側">#</a></h2>
+<p>コンピュータの内部で数がどのように表されるか, 計算はどうやって行われるのか. ブラックボックスの中を除くのが本書の趣旨だ.<br>
+2 の補数や浮動小数点はコンピュータ開発に携わるものの教養なのだろう. 初めは戸惑ったはずだが, どの教科書にも書いてあるので, 今ではすっかりお馴染みとなった.</p>
+<p>2 の補数, 浮動小数点, 文字. データは全てビット列で表される. ビット列をどう解釈するかによって意味が変わるのだ. 同じビット列が符号付き整数の +1131443456 だったり, ヌル終端文字列の &ldquo;Cpu&rdquo; であったりする. 全てがビット列であるのは命令も同じだ. つまり, プログラム自体もビット列で表されるデータなのである.<br>
+実行すべきプログラムをメモリに展開して, 一つずつ読み取る. プログラムを数値や文字と言ったデータと同様に扱えるプログラム内蔵方式のおかげで, コンピュータはプログラムを容易に切り替えることが可能となり, 飛躍的な汎用性を獲得した. と言っても, プログラム内蔵方式ではないコンピュータを見たことがないので, いまいちその恩恵に対する実感が沸かないのだが.</p>
+<h2 id="プロセッサの実装">プロセッサの実装<a hidden class="anchor" aria-hidden="true" href="#プロセッサの実装">#</a></h2>
+<p>OS が実行ファイルの内容をメモリに展開するところからプログラムは始まる.<br>
+命令メモリから命令をフェッチする. 命令をデコードし, 命令の種類やオペランドを取り出す. レジスタから値を読み出し, ALU で演算を行う. 最後に演算結果をレジスタやメモリに書き込む. プロセッサは大まかにこの繰り返しだ.<br>
+一つ一つの処理を実装する回路はそれほど複雑ではないので, 全てを組み合わせてできるプロセッサ全体も意外なほど単純である. 単純さを重視した MIPS の設計のおかげであろう.</p>
+<p>処理を順番にこなす回路は分かりやすいが, 無駄が多くて遅い. 例えば ALU で計算を行っている間, 命令をフェッチする機構は暇をしている. そこで各ステップでは結果を次のステップに渡すと, 全体が終わるのを待つのではなくすぐに次の命令の処理に取り掛かる.<br>
+バケツリレーに例えられるパイプライン処理はプロセッサの根幹を成すアイデアだ. MIPS はパイプライン処理を念頭に置いて設計された. パイプライン処理によって各ステップを平行に進めると, 理想的にはステップ数倍のスループット向上が見込める. 全てのステップが満たされているとき, プロセッサはある時点でステップ数個の命令を同時に処理していると見なすことができるからだ.</p>
+<p>しかし, パイプラインのスムーズな流れを妨げる厄介なハザードがある. 前の命令の結果に依存した計算を行う命令や, 計算が終わるまで次の命令が確定しない条件分岐である.<br>
+命令に依存関係があるとき, 結果をレジスタやメモリに書き戻すのを待たずに次のステップにデータを送るフォワーディングが有効だ. 更に高度な手法として, コンパイル時や実行時に命令の順番を変えて依存関係による待ち時間を減らす静的/動的パイプラインスケジューリングという手法もある. しかし当然の疑問として, 実行時に順序を変えると元のプログラムと結果が変わってしまうのではないだろうかという気がする. 実は最初と最後の順番は変えず, 途中の実行だけ順番を変えるのだ. イン・オーダー発行 (順番通りに命令をフェッチする), アウト・オブ・オーダー実行 (順番を変えて実行する), イン・オーダー確定 (順番通りに結果をレジスタやメモリに書き込む). これによって, 外から見た結果が元のプログラムと同じに保たれる.<br>
+条件分岐では分岐先が確定するのを待たずに, 分岐先を予想して先に実行を始めてしまう投機的実行で待ち時間を減らす. 予想が外れたときは計算が無駄になるから, 高い精度で分岐するか否かを予想することが肝心だ.<br>
+Intel Core i7 6700 での予想成功率はどのくらいだろう？50% そこそこだろうか. 実際は, なんと驚異の 97.7%(SPECCPUint2006 のベンチマーク結果による). これほどまでに高い精度を実現している秘訣の一つは動的分岐予想だ. 分岐命令ごとに前回の分岐成否を記録しておくのだ. 実際にこの方法で for ループでは最初と最後意外の予想を当てることができるから, シンプルながら強力な方法である.</p>
+<h2 id="結び">結び<a hidden class="anchor" aria-hidden="true" href="#結び">#</a></h2>
+<p>以前読んだコンピュータ・アーキテクチャの教科書『コンピュータ・システム』と共通する部分が多いと感じました. 既知の内容は多かったものの、同じ事柄に対する別の説明を聞くことで理解を深めることができると実感したので, 短いスパンで同分野の本を読むのは悪くないと思いました.</p>
+<p>改訂を繰り返して第 6 版となった本書は時代を反映してます. スマートフォンが一年で 1500 万代 (=PC の 6 倍) も生産されるようになった現代において, プロセッサには消費電力を抑えることが強く求められるようになったことが随所で説明されます.<br>
+練習問題で興味深かったのは Google が考案した 16bit 浮動小数点フォーマット「Brain Float 16」の消費電力を計算するものです. 乗算器の消費電力は入力サイズの二乗に比例するらしく, 仮数部が 7bit(= 省略された先頭の 1 を加えて 8bit 幅) である Brain Float 16 は IEEE の 16bit フォーマットに比べて約半分(<code>8^2 : 11^2</code>), 32bit のフォーマットに比べて 11% 程度(<code>8^2 : 24^2</code>)の消費電力で済みます. 機械学習には 16bit の精度で十分らしいですから, Brain Float 16 が考案され広く使われるようになるものうなずけます.</p>
+<p>今回読んだのは上巻ですが, 下巻はメモリ階層, ソフトウェアレベルでの並行プログラミングといったトピックが扱われます. 続けて読もうと思います.
++++
+title = &ldquo;『コンピュータの構成と設計 上』でソフトとハードを股に掛ける&rdquo;
+date = 2022-10-05
+tags = [&ldquo;cs&rdquo;]
+cover.image = &ldquo;<a href="https://source.unsplash.com/iGheu30xAi8%22">https://source.unsplash.com/iGheu30xAi8&quot;</a>
++++</p>
+<p><a href="https://bookplus.nikkei.com/atcl/catalog/21/S70090/">『コンピュータの構成と設計 MIPS Edition 第 6 版 上』</a> はコンピュータ・アーキテクチャの教科書です.<br>
+2 名の著者パターソン&amp;ヘネシーの名前を取ってパタへネという愛称で知られています. ヘネパタという紛らわしい愛称が付けられている『コンピュータ・アーキテクチャ』はより上級者向けの内容です.</p>
+<p>本書はソフトウェアとハードウェアの境界付近についての本です. コンピュータの中核的な仕組みを説明し, プログラムを書く上でどうやってハードウェアを活用すればよいかという視点で語られます. コンピュータの中身を知りたい方におすすめです.</p>
+<h2 id="moore-の法則の終わり-1">Moore の法則の終わり<a hidden class="anchor" aria-hidden="true" href="#moore-の法則の終わり-1">#</a></h2>
+<p>プロセッサは数百ものトランジスタが搭載された集積回路によって実現されている. トランジスタを始めとする半導体素子の材料になるのはシリコンという砂に含まれている物質だ. 円柱状のシリコン結晶を 0.1mm ほどに薄くスライスしたウェハ (wafer) を格子状にカットすると, 小さなチップができる.</p>
+<p>チップ一つ当たりのトランジスタ数が 2 年で倍増するという, Intel の創始者の一人である Gordon Moore の予想「Moore の法則」は 50 年間に渡って正しかった. しかしいつまでも指数的な成長が続くわけではない. 消費電力の増加とともに発熱が増え, ついには冷却性能の限界を迎えたのだ. ここに来てプロセッサ開発者は方針転換を余儀なくされた. 一つのプロセッサの性能が頭打ちとなったので, 一つの CPU に複数のプロセッサを搭載することにしたのである.<br>
+マルチコア CPU の性能を引き出すにはプログラムの努力が欠かせない. 現代は, ソフトウェアエンジニアもハードのことを考えなければならない時代なのである.</p>
+<h2 id="mips-について-1">MIPS について<a hidden class="anchor" aria-hidden="true" href="#mips-について-1">#</a></h2>
+<p>本書で取り扱われる MIPS という命令セットは, 命令数を抑えシンプルさを重視して設計された. フォーマットが単純であれば規則性が保たれ, 回路の実装が容易となる. そして単純な回路は消費電力を抑えらる.<br>
+スマートフォンの時代 (ポスト PC 時代) において, 消費電力は命令セットの良し悪しを決める鍵となった. MIPS と同様の思想を持って設計された ARMv8 や RISC-V が脚光を浴びるのは自然な流れであった.</p>
+<p>MIPS のフォーマットはシンプルである. まず, 全ての命令が 32bit の固定幅を持つ. 算術/論理演算は全て二項演算で, 2 つのオペランドと 1 つの結果格納先を指定する. オペランドにメモリ上の値を指定することはできず, 事前にメモリ上の値をレジスタにロードしておかなければならない.<br>
+二項演算しかないということは NOT のような基本的な単項演算が存在しないということだ. MIPS では代わりに NOR(=Not Or) を用いて NOT を計算する (<code>x NOR 0 = NOT x</code>). 基本的な演算を削除する選択をしてまでもシンプルさを優先するのだ.<br>
+MISP に対して x86 は複雑である. 命令長からして 7-15bit と可変だし, 命令数は 1400 以上もある. 40 年以上に渡る開発の歴史の中で互換性を保ちつつ進歩を続けて来たのは驚異的だが, 実態としては複雑であるというしかないだろう. 見ようによっては混沌の中にも秩序があるのかも知れないが, とにかく一見すると複雑そうに見えるのは確かである.</p>
+<h2 id="コンピュータの内側-1">コンピュータの内側<a hidden class="anchor" aria-hidden="true" href="#コンピュータの内側-1">#</a></h2>
+<p>コンピュータの内部で数がどのように表されるか, 計算はどうやって行われるのか. ブラックボックスの中を除くのが本書の趣旨だ.<br>
+2 の補数や浮動小数点はコンピュータ開発に携わるものの教養なのだろう. 初めは戸惑ったはずだが, どの教科書にも書いてあるので, 今ではすっかりお馴染みとなった.</p>
+<p>2 の補数, 浮動小数点, 文字. データは全てビット列で表される. ビット列をどう解釈するかによって意味が変わるのだ. 同じビット列が符号付き整数の +1131443456 だったり, ヌル終端文字列の &ldquo;Cpu&rdquo; であったりする. 全てがビット列であるのは命令も同じだ. つまり, プログラム自体もビット列で表されるデータなのである.<br>
+実行すべきプログラムをメモリに展開して, 一つずつ読み取る. プログラムを数値や文字と言ったデータと同様に扱えるプログラム内蔵方式のおかげで, コンピュータはプログラムを容易に切り替えることが可能となり, 飛躍的な汎用性を獲得した. と言っても, プログラム内蔵方式ではないコンピュータを見たことがないので, いまいちその恩恵に対する実感が沸かないのだが.</p>
+<h2 id="プロセッサの実装-1">プロセッサの実装<a hidden class="anchor" aria-hidden="true" href="#プロセッサの実装-1">#</a></h2>
+<p>OS が実行ファイルの内容をメモリに展開するところからプログラムは始まる.<br>
+命令メモリから命令をフェッチする. 命令をデコードし, 命令の種類やオペランドを取り出す. レジスタから値を読み出し, ALU で演算を行う. 最後に演算結果をレジスタやメモリに書き込む. プロセッサは大まかにこの繰り返しだ.<br>
+一つ一つの処理を実装する回路はそれほど複雑ではないので, 全てを組み合わせてできるプロセッサ全体も意外なほど単純である. 単純さを重視した MIPS の設計のおかげであろう.</p>
+<p>処理を順番にこなす回路は分かりやすいが, 無駄が多くて遅い. 例えば ALU で計算を行っている間, 命令をフェッチする機構は暇をしている. そこで各ステップでは結果を次のステップに渡すと, 全体が終わるのを待つのではなくすぐに次の命令の処理に取り掛かる.<br>
+バケツリレーに例えられるパイプライン処理はプロセッサの根幹を成すアイデアだ. MIPS はパイプライン処理を念頭に置いて設計された. パイプライン処理によって各ステップを平行に進めると, 理想的にはステップ数倍のスループット向上が見込める. 全てのステップが満たされているとき, プロセッサはある時点でステップ数個の命令を同時に処理していると見なすことができるからだ.</p>
+<p>しかし, パイプラインのスムーズな流れを妨げる厄介なハザードがある. 前の命令の結果に依存した計算を行う命令や, 計算が終わるまで次の命令が確定しない条件分岐である.<br>
+命令に依存関係があるとき, 結果をレジスタやメモリに書き戻すのを待たずに次のステップにデータを送るフォワーディングが有効だ. 更に高度な手法として, コンパイル時や実行時に命令の順番を変えて依存関係による待ち時間を減らす静的/動的パイプラインスケジューリングという手法もある. しかし当然の疑問として, 実行時に順序を変えると元のプログラムと結果が変わってしまうのではないだろうかという気がする. 実は最初と最後の順番は変えず, 途中の実行だけ順番を変えるのだ. イン・オーダー発行 (順番通りに命令をフェッチする), アウト・オブ・オーダー実行 (順番を変えて実行する), イン・オーダー確定 (順番通りに結果をレジスタやメモリに書き込む). これによって, 外から見た結果が元のプログラムと同じに保たれる.<br>
+条件分岐では分岐先が確定するのを待たずに, 分岐先を予想して先に実行を始めてしまう投機的実行で待ち時間を減らす. 予想が外れたときは計算が無駄になるから, 高い精度で分岐するか否かを予想することが肝心だ.<br>
+Intel Core i7 6700 での予想成功率はどのくらいだろう？50% そこそこだろうか. 実際は, なんと驚異の 97.7%(SPECCPUint2006 のベンチマーク結果による). これほどまでに高い精度を実現している秘訣の一つは動的分岐予想だ. 分岐命令ごとに前回の分岐成否を記録しておくのだ. 実際にこの方法で for ループでは最初と最後意外の予想を当てることができるから, シンプルながら強力な方法である.</p>
+<h2 id="結び-1">結び<a hidden class="anchor" aria-hidden="true" href="#結び-1">#</a></h2>
+<p>以前読んだコンピュータ・アーキテクチャの教科書『コンピュータ・システム』と共通する部分が多いと感じました. 既知の内容は多かったものの、同じ事柄に対する別の説明を聞くことで理解を深めることができると実感したので, 短いスパンで同分野の本を読むのは悪くないと思いました.</p>
+<p>改訂を繰り返して第 6 版となった本書は時代を反映してます. スマートフォンが一年で 1500 万代 (=PC の 6 倍) も生産されるようになった現代において, プロセッサには消費電力を抑えることが強く求められるようになったことが随所で説明されます.<br>
+練習問題で興味深かったのは Google が考案した 16bit 浮動小数点フォーマット「Brain Float 16」の消費電力を計算するものです. 乗算器の消費電力は入力サイズの二乗に比例するらしく, 仮数部が 7bit(= 省略された先頭の 1 を加えて 8bit 幅) である Brain Float 16 は IEEE の 16bit フォーマットに比べて約半分(<code>8^2 : 11^2</code>), 32bit のフォーマットに比べて 11% 程度(<code>8^2 : 24^2</code>)の消費電力で済みます. 機械学習には 16bit の精度で十分らしいですから, Brain Float 16 が考案され広く使われるようになるものうなずけます.</p>
+<p>今回読んだのは上巻ですが, 下巻はメモリ階層, ソフトウェアレベルでの並行プログラミングといったトピックが扱われます. 続けて読もうと思います.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/cs/">Cs</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/computer-organization-and-desigin-2/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>『コンピュータの構成と設計 下』でプロセッサのこれからを考える</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/intro-to-unix-shell/">
+    <span class="title">Next »</span>
+    <br>
+    <span>『入門 UNIX シェルプログラミング』で UNIX の世界を学ぶ</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on x"
+            href="https://x.com/intent/tweet/?text=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f&amp;hashtags=cs">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f&amp;title=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b&amp;summary=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f&title=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on whatsapp"
+            href="https://api.whatsapp.com/send?text=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on telegram"
+            href="https://telegram.me/share/url?text=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータの構成と設計 上』でソフトとハードを股に掛ける on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%81%ae%e6%a7%8b%e6%88%90%e3%81%a8%e8%a8%ad%e8%a8%88%20%e4%b8%8a%e3%80%8f%e3%81%a7%e3%82%bd%e3%83%95%e3%83%88%e3%81%a8%e3%83%8f%e3%83%bc%e3%83%89%e3%82%92%e8%82%a1%e3%81%ab%e6%8e%9b%e3%81%91%e3%82%8b&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fcomputer-organization-and-desigin-1%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Momori Nakano</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

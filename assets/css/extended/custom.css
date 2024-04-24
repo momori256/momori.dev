@@ -1,0 +1,34 @@
+.dark {
+  a:not(.logo a) {
+    transition: color 250ms;
+    &:hover {
+      color: #ca9ee6;
+    }
+  }
+}
+
+:not(.dark) {
+  a:not(.logo a) {
+    transition: color 250ms;
+    &:hover {
+      color: #8839ef;
+    }
+  }
+}
+
+.post-title {
+  font-size: 32px;
+}
+
+.post-content h2 {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .post-title {
+    font-size: 24px;
+  }
+  .post-content h2 {
+    font-size: 18px;
+  }
+}

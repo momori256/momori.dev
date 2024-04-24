@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Language on Momori Nakano</title>
+    <link>http://localhost:1313/tags/language/</link>
+    <description>Recent content in Language on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/language/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『Go 言語でつくるインタプリタ』を OCaml でやる</title>
+      <link>http://localhost:1313/posts/interpreter-in-go/</link>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/interpreter-in-go/</guid>
+      <description>導入 出版社のページ
+実際にインタプリタを作りながら, インタプリタの仕組みを学ぶ本です.
+インタプリタを作るというのは, 例えば以下のようなものを作るということです.
+1 2 3 4 5 6 7 8 9 10 11 12 &amp;gt;&amp;gt; -5 + 1 -4 &amp;gt;&amp;gt; (1 &amp;lt; 2) == !true false &amp;gt;&amp;gt; if (1 &amp;lt; 2) { 10 } else { 20 } 10 &amp;gt;&amp;gt; let add = fn (x, y) { x + y; } &amp;gt;&amp;gt; add (1 + 2, 3) 6 &amp;gt;&amp;gt; let fact = fn(n) { if (n == 0) { 1 } else { n * fact (n - 1) }}; &amp;gt;&amp;gt; fact(5) 120 以下のような方におすすめです.</description>
+    </item>
+  </channel>
+</rss>

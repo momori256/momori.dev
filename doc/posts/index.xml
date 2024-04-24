@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Momori Nakano</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Step-by-Step Guide to Building a WebSocket Chat App with Axum and React</title>
+      <link>http://localhost:1313/posts/building-a-websocket-chat-app-with-axum-and-react/</link>
+      <pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-a-websocket-chat-app-with-axum-and-react/</guid>
+      <description>In this guide, we&amp;rsquo;ll walk through the process of creating a full-stack chat app using WebSocket. Our backend will be built with Axum, a powerful Rust backend framework, and Shuttle, a development platform, while the frontend will be developed using React and Vite.
+We&amp;rsquo;ll cover
+Utilizing WebSocket in Axum and React. Generating unique identifiers using nanoid. Incorporating telemetry with tracing for enhanced logging. You can find the complete code for this project on GitHub.</description>
+    </item>
+    <item>
+      <title>Deploying a Rust WebAssembly (WASM) App to GitHub Pages</title>
+      <link>http://localhost:1313/posts/deploying-a-rust-wasm-app-to-github-pages/</link>
+      <pubDate>Tue, 05 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/deploying-a-rust-wasm-app-to-github-pages/</guid>
+      <description>In this tutorial, we&amp;rsquo;ll guide you through the step-by-step process of deploying a Rust WebAssembly (WASM) app on GitHub Pages. The final website will consist of a JavaScript frontend that utilizes WASM, generated from Rust code.
+The project we&amp;rsquo;ll use is called lp, a logical operation language that I created earlier. We won&amp;rsquo;t delve into the implementation details; instead, our focus will be on incorporating WASM into an existing Rust project.</description>
+    </item>
+    <item>
+      <title>Building a Lisp-like Language from Scratch in Rust</title>
+      <link>http://localhost:1313/posts/building-a-lisp-like-language-from-scratch-in-rust/</link>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-a-lisp-like-language-from-scratch-in-rust/</guid>
+      <description>This post delves into building an interpreter for a Lisp-like language using Rust. No knowledge beyond Rust basics is required to follow this post.
+Inspiration and Project Overview Inspired by Stepan Parunashvili&amp;rsquo;s article Risp (in (Rust) (Lisp)), I created lip, an interpreted language designed for logical operations with a Lisp-like syntax. This supports logical operations (not, and, or), branching (if expression), lambda functions, and variable definition.
+This post guides you through the process of building an interpreter, focusing on the core functionalities of tokenizing, parsing, and evaluating expressions.</description>
+    </item>
+    <item>
+      <title>PDF Summarizer with Ollama in 20 Lines of Rust</title>
+      <link>http://localhost:1313/posts/pdf-summarizer-with-ollama-in-20-lines-of-rust/</link>
+      <pubDate>Sat, 10 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/pdf-summarizer-with-ollama-in-20-lines-of-rust/</guid>
+      <description>Explore the simplicity of building a PDF summarization CLI app in Rust using Ollama, a tool similar to Docker for large language models (LLM). Ollama allows for local LLM execution, unlocking a myriad of possibilities. This post guides you through leveraging Ollama&amp;rsquo;s functionalities from Rust, illustrated by a concise example. Since PDF is a prevalent format for e-books or papers, it would be useful to be able to summarize it.</description>
+    </item>
+    <item>
+      <title>Rust Error Handling: thiserror, anyhow, and When to Use Each</title>
+      <link>http://localhost:1313/posts/rust-error-handling-thiserror-anyhow/</link>
+      <pubDate>Tue, 06 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/rust-error-handling-thiserror-anyhow/</guid>
+      <description>In this blog post, we&amp;rsquo;ll explore strategies for streamlining error handling in Rust using two popular libraries: thiserror and anyhow. We&amp;rsquo;ll discuss their features, use cases, and provide insights on when to choose each library.
+TL;DR thiserror simplifies the implementation of custom error type, removing boilerplates anyhow consolidates errors that implement std::error::Error While thiserror provides detailed error information for specific reactions, anyhow hides internal details Return Different Error Types from Function Let&amp;rsquo;s start by creating a function decode() for illustration.</description>
+    </item>
+    <item>
+      <title>Organize Rust Integration Tests Without Dead Code Warning</title>
+      <link>http://localhost:1313/posts/organize-rust-integration-tests-without-dead-code-warning/</link>
+      <pubDate>Mon, 05 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/organize-rust-integration-tests-without-dead-code-warning/</guid>
+      <description>In this blog post, we&amp;rsquo;ll explore strategies for organizing integration tests in Rust, addressing challenges like dead code warnings and maximizing modularity.
+Integration Testing In Rust Conventionally, integration test files are placed in tests directory at the top level of a project.
+Let&amp;rsquo;s create a project for illustration:
+1 cargo new --lib my-tests 1 2 3 4 5 6 7 8 ❯ exa --tree --level 2 . ├── Cargo.lock ├── Cargo.</description>
+    </item>
+    <item>
+      <title>Embarking on Backend Development with &#34;Zero To Production In Rust&#34;</title>
+      <link>http://localhost:1313/posts/zero-to-production-in-rust/</link>
+      <pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/zero-to-production-in-rust/</guid>
+      <description>In this blog post, I will share insights gained from Zero To Production In Rust, a comprehensive guide to backend development in Rust.
+Through the development of a newsletter app, this book covers various important topics for developing an API server.
+TDD and User Stories: A Shared Vision This book adopts Test Driven Development (TDD) as a consistent approach, starting implementation with tests. This improves code reliability and, more importantly, facilitates a shared vision when collaborating with others.</description>
+    </item>
+    <item>
+      <title>キャリア 4 年目の振り返り</title>
+      <link>http://localhost:1313/posts/review-year-4/</link>
+      <pubDate>Sun, 31 Dec 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/review-year-4/</guid>
+      <description>働き始めて 3 年と 9 か月が経過した. まだ 4 年目が終わるには早いのだが, 今年から拠点を海外に移したので, 年度ではなく西暦を基準にして振り返りをしようと思う.
+海外移住 2023 年 7 月にカナダのバンクーバーに引っ越した. 日本で生まれ育って, 海外経験といえば数回の旅行程度だった自分にとっては, 仕事を辞めて海外生活を始めるのは大きな冒険だった. しかし移住から半年近く経過した今となっては普段の生活は落ち着いていて, 海外生活と言っても意外に大したことないなと思っている（日本からバンクーバーに移住して生活を安定させるまでにやったこと）.
+個人的な今年の目標であった「リスクを取る」は十分達成できたのではないかと思う. 海外移住したことが最大の成果だが, 日常生活の中でも精神的な変化があった. やったことがないことをやるということに対してポジティブな姿勢を持つようになった. 私のように慎重な（臆病な）人間にとっては, 進んで失敗しに行くくらいの心持ちがちょうど良いだろう.
+英語 海外で暮らしていると言語については意識せざるを得ない. 渡航前に一か月間フィリピンで英語留学をしていた. それまではそもそも英語でコミュニケーションを取るという経験がほぼなかったので, そもそも自分が喋る英語が人に伝わるかどうか不安を覚えていたのだが, 英語を喋ることに対する心理的な障壁は打破することができた.
+一年前と比べると進歩したとはいえペラペラになったかというとそんなことはなく, 当然だが日本語と比べると遥かに言語能力が落ちることがもどかしい. コミュニケーションという人間の活動における根本的な要素に不安がある状態がどれほどのハンデになっているのか想像もつかない. バンクーバーに住んでいる限り英語は何をするにしても必ず重要になるので, できる限り腕を磨きたい.
+プログラミング 渡航してからは, 日本で言うところの専門学校のような立ち位置の私立カレッジに通っていて, 今は WEB Development コースの学生をしている. WEB 開発の経験はないが, 学校が始まるのに先んじて予習をしておいたおかげもあってか, 授業の中で特に困ることもない. むしろ課題を素早く終わらせて先生を驚かせる日々を送っている. 授業の内容は未経験者向けなので, 正直なところ大してエキサイティングでもない. しかし曲がりなりにも数か月取り組んでみて, 何かを作る時の選択肢として WEB を自分の中で持てるようになったのは良かった.
+授業外では Rust に入門して, 最近は競技プログラミングをずっとやっている. もともと仕事で C++ や C# を使っていて Rust に興味はあったのだが, ようやく本格的に触ってみることができた. 基本的には C++ と似ているが, 関数型言語を始め他言語の特徴を上手い具合に集めていて面白い.</description>
+    </item>
+    <item>
+      <title>日本からバンクーバーに移住して生活を安定させるまでにやったこと</title>
+      <link>http://localhost:1313/posts/relocation-to-vancouver/</link>
+      <pubDate>Mon, 04 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/relocation-to-vancouver/</guid>
+      <description>2023 年 7 月 26 日に日本からカナダのバンクーバーへ引っ越しました. 現在はプログラミングの専門学校に通っており, 一年後にエンジニアとして現地就職することを目標としています. 渡航から 1 か月以上経ち生活が落ち着いてきたこのタイミングで, 渡航前・渡航後に行った重要なことをまとめておきます. 将来バンクーバーに引っ越す方の参考になれば幸いです.
+筆者のステータス 日本生まれ日本育ち, 大学卒業後 3 年間エンジニアとして働いた後, 海外就職を目標としてバンクーバーに渡航しました. 海外経験は数回の旅行程度で, 海外に特別な縁があったわけではありません. 普通に日本で生まれ育った私の視点から, 海外移住に必要だったことという視点で記事を書きます.
+渡航前 最初は海外生活というと現実離れしたことのように思えていましたが, 実際の所必要なものは多くありません. ビザとお金です. それがあればどうにかなりますし, なければどうにもなりません.
+ビザ 最重要はビザです. ビザとはその国への滞在に必要な許可証のことです. 海外生活においては何よりも重要なものです.
+国によって形態は異なりますが, カナダには観光/学生/就労/ワーキングホリデービザなどの種類があります. 自分がどのビザを利用して渡航するかは非常に重要な選択であるため, 情報を集めた上で判断したほうが良いでしょう. 例えばワーキングホリデーは, 強力なものの人生で一度しか使えない切り札のようなビザで, うかつに使ってしまうと後々まで悪影響を及ぼす可能性があります.
+私がバンクーバーを選んだ大きな理由の 1 つはビザが取得しやすかったからです. まず学生ビザで渡航し, 一年間学校に通った後, 1 年間就労可能な co-op という制度を使い就職を目指します. その後ワーキングホリデーを使ってさらに 1 年間就労期間を伸ばすこともできますし, 就職できていれば永住権 (≠ 市民権) 取得も見えてきます. もちろんビザの制度が変更される可能性もあるので計画通りに行くとは限りませんが, 今後 3 年間のビジョンが持てるのは悪くないと思っています.
+疑問が生じるかも知れないので説明しておくと, エンジニアとしての経験があるにも拘らず学校に通うのは, ビザのためです. 授業で技術に関することを教えてほしいとは, 実はあまり思っていません（傲慢に聞こえるかも知れませんが, まあ多くのことは独学できますし, 授業で教えられることも限られているでしょうし）. もちろん一年を無為に過ごすわけではなくその間に就職へ向けた準備をするつもりです. しかし学校に通う最大の目的は co-op とワーキングホリデーで二年間働ける状態を作ることであり, それくらいビザは重要だと考えています.</description>
+    </item>
+    <item>
+      <title>『仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん』でようやく Docker の基本を理解する</title>
+      <link>http://localhost:1313/posts/elemental-docker-k8s/</link>
+      <pubDate>Sat, 06 May 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/elemental-docker-k8s/</guid>
+      <description>仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん は Docker の入門書です. イラストやハンズオンが豊富で, サーバや Linux の知識が豊富ではない人にも Docker の基本が分かるように書かれた本です.
+ネット上のコマンドを見様見真似でなんとなく Docker を使うことは難しくありませんが, 結局そのコマンドはどういう意味なのか, どういう仕組みで Docker が成り立っているのかを知らないと応用できません. これまで docker run や docker-compose up などのコマンドを使ってきたのに, その実何が起きているのか理解していなかったのですが, 本書の説明でようやく基本が理解できました.
+Docker コマンドのフォーマット Docker コマンドを使う上で最も重要だと感じたのがコマンドのフォーマットです.
+1 docker &amp;lt;上位コマンド&amp;gt; &amp;lt;下位コマンド&amp;gt; [オプション] &amp;lt;上位コマンド&amp;gt; は基本的に操作対象を, &amp;lt;下位コマンド&amp;gt; は操作を表しています. 例えば docker container start だと, コンテナを開始するという意味です.
+これがなぜ重要なのかと言うと, 操作対象を明確に意識できるからです. 自分が操作しようとしているのはコンテナなのかイメージなのかはっきりと分かります.
+これまで, Docker には, 隔離されたプログラムの実行環境であるコンテナと, コンテナの設計図であるイメージがあるというような説明を目にしたことがあったにも拘らず, それを各コマンドと結び付けられていなかったのですが, このフォーマットを知ることで疑問が氷解しました. コンテナ, イメージ, ネットワーク, ボリュームなど, 扱いたい対象が上位コマンドに来るというただそれだけなのです.
+混乱の原因となっていたのは, 上位コマンドは省略可能な場合があることです. 例えば docker ps はコンテナの状態を表示するコマンドですが container の文字がありません. 実はこれは docker container ps と同じ意味なのですが, 歴史的な経緯により ps でも container ps と同じことができます.</description>
+    </item>
+    <item>
+      <title>『達人に学ぶ DB 設計 徹底指南書』でデータベース設計の論理と物理を考える</title>
+      <link>http://localhost:1313/posts/db-design-guidebook/</link>
+      <pubDate>Fri, 05 May 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/db-design-guidebook/</guid>
+      <description>『達人に学ぶ DB 設計 徹底指南書』 はリレーショナルデータベース (RDB) の設計についての解説書です. 『達人に学ぶ SQL 徹底指南書』 の続編という位置づけのようなので, 本書に登場する SQL が難しいと思ったり, より SQL のことを学びたいと思ったら前作を読むと良いでしょう.
+本書ではデータベースの設計を, エンティティの定義や正規化などを行う論理設計と, データ格納の方法や場所を考える物理設計の二段階に分けて説明します. 設計についての基本的な考え方や知識を抑えつつ, やってしまいがちなバッドノウハウや, 論理設計と物理設計のトレードオフと言った実践的な内容にも踏み込みます.
+正規化 データベース設計は大きく論理設計と物理設計という二段階に分かれる. 最初に行う論理設計では, 特定の DBMS(Database Management System) や SQL のことは考えずに, プログラムが扱う対象となる物事の属性や物事同士の関係をモデル化する.
+論理設計をするに当たって役に立つのが, データの冗長性や非一貫性を排除するための正規化という方法だ.
+正規化を理解するには正規化されていないデータを題材にすると分かりやすい. 例えば以下のテーブルは, 都道府県, 市町村, 市町村の規模を表している. このように分割しておけば先に挙げた問題は起きない.
+1 2 3 4 5 6 7 8 9 10 +-----------+-----------+-----------+-----------+-----------+--------+ | pref_code | pref | city_code | city | area_code | area | +-----------+-----------+-----------+-----------+-----------+--------+ | 01 | Aomori | 01 | Hirosaki | 01 | Large | | 01 | Aomori | 02 | Hatinohe | 01 | Large | | 01 | Aomori | 03 | Misawa | 03 | Small | | 02 | Yamaguchi | 04 | Ube | 01 | Large | | 02 | Yamaguchi | 05 | Kudamatsu | 02 | Middle | | 02 | Yamaguchi | 06 | Mine | 03 | Small | +-----------+-----------+-----------+-----------+-----------+--------+ このテーブルには 01 Aomori のように何度も登場するデータがあって冗長だ.</description>
+    </item>
+    <item>
+      <title>キャリア 3 年目の振り返り</title>
+      <link>http://localhost:1313/posts/review-year-3/</link>
+      <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/review-year-3/</guid>
+      <description>成果と価値 この一年で, 成果を出すことと仕事の価値を理解することの重要性を学んだ.
+まず, 営利を目的とする会社組織の一員である以上は成果を出すことが最も重要な役目であることは間違いない. 利益を上げることが目的なのだとすると, 成果は売上の増大かコストの削減に大別される. そのどちらか, あるいは両方に強いインパクトを与える仕事をすることが成果を出すことだ.
+成果が重要であると認識しつつ, 大した成果に結びつかない仕事ばかりしてしまうことがある. むしろ, 注意しなければ日々の雑事に埋没するのは簡単なことだ. そうならないようにするためには, 仕事に優先順位を付けて重要なこと, とりわけ重要だが緊急ではないことに取り組む時間を意識的に確保する必要がある.
+ある仕事が重要かどうか判断するためには, その仕事の価値を理解しなければならない. 仕事の価値は, プロダクトへの理解, ひいては会社が営むビジネスへの理解と考察によって判断できる.
+実は, 必ずしも仕事の価値を理解しなくとも成果を出すことはできる. 他人から与えられた仕事をこなすだけなら, 与えられた仕事の重要性を認識している必要はない. しかしそこから先, つまり仕事が所与のものである状態から, 仕事を自発的に見つけ, 他人へ割り振ることができる段階に行くために仕事の価値の理解が必要なのだ.
+何をするか自分で決めるのであれば, 自分で仕事の価値を判断しなければならない. そして, 一人で働いているのでなければ周囲にその価値を説明することも必要だ. 価値を説明することで人々も成果を認識できる.
+プロダクトを理解する, 仕事の価値を判断する, 仕事を提案する. 仕事を完了させ, その価値を説明する. そうやって成果を出す. プロダクトへの理解があって初めて価値判断が可能になり, 価値判断できることでインパクトの大きな成果を狙えるようになる.
+ミニマリズム, 英語, OSS 最近ミニマリズムにハマっている. と言っても家中の物を処分してがらんとした部屋で暮らしているわけではない. 無駄を排除して重要なものに集中するという考えが気に入っている. それは私生活にも仕事にも活かされていて, 殆どのことは無駄なんじゃないかとか, 今一番大事なことは何だろうかと言うようなことをよく考えるようになった.
+AI の隆盛と逆を行っているのかもしれないが, やはり英語は重要だと思う. 勉強のために TOEFL を受けたりもした. OSS にコントリビュートしたときもやり取りは英語だったし, そういえば原著で技術書を読んだこともあった.
+次の一年 この一年でコンピュータ・アーキテクチャ, 並列処理, SQL を主に学んだ. 引き続き基礎を固める勉強を続けるのだが, それだけでなく何かの分野を深めていく勉強もしたい. 例えばデータベースなら SQL の書き方やテーブル設計はある程度分かってきたので, さらにデータベース内部の仕組みについて勉強すると言ったようなことをイメージしている.</description>
+    </item>
+    <item>
+      <title>Apache Bench でベンチマークできるミニマルな C 言語製 HTTP サーバ</title>
+      <link>http://localhost:1313/posts/c-server-for-apache-bench/</link>
+      <pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/c-server-for-apache-bench/</guid>
+      <description>ab コマンド, つまり Apache HTTP server benchmarking tool をつかってベンチマークできる状態の HTTP サーバを C 言語で作る. なるべくシンプルに必要最小限の要素のみを持ったコードを目指す.
+手堅いエンジニアは高速化のために, いきなりコードを書いたりしない. 計測できる環境を整えておかないと, 高速化をしてもその効果を測ることができない.
+このサーバを出発点として手を加えて (例えばマルチスレッド化したり IO 多重化をしたりして) サーバのパフォーマンスがどのように変化するかを確かめるために使うことを想定している. ソースコード全体は https://github.com/momori256/cs2 にある.
+ソケット ab を使うには HTTP を解すサーバでなければならないため, まずは TCP での通信を実装する.
+ソケットプログラミングはお決まりのコードなので説明は省く. いつもお決まりを忘れてしまうので, man getaddrinfo の EXAMPLE をいつも参照している.
+socket, bind, listen をして accept できるソケットを作成する部分は以下の関数だ.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 int sock_create(const char* const port, int backlog) { typedef struct addrinfo addrinfo; addrinfo hints = {0}; { hints.</description>
+    </item>
+    <item>
+      <title>『Linux と pthreads による マルチスレッドプログラミング入門』で pthreads を実践する</title>
+      <link>http://localhost:1313/posts/linux-pthreads/</link>
+      <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/linux-pthreads/</guid>
+      <description>Linux と pthreads による マルチスレッドプログラミング入門 は pthreads の入門書です. 基礎から説明してあるので Linux でのマルチスレッドプログラミングを学びたい方におすすめです.
+pthreads は知っていましたし, ミューテックスなどのマルチスレッドプログラミングの概念もある程度知っていたのですが, 改めて pthreads で実践してみようと思いました.
+必要なもの一通り スレッドの生成と破棄, ミューテックス, 条件変数など, 必要なものは一通り説明されている.
+多数ある pthreads の関数から特に重要なものがピックアップされており, 説明も深入りしすぎず手短なので気負わずにさくっと読める.
+もっと詳しく知りたい場合は man を参照すればよい. というか実際には主だった関数に限っても引数や返り値の意味を覚えられるわけではないので, 結局 man はいつも参照するから, 詳細が省かれていても手間は対して変わらない. 確かこういう関数があったかなぁとぼんやり覚えているくらいで十分だろう.
+説明をコンパクトにまとめることも大事である.
+スレッドプールを実装 本書の後半ではスレッドセーフなキューを実装する. そしてそのキューを使ってスレッドプールを備えた並行サーバを実装する.
+ミューテックスと条件変数があれば実装はそれほど難しくないだろうと思っていたが, 実際に手を動かして試してみるのは大事だと思う. 事実, ロック絡みで少しハマったりした.
+Linux の技術書ではソケット関連のサンプルが頻繁に登場するので随分見慣れた. ソケットのプログラムを書くたびに面倒さを感じつつお馴染みのコードを書いている.
+動きのあるサンプル CLI のプログラムだとどうしても絵的には退屈になりがちだが, 本書はエンタメ性を意識しているのか面白いサンプルが使われている. 端末上をハエが飛び回るのだ.
+ハエの数だけスレッドがあり, 並行にハエの位置が計算されている.
+CLI でのグラフィカルなプログラムを作るために ncurses を使ったことがあったのだが, エスケープシーケンス (printf(&amp;quot;\033[2J&amp;quot;) で画面クリアなど) でもこれくらいのものが簡単にできると知って感心した. 少し見た目にこだわりたいときはちょうどよいかもしれない.
+結語 マルチスレッドプログラミングは難しいと常々思っていますが, 基本的なライブラリを使うのはそれほど難しくありません. できる限りロジックをシンプルにするのが重要だと感じました.
+コンパクトな本書に倣って記事もコンパクトにしてみました. 本の紹介や学んだことのまとめをするのに毎回長い文章を書く必要はありませんし, 必要最小限はプログラマの美学ですし (ですよね？), たまにはこれくらい短い記事でも良いと思いました.</description>
+    </item>
+    <item>
+      <title>C のエレガンスが詰まった『The C Programming Language』</title>
+      <link>http://localhost:1313/posts/the-c-programming-language/</link>
+      <pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/the-c-programming-language/</guid>
+      <description>『The C Programming Language』 は C 言語の教科書です.
+最新の第二版が出版されたのが 1988 年ですから流石に時代を感じますが, C の原点を知る歴史読み物的な価値があります.
+個人的に, 配列やポインタ絡みの異常に複雑な型や typedef などの文法に疑問や不満を持っていたのですが, 本書を読み一部が解消されました.
+コンパクトな言語 C 言語はコンパクトな言語である. 本書はサンプルプログラムを交えつつ C の文法を解説しているが, 付録を除けば約 160 ページしかない. それでいてプログラムを書くのに必要な機能は一通り揃っているから, 小さいことは良いことであるという UNIX 哲学を体現したような言語だと思う.
+本書でよく引き合いに出される Pascal や FORTRAN といった言語が当時は流行っていたのだろうが, 著者の一人である Kernighan は Why Pascal is Not My Favorite Programming Language という論文を書いていたようだし, それらの改良版言語という意味もあるのかもしれない. 今となっては一般的となった概念も, C によってもたらされたものは多いのだろう.
+複雑な型の読み方 配列やポインタ絡みでやたらと型の記述が複雑になるが, その読み方を整理しよう.
+型を文に翻訳する方法 まずは簡単な型を見てみる.
+1 int *x x は int 型の値を指すポインタである.
+1 int *x[13] x は int 型の値を指すポインタの配列 (サイズ 13) である.</description>
+    </item>
+    <item>
+      <title>『コンピュータの構成と設計 下』でプロセッサのこれからを考える</title>
+      <link>http://localhost:1313/posts/computer-organization-and-desigin-2/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/computer-organization-and-desigin-2/</guid>
+      <description>『コンピュータの構成と設計 MIPS Edition 第 6 版 下』 はコンピュータサイエンスの教科書です. ハードウェアを知り, ソフトウェアを適合させる方法が説明されます.
+上下巻に分かれていますが, 内容は完全に上巻の続きです. 各巻で相互に参照されている箇所もあるので, 両方を手元に置いて置くと理解しやすいでしょう. 下巻のメインはメモリ (キャッシュや仮想メモリなど) と並行処理で, アセンブラや論理回路についての付録も含まれています.
+キャッシュをどのように保存するか考える. キャッシュはメインメモリ中の値を保持するものだから, メモリアドレスに基づいてキャッシュを入れる場所を決定するのは自然だろう. アドレスによってキャッシュの場所を一箇所に定める方法をダイレクトマップ方式という.
+アドレスが 4bit, キャッシュのブロック数が 4 個なのであれば, アドレス上位の 2bit をインデックスとして用いる. つまりアドレス 0000, 0001, 0010, 0011 は同じインデックスが割り当てられる. 残りの下位 2bit をタグとしてデータと合わせて保持して, 現在キャッシュにあるのがどのアドレスのデータなのか特定できるようにする.
+もし 0000, 0010 を交互にアクセスするとどうなるだろうか. 両者とも同じインデックスに保存されているためキャッシュ位置が競合し, キャッシュミスが繰り返される.
+競合を減らす柔軟な方法はないだろうか.
+一つのインデックスに二つのブロックを保存できるようにすればどうだろう. そうすれば二つのブロックを持つセット二つから成るキャッシュができる. 元々 4 * 1 だった構造が 2 * 2 になったということだ.
+キャッシュを格納するとき, 各セットにある二つのブロックどちらを使っても良い.もちろん空きがなければ追い出すしかなく, LRU(Least Recently Used) 法などに従って捨てるキャッシュを選び, 新たにキャッシュを入れる.
+一般化して, 一つのインデックスに複数のブロックを保存する方法をセット・アソシエイティブ方式という. 究極はセットが一つしかないフル・アソシエイティブ方式だ. 一セット当たりのブロック数のこと指す連想度という用語を使えば, ダイレクトマップ方式からフル・アソシエイティブ方式に向けて連想度が上がると表現できる.</description>
+    </item>
+    <item>
+      <title>『コンピュータの構成と設計 上』でソフトとハードを股に掛ける</title>
+      <link>http://localhost:1313/posts/computer-organization-and-desigin-1/</link>
+      <pubDate>Wed, 05 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/computer-organization-and-desigin-1/</guid>
+      <description>『コンピュータの構成と設計 MIPS Edition 第 6 版 上』 はコンピュータ・アーキテクチャの教科書です.
+2 名の著者パターソン&amp;amp;ヘネシーの名前を取ってパタへネという愛称で知られています. ヘネパタという紛らわしい愛称が付けられている『コンピュータ・アーキテクチャ』はより上級者向けの内容です.
+本書はソフトウェアとハードウェアの境界付近についての本です. コンピュータの中核的な仕組みを説明し, プログラムを書く上でどうやってハードウェアを活用すればよいかという視点で語られます. コンピュータの中身を知りたい方におすすめです.
+Moore の法則の終わり プロセッサは数百ものトランジスタが搭載された集積回路によって実現されている. トランジスタを始めとする半導体素子の材料になるのはシリコンという砂に含まれている物質だ. 円柱状のシリコン結晶を 0.1mm ほどに薄くスライスしたウェハ (wafer) を格子状にカットすると, 小さなチップができる.
+チップ一つ当たりのトランジスタ数が 2 年で倍増するという, Intel の創始者の一人である Gordon Moore の予想「Moore の法則」は 50 年間に渡って正しかった. しかしいつまでも指数的な成長が続くわけではない. 消費電力の増加とともに発熱が増え, ついには冷却性能の限界を迎えたのだ. ここに来てプロセッサ開発者は方針転換を余儀なくされた. 一つのプロセッサの性能が頭打ちとなったので, 一つの CPU に複数のプロセッサを搭載することにしたのである.
+マルチコア CPU の性能を引き出すにはプログラムの努力が欠かせない. 現代は, ソフトウェアエンジニアもハードのことを考えなければならない時代なのである.
+MIPS について 本書で取り扱われる MIPS という命令セットは, 命令数を抑えシンプルさを重視して設計された. フォーマットが単純であれば規則性が保たれ, 回路の実装が容易となる. そして単純な回路は消費電力を抑えらる.
+スマートフォンの時代 (ポスト PC 時代) において, 消費電力は命令セットの良し悪しを決める鍵となった. MIPS と同様の思想を持って設計された ARMv8 や RISC-V が脚光を浴びるのは自然な流れであった.</description>
+    </item>
+    <item>
+      <title>『入門 UNIX シェルプログラミング』で UNIX の世界を学ぶ</title>
+      <link>http://localhost:1313/posts/intro-to-unix-shell/</link>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/intro-to-unix-shell/</guid>
+      <description>『入門 UNIX シェルプログラミング シェルの基礎から学ぶ UNIX の世界』 は UNIX シェルプログラミングの入門書です.
+良いと思ったのは網羅的で実用的なところです.
+おそらく一通りの基礎的なトピックスに触れていて, 本書を読んでおけば大抵のことには対応できる土台が身に付くと感じました. 基礎だけにとどまらず, 豊富な実例を伴った解説がなされるので, 辞書やクックブックとしても使えそうです.
+基本的だけど知らなかったこと 検索しづらいようなトピックスがきちんと紹介されているのが嬉しいポイントです.
+これまで何となく知っているけどよく分からずにいたことが分かって, 知りたいことが知れたという気分がしました.
+#/bin/sh とは何か シェルスクリプトの最初の行に書くシェバンというものですが, これはスクリプトを実行するのインタープリタを指定する記述です.
+シェバンがなければ余計な手順が掛かり, 意図したのとは異なるシェルでスクリプトが実行される可能性があります.
+シェルはまず exec システムコールでコマンド実行を試みますが, シェルスクリプトは実行ファイルではないので exec は失敗します. 次にファイルに実行権限があればシェルスクリプトだと判定し, 現在のシェルでスクリプトを実行します.
+余計な手間を省く, 実行されるシェルを統一するという役割があるのです.
+そういうわけなので, スクリプトとして実行されないファイルであればシェバンは不要です. 例えば関数を定義してドットコマンド . で読み込んで使うファイルの場合です.
+ドットコマンド . ファイルの内容を展開するコマンドです. 例えば . abc とするとファイル abc の内容が実行されます. C 言語の #include のようなものですね. 用途としては, 関数を定義しておいたり, 環境変数を設定したりするのに便利です.
+こういう記号はネットでは検索しづらいので本に書いてあると助かります. 教科書的な本を読む利点だと思います.
+ワイルドカード ls ~/* でホームディレクトリ以下の全てのファイルが見られますが, これはワイルドカードという機能の一部です. 以下のような記号でファイルを指定できます.
+* : 任意の文字列 ? : 任意の 1 文字 [ABC]: A/B/C のいずれかの文字 [!</description>
+    </item>
+    <item>
+      <title>『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる</title>
+      <link>http://localhost:1313/posts/csapp/</link>
+      <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/csapp/</guid>
+      <description>『コンピュータ・システム プログラマの視点から』 はコンピュータ・サイエンスの教科書です.
+コードを書いて, コンパイルして, プログラムを実行する一連の流れにおいて, コンピュータの中では実際のところ何が起きているのかを知りたい人のための本です.
+扱う範囲が幅広く
+CPU アーキテクチャ メモリ階層 リンクの仕組み 仮想メモリ 並行プログラミング など, 盛り沢山な内容となっています.
+非常に分厚い本で 900 ページ近くあるのですが, これでも内容は絞られています.
+副題の「プログラマの視点から」というのは大事な指針です. 多岐に渡る本書の内容は, どれも「C 言語を書くときに知っておいたほうが良いかどうか」という基準で取捨選択されています.
+例えばアセンブラを学びますが, アセンブラを自力で書けるようになることは目的としていません. そうではなく, コンパイラが出力したアセンブラを読んで挙動を追ったり性能を最適化したりすることができるようになることが目的です.
+ほぼ全てのものが順を追って説明されるので前提となる知識は少ないです (大学のコンピュータ・サイエンス入門コースを元にした本らしい). 例えば CPU のパイプライン制御の章では「論理ゲートとは」というところから話が始まります.
+個人的には, これまで学んできたことが関連付けられたり補強されたり, 知識や理解を整理する良い機会となりました.
+以下印象に残った点をかいつまんでまとめます.
+浮動小数点 浮動小数点はなんとなく地味な存在だと思っていて, これまであまり深く考えたことがなかったのですが, 今更ながらよく考えられたフォーマットだなと思いました.
+昇順に並べた時ビットが符号なし整数と同じになる, 非正規化数から最小の正規化数まで等間隔に滑らかにつながると言う事実を知って驚きました. かつては仕様が乱立していた時代もあったそうですが, 今の形に落ち着いたのも納得です.
+実用的には小数と整数の変換で誤差が出るかどうか, 丸めがどのように行われるのかといったことは把握しておくと役に立つかもしれないと思いました.
+アセンブリ C 言語がどのようにアセンブリに変換されるのかが説明されています. 例えば if は条件ジャンプを使って実現されることをなどを学びます.
+このあたりは昔 『コンピュータシステムの理論と実装』で自力で考えたことがありました が, 本書を先に読んでいれば楽だったかもしれないと思いました.
+多くは既知の内容でしたが, switch については認識を改めました. これまで if-else と同じようなものだろうと思っていたのですが, アセンブリのレベルで見ると実装方法が異なります. switch はジャンプテーブルを用いて対象の case に直接ジャンプするので効率が良いです. if-else の連続だとその回数分条件式が評価されますしね.</description>
+    </item>
+    <item>
+      <title>『ふつうの Linux プログラミング』で 3 本の柱をものにする</title>
+      <link>http://localhost:1313/posts/standard-linux-programming/</link>
+      <pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/standard-linux-programming/</guid>
+      <description>『ふつうの Linux プログラミング』で 3 本の柱をものにする 『ふつうの Linux プログラミング』 は Linux での C 言語プログラミング入門書です.
+3 つのコンセプトを軸に据えた説明が特徴で, すんなり読めて自然に Linux の勘所が分かるような構成です.
+3 つのコンセプトとは
+ストリーム ファイルシステム プロセス のことです. これらを中心に据えて Linux の仕組みを学びます.
+タイトルにある「ふつうの」は標準的な方法を学ぶという意図を表しています. Linux の中心的な仕組みを知ることができるだけでなく, cat や grep など身近なコマンドを実装するなどの実例も豊富なので, 「API は分かったけど結局どう使うのか分からない」といったことがありません. 実践しながら Linux の仕組みを学びたい方におすすめです.
+3 つのコンセプト まずは 3 つのコンセプトについての説明です.
+データを保存する場所である「ファイルシステム」 コンピュータ上での活動の主体である「プロセス」 プロセスがファイルや他のプロセスとデータをやり取りするための「ストリーム」 ストリームは本書独自の用語のようですが, バイト列の流れのことです.
+この 3 つのコンセプトが念頭にあれば Linux の様々なものを整理して理解することができます. 以下のような説明してみます.
+リダイレクト: プロセスの標準入出力ストリームの先をファイルに変える機能 パイプ: プロセスとプロセスを繋ぐストリーム シグナル: カーネルからプロセスへのストリーム (のようなもの) パーミッション: プロセスからファイルへのアクセスを制限する仕組み 確かに Linux についての多くのものが整然と理解できる気がするので, この 3 つのコンセプトに着目して Linux を学ぶのは優れたアプローチだと思いました.</description>
+    </item>
+    <item>
+      <title>『Effective C#』で C# に親しむ</title>
+      <link>http://localhost:1313/posts/effective-csharp/</link>
+      <pubDate>Sun, 10 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/effective-csharp/</guid>
+      <description>様々な言語にある Effective シリーズの C# 版 『Effective C# 6.0/7.0』 です. 基本的な文法の説明などはなく, 実践的な問題に対するテクニックやアプローチの仕方が 50 項目掲載されています. C# の基本的なことは分かったという状態で読むと理解が深まるでしょう.
+50 項目のうち特に印象に残ったものを紹介します.
+項目 2 const よりも readonly を使用すること 混乱しがちな const と readonly についての項目です.
+両者の最も大きな違いは, const はコンパイル時, readonly は実行時に解決されるという点です. コンパイル時定数の const 変数は, コード中の使用箇所をその値で置き換えたような IL が生成されます.
+この仕組みによって const 変数が別アセンブリで参照される場合, 気づきにくいバグを生む可能性があります. const 変数の値を変更したとしても, その変数を使用しているアセンブリではリビルドするまで変更前の値のままになるのです.
+よって基本的にこの問題を回避できる readonly を使ったほうがよいという主張です.
+しかし, これは const 変数を外部のアセンブリに公開した場合のみに起こる現象なので, private や internal にしておけば済む話です. ライブラリではないプログラムの場合はそもそも外部のアセンブリに使われることがないので関係ありません.
+よってスローガンは「外部アセンブリに公開する変数は const よりも readonly を使用すること」の方がより正確だと思います. もちろん const にはパフォーマンスの利点しかないので, 柔軟性を重視して常に readonly を使うという考え方もありかもしれません. しかし, コンパイル時に決まる値ならコンパイル時に決めたほうが良いですし, デメリットを理解した上で const と readonly を適切に使い分けるべきということですね.</description>
+    </item>
+    <item>
+      <title>『SQL パズル』は楽しさと実用を兼ねた SQL 例題集</title>
+      <link>http://localhost:1313/posts/sql-puzzle/</link>
+      <pubDate>Wed, 18 May 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/sql-puzzle/</guid>
+      <description>『SQL パズル 第 2 版 プログラミングが変わる書き方／考え方』 は SQL 問題集です.
+収録数 75 問という圧巻の豊富さです. 具体的で実用的な題材によって, 問題へのアプローチの仕方や SQL の奥深さを知ることができます.
+タイトルには「パズル」とありますが, 本書は決してパズルのためのパズル本ではありません.
+あくまでも実用的な SQL を学ぶことを目的としているので, 実務にも大いに役立つでしょう. 一部まさにパズル的な問題もありますが, それは SQL の幅広さを知る小休止的なものだと思いました.
+本書を読まれる方には副読本として 訳者ミックさんのサポートベージ をおすすめします.
+以下印象に残った問題をいくつか紹介します.
+パズル 1 「会計年度テーブル」 会計年度を持つ以下のようなテーブルがあります.
+1 2 3 4 5 CREATE TABLE FiscalYears ( fiscal_year INTEGER, start_date DATE, end_date DATE ); このテーブルは, 各会計年度がいつ始まっていつ終わるのかを格納します. 会計年度は 10/1 から 9/30 までのアメリカ方式とします. 例えば以下のようなデータが入っています.
+1 2 3 4 fiscal_year | start_date | end_date -------------+------------+------------ 2021 | 2020-10-01 | 2021-09-30 2022 | 2021-10-01 | 2022-09-30 さて, 問題は「テーブルに不正な値が入らないように制約を付ける」です.</description>
+    </item>
+    <item>
+      <title>『C# による マルチコアのための非同期/並列処理プログラミング』で C# の非同期を概観する</title>
+      <link>http://localhost:1313/posts/csharp-concurrency/</link>
+      <pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/csharp-concurrency/</guid>
+      <description>本書はタイトルの通り C# の非同期/並列処理についての書籍です.
+対象としているのはマルチスレッドの理論的な事柄ではありません. .NET や C# にすでに備わっている環境をどのように利用してプログラムを書くかということに焦点を当てています.
+そのため, 具体的な.NET のライブラリの使い方を, 実践を通じて知りたい方におすすめです.
+個人的な白眉は昔のバージョンから新しいバージョンまで, 各 .NET での実装が比較されている点です. バージョン 1.x 系の.NET ではこう書く, 2.x 系ではこう書く, といった風にして, 1.x 系から 4.5 まで扱います.
+今更昔のバージョンの .NET を利用することはないとはいえ, 歴史的な変遷を見られてためになりました. 昔はこんなに面倒だったのかと驚き, それによって新しいバージョンでの書き方では何が省略されているのかイメージを掴むことができました.
+非同期/並列処理の基礎 まずは非同期/並列処理とは何か, ということから始まります. マルチスレッド, レースコンディション, ロック, スレッド間同期といった主要なトピックスが紹介されています.
+この辺りのことはすでに一通り知っていたので新鮮さはなかったのですが, 同じことでも別の説明を読むのはためになります.
+いいなと思ったのは「非同期」と「並列」という言葉の使い分けです. 「並行」と「並列」が一般的ですが, これらは混同しやすいので本書では並行の代わりに非同期という言葉が使われています. 個人的にも「並行」と「並列」は言葉だけだといつも分からなくなるので「concurrent」と「parallel」で覚えていますが, 「非同期」と「並列」の方が分かりやすくて良いかもしれません.
+新旧 .NET で変遷を見る 例題を各バージョンの .NET で実装して違いを見る章があります.
+例題は「1-10 の数字を 3 桁に 0 埋めして画面に表示する」です. マルチスレッドで並列に計算することと, 画面をフリーズさせないように計算を非同期で行うという 2 つ問題を含んだ題材です.
+これを最初に見たとき, なぜこんな簡単なものが例題になりうるのだろうと思いました. 計算はAsParallel()を使って簡単に実装できます.
+1 2 3 4 Enumerable.</description>
+    </item>
+    <item>
+      <title>キャリア 2 年目の終わり</title>
+      <link>http://localhost:1313/posts/review-year-2/</link>
+      <pubDate>Mon, 11 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/review-year-2/</guid>
+      <description>社会人生活を始めてから 2 年が経過した. この 1 年の振り返りと次の 1 年の目標を整理する.
+2 年目の振り返り チームに約 2 年いて, 自分が果たすべき役割がかなりはっきりしてきた.
+作っているアプリに対して, 自分がやるべきこと, やれること, 今後どうなっていくのかということが見えてきた. また, 最初はアプリやソースコードの規模に圧倒されていたが, ようやく全体を把握できつつある. もちろんあらゆる細部までを把握したわけではないが, 主要なところは一通り抑えたという感覚がある.
+仕事をしていて意外だったのは, 案外ベテランでも知らないことはあるということ. 凄い人は何でも知っていそうに見えるが, 本当になんでも知っているわけではない (当たり前だが). 経験の浅い自分でも, 特定の分野に限って言えば凄い人の劣化版としてではなく一人前の活躍ができるという手応えが得られた.
+この経験の影響で, 一つに分野に集中して知識を深めることや, 他の人がカバーしてないマイナーな分野に力を入れることが有用であるという考えが形成されてきた気がする.
+プライベートの時間でも技術書を読んで勉強を続けてきた. メインテーマはコンピュータ・サイエンスを幅広く学び基礎を固めるということだった.
+どういった分野を学ぶか, どういった本を読むかを決めるため Teach Youself Computer Science というサイトを主に参考にした. このサイトによると, コンピュータ・サイエンスは大きく 9 つの領域に分けることができる.
+プログラミング コンピュータアーキテクチャ アルゴリズムとデータ構造 数学 OS ネットワーク データベース コンパイラ 分散システム それぞれの内容やおすすめの書籍, サイトなどが紹介されていて, とても分かりやすかったので勉強の指針とさせてもらっている.
+この分類だと, この一年は主にプログラミング, コンピュータアーキテクチャ, コンパイラ辺りを学んだ. ずっと重厚な本を読んでいると疲れてきて直接の関係はない本も読んだが, 中でも関数型言語に触れられたのは良かった. 結構好みかもしれないと思っている.
+どの書籍からも学ぶことが多く, 自分が如何にものを知らないか痛感する思いだった. まともな知識がないと考えることができないので, 知識があってようやくスタートラインに立てるということは日々実感している.
+本当は学生時代に真面目に勉強していればこういった基礎が一通り身についていたのかもしれないが, 後悔しても仕方ないので地道に勉強を続けるしかない.</description>
+    </item>
+    <item>
+      <title>『並行プログラミング入門』で並行処理のトピックスを網羅する</title>
+      <link>http://localhost:1313/posts/intro-to-concurrency/</link>
+      <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/intro-to-concurrency/</guid>
+      <description>本書は並行プログラミングに関する様々なトピックを紹介する本です (『並行プログラミング入門 ――Rust, C, アセンブリによる実装からのアプローチ』).
+副題にもある通り, アルゴリズムを C やアセンブリで低レベルに実装して, Rust で高レベルに使うというような流れです. 実践的な何かを作るというより, 仕組みを理解することに重点が置かれた本で, タイトルの通り並行プログラミングに入門したい方におすすめです.
+キーワードの一部
+レースコンディション デッドロック async/await マルチタスク アクターモデル λ計算, π計算 並行して実行されてはいけない処理 並行プログラミングを考える上で注意を払わなければならないのは, 複数のプロセスで同時に実行されてはいけない箇所の扱いです.
+複数プロセスで実行されてはいけないということは, 実行中を表すフラグを管理しておけばよいのではないかと思うわけですが, 以下のコードで問題はないでしょうか.
+1 2 3 4 5 6 7 8 9 10 11 12 13 bool is_in_progress = false; void f() { // Wait while other process is in progress. while (is_in_progress) {} is_in_progress = true; // Must not be executed concurrently. do_something(); is_in_progress = false; } 一見すると問題ないように思えます.</description>
+    </item>
+    <item>
+      <title>『達人に学ぶ SQL 徹底指南書』で SQL の可能性を知る</title>
+      <link>http://localhost:1313/posts/sql-guidebook/</link>
+      <pubDate>Sat, 12 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/sql-guidebook/</guid>
+      <description>本書は SQL 初心者から中級者への架け橋となる本です (達人に学ぶ SQL 徹底指南書 第 2 版 初級者で終わりたくないあなたへ (翔泳社)).
+本書の目玉となる case 式やウィンドウ関数を始めとした便利な道具を使いこなすための説明 + 練習問題に加え, SQL の理論的なバックグラウンドや歴史的経緯にも触れて, SQL がなぜそうなっているのかの疑問にも答えます (なぜループや変数がないのか, なぜ NULL 関係の動作が非直感的で複雑なのかなど).
+基本的な構文は一通り分かったけど, 更に脱初心者を目指して学びを深めたい方におすすめです.
+本記事では本書で挙げられた便利な道具について触れていきます.
+case 式 case 式は条件分岐を記述するための構文です.
+1 2 3 4 CASE WHEN [predicate] THEN [value] WHEN [predicate] THEN [value] ELSE [value] END 例を見ると分かりやすいです.
+テスト用にテーブルを作ります. ヤギのデータです.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 create table goats ( id int PRIMARY KEY, weight INT UNSIGNED, birthday DATE, color VARCHAR(1), name VARCHAR(10)); insert into goats values(1, 63, &amp;#39;2016-03-02&amp;#39;, &amp;#39;W&amp;#39;, &amp;#39;Alice&amp;#39;); insert into goats values(2, 79, &amp;#39;2012-06-25&amp;#39;, &amp;#39;W&amp;#39;, &amp;#39;Bob&amp;#39;); insert into goats values(3, 76, &amp;#39;2020-02-01&amp;#39;, &amp;#39;W&amp;#39;, &amp;#39;Carl&amp;#39;); insert into goats values(4, 75, &amp;#39;2022-11-27&amp;#39;, &amp;#39;W&amp;#39;, &amp;#39;Dan&amp;#39;); insert into goats values(5, 70, &amp;#39;2014-08-29&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;Elie&amp;#39;); insert into goats values(6, 69, &amp;#39;2013-06-07&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;Fai&amp;#39;); insert into goats values(7, 67, &amp;#39;2013-01-16&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;Gabi&amp;#39;); insert into goats values(8, 63, &amp;#39;2014-05-14&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;Helen&amp;#39;); 1 2 3 4 5 6 7 8 9 10 11 12 13 select * from goats; +----+--------+------------+-------+-------+ | id | weight | birthday | color | name | +----+--------+------------+-------+-------+ | 1 | 63 | 2016-03-02 | W | Alice | | 2 | 79 | 2012-06-25 | W | Bob | | 3 | 76 | 2020-02-01 | W | Carl | | 4 | 75 | 2022-11-27 | W | Dan | | 5 | 70 | 2014-08-29 | B | Elie | | 6 | 69 | 2013-06-07 | B | Fai | | 7 | 67 | 2013-01-16 | B | Gabi | | 8 | 63 | 2014-05-14 | B | Helen | +----+--------+------------+-------+-------+ ヤギの体重が基準値に収まっているかどうかを調べることを考えます.</description>
+    </item>
+    <item>
+      <title>『プロを目指す人のための Ruby 入門』は丁寧で網羅的な入門書</title>
+      <link>http://localhost:1313/posts/pro-ruby/</link>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/pro-ruby/</guid>
+      <description>始めに 誕生から 25 年以上経って, 今更ですが Ruby に入門しました. 本書は Ruby の重要なトピックスを網羅するのみならず, 開発の現場で役に立つようなテクニックの説明にも力を入れられています. Ruby をなんとなく知っているが改めてきちんと学びたい方や, 私のように他言語での経験はあるが Ruby は未経験という方におすすめです.
+親切な説明のおかげですらすら読めましたし, 静的型付け言語に親しんできた身からすると新鮮な驚きが多数あったので非常に楽しめました.
+3 行でまとめ
+丁寧な説明で読みやすい 静的型付け言語に親しんできた身からすると新鮮な驚きが多数あった 便利なスクリプト言語として使っていきたい あらゆるものがオブジェクト すべてがオブジェクト (「Ruby コミュニティサイト: Ruby とは」より)
+「すべて」の中には例えばリテラルも含まれます. 数値や文字列のリテラルもオブジェクトなので, メソッド呼び出しが可能です.
+1 2 3 &amp;#34;hello&amp;#34;.upcase # =&amp;gt; HELLO 5.times { puts &amp;#34;hello&amp;#34; } [1, 2, 3].map { |n| n ** 2 } # =&amp;gt; [1, 4, 9] ついでに, 範囲型や正規表現もリテラルとしてサポートされています.
+1 2 3 4 (1..10).include?(4.5) # =&amp;gt; true /[a-z]\d+/.class # =&amp;gt; Regexp &amp;#34;a123-4e56-789&amp;#34;.</description>
+    </item>
+    <item>
+      <title>『Go 言語でつくるインタプリタ』を OCaml でやる</title>
+      <link>http://localhost:1313/posts/interpreter-in-go/</link>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/interpreter-in-go/</guid>
+      <description>導入 出版社のページ
+実際にインタプリタを作りながら, インタプリタの仕組みを学ぶ本です.
+インタプリタを作るというのは, 例えば以下のようなものを作るということです.
+1 2 3 4 5 6 7 8 9 10 11 12 &amp;gt;&amp;gt; -5 + 1 -4 &amp;gt;&amp;gt; (1 &amp;lt; 2) == !true false &amp;gt;&amp;gt; if (1 &amp;lt; 2) { 10 } else { 20 } 10 &amp;gt;&amp;gt; let add = fn (x, y) { x + y; } &amp;gt;&amp;gt; add (1 + 2, 3) 6 &amp;gt;&amp;gt; let fact = fn(n) { if (n == 0) { 1 } else { n * fact (n - 1) }}; &amp;gt;&amp;gt; fact(5) 120 以下のような方におすすめです.</description>
+    </item>
+    <item>
+      <title>『Real World OCaml』で入門レベルを脱する</title>
+      <link>http://localhost:1313/posts/real-world-ocaml/</link>
+      <pubDate>Wed, 29 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/real-world-ocaml/</guid>
+      <description>本書は OCaml のベテランプログラマ 2 名による解説本です. 第 2 版が 2021 年にかかれていて, ネットで無料公開されています.
+全 3 章は以下のような構成で, OCaml 初心者でも読めますし, 深堀りされた解説からは経験者でも得るものがありそうです.
+OCaml の機能一通り (基礎文法, ヴァリアント, レコード, ファンクター, GADT, Class など) 具体例 (コマンドラインの引数パーズ, 非同期通信, json パーザ) OCaml のランタイムとコンパイラの仕組み 個人的にここ数か月 OCaml に興味を持って少しずつ触れてきたのですが, 入門の次に進むための知識が得たいと思い本書を読みました. 知りたかったことは例えば以下のような点です.
+標準ライブラリにはそれほど機能が揃っていないが, 便利なライブラリがあるのか (または自分でライブラリを整備するのが普通なのか) プロジェクトをどのようにファイル構成するか どの程度の規模でモジュールを分けるか テストはどうやって書くか こういった事柄はやや抽象的でそのものズバリ検索するのが難しいと思っていますが, 本書には知りたかったことは全て書いてありました. そのくらい網羅的で, もちろん知らなかったこと (知りたいとすら思わなかったこと) も満載でした.
+高度な機能や具体的なライブラリの使い方などは読んでもピンとこなかったり軽く読み飛ばしたりした箇所があるのですが, 今後必要になったときに改めて読み返そうと思うような内容でした.
+Base と Jane Street 本書では一貫して Base というライブラリが使われています. Base は OCaml の標準ライブラリを置き換えるべく作られたライブラリで, 今やデファクトスタンダードとなっている (らしい. 少なくとも私はそのような印象を受けた)OSS です.
+メインの開発元は Jane Street という企業です.</description>
+    </item>
+    <item>
+      <title>『プログラミング言語の基礎概念』で型推論を実装する</title>
+      <link>http://localhost:1313/posts/copl/</link>
+      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/copl/</guid>
+      <description>出版社のページ
+プログラマーとして働いておきながらいまさら「基礎」かと思われそうなタイトルの本書ですが, 「プログラミングの基礎」ではなく「プログラミング言語の基礎」であることがポイントです.
+プログラミング言語を数学的に厳密に扱う意味論や, エラーを事前に検知するための型システムについての本で, プログラミングの入門本ではありません.
+本書では序盤中盤に書けて, プログラミング言語分析のための枠組みについての説明がされていますが, メインは型システム, 型推論だと思います.
+プログラムの実行や型推論の仕組みについて厳密に扱う方法を知りたい方におすすめです. 対象としている言語は OCaml なので, ある程度 OCaml についての知識があったほうが理解がスムーズだと思います. 分析については基礎から解説してあるので, 前提知識は不要です.
+導出システムについて 本書ではプログラムを厳密に扱うための枠組みとして導出システムを使います. 導出システムとは, 定義されたいくつかの規則に従って定理を導出する記述体系です.
+本書の流れに沿って, 実際のプログラミング言語を扱う前に, 自然数の加算乗算を対象とした導出システムの例を見ていきます.
+自然数を対象とした導出システム (natural numbers から Nat と名付けられている) では簡単のために S(...S(Z)...) のような記法で自然数を表します. 例えば以下のような感じです.
+1 2 3 0 -&amp;gt; Z 1 -&amp;gt; S(Z) 2 -&amp;gt; S(S(Z)) 導出システムによって導出される結論を「判断」と言います. Nat での判断は以下の 2 つの形です.
+n1, n2, n3 は自然数で, 2 つの判断はそれぞれ加算と乗算に対応しています.
+1 2 n1 plus n2 is n3 n1 times n2 is n3 式を変形するための規則「推論規則」は以下の 4 つです.</description>
+    </item>
+    <item>
+      <title>『論理学をつくる』で論理学をつくる</title>
+      <link>http://localhost:1313/posts/build-logic/</link>
+      <pubDate>Sun, 24 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/build-logic/</guid>
+      <description>導入 記事のタイトルがトートロジーになっています. トートロジーというのは
+「トマトはなぜ赤いんだ？」
+「赤いから赤いんだよ」
+というような, 無意味な同じ言葉の繰り返しのことです.
+ところで, 論理学では常に真になる文のことをトートロジーと言います. 例えば「クジラは哺乳類であるか, 哺乳類でないかのどちらかだ」というような文は, クジラについて何もわかっていかなったとしても正しいとわかるトートロジーです.
+では以下の文はどうでしょう.
+この占い師が信用できるなら, 私の明日旧友と出会う この占い師は信用できる よって, 私の明日旧友と出会う 理屈は正しそうです. ではこれはどうでしょう.
+この占い師が信用できるなら, 私の明日旧友と出会う 私は翌日旧友と出会った よって, この占い師は信用できる 予言が当たったのなら本物感はありますが, インチキ占い師が適当なことを言ったのにも関わらず, たまたま予言が当たったという可能性もありそうです. ということでこの理屈は間違っていると言えそうです.
+常に正しい文, 論理的に正しい/間違った推論. こういった事柄を厳密に扱うのが論理学です.
+なんだ, 論理学は随分当たり前のことを研究するんだなぁと思うかもしれません. しかし, 推論の正しさや矛盾と言った事柄を一般的に, 明確に, 統一的に示すのは難しそうです. 普段行っている論理的判断であっても, それがなぜ正しいのか説明できなかったり, 対象が複雑になると判断がつかなくなったりします.
+本書は論理学を全く学んだことのない人のための教科書です.
+初学者でも独学できるように丁寧な説明や練習問題が満載です (ちゃんと練習問題に解説がついているのは嬉しいポイントです. というかなぜ大学の教科書のような本にはついてないことが多いのでしょう). 身近な例から始まって, 述語論理, 自然演繹, 非古典論理など, 様々な話題が盛り込まれています.
+序文によると, このような欲張りな目標を立てたために本が分厚くなった (B5 版 400 ページ以上) という事情のようです.
+論理学というといかにも堅苦しそうな分野ですが, 著者の軽妙な語り口も相まって気負わず読み進められます. 論理学には全く触れたことはないが, きちんと入門してみたいという方におすすめです.
+印象に残った点 タイトル通り, 論理というものを厳密に扱うための体系を少しずつ作っていくのが本書のスタイルです. 記号と抽象の奥深い世界が広がっています. 印象的な部分をまとめます.
+論理学を「つくる」とはどういうこと？ 論理を研究するに当たって最初に行う作業は, 論理を厳密に扱うことができる体系を作ることです. つまり, 論理を扱うのに都合の良い言語を作って, その人口言語を操作することで話が進みます.</description>
+    </item>
+    <item>
+      <title>『例解 UNIX/Linux プログラミング教室』でシステムプログラミングを学ぶ</title>
+      <link>http://localhost:1313/posts/linux-system-programming/</link>
+      <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/linux-system-programming/</guid>
+      <description>概要 UNIX/Linux の機能を使ったシステムプログラミングを解説する本です (出版社のサイト). 副題は「システムコールを使いこなすための 12 講」であり, システムコールに焦点を当てて 幅広く UNIX の概念について解説するスタイルです. ちなみに, タイトルに UNIX と Linux の 2 つの名前がありますが本書の内容はどちらにも通用するものです. この記事でも UNIX/Linux 両方について言及する時は省略して UNIX とだけ書きます.
+0-4 章はよく使うコマンドなどの UNIX の基礎や C 言語の復習, ファイル入出力などの基本的な内容で, 5 章以降から本題に入る流れです. 5 章以降で扱われるトピックは, プロセス, ファイルシステム, ソケット, シグナル, 端末などです.
+UNIX のシステムプログラミングをしたい方や, UNIX 内部の仕組みを知りたいという方におすすめです.
+印象に残ったこと 調べ方を知る 本書は割と分厚い本 (約 500 ページ) ですが辞書ではありません. 大量のシステムコールや UNIX の細かい挙動について網羅的に覚えるのではなく, 必要なときに必要なものを調べられるように概念や機能を学ぶというアプローチです. このアプローチのおかげか, 序盤に man コマンドの使い方が紹介されています. man コマンド自体はすでに知っていたのですが, 長くて分かりにくいメッセージが表示されるものという印象があってほとんど使ったことはありませんでした. しかし, どこに注目すればよいかが分かれば便利なものだと気付きました. 例えば, 今まではシステムコールやライブラリを使うのに include が必要なヘッダファイルを毎回ネットで検索していたのですが, man で見たほうが早いし正確です (環境によって微妙に必要なヘッダが違うことがあるらしいので).</description>
+    </item>
+    <item>
+      <title>『プログラミング in OCaml』で関数型言語に入門</title>
+      <link>http://localhost:1313/posts/programming-in-ocaml/</link>
+      <pubDate>Sun, 22 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/programming-in-ocaml/</guid>
+      <description>感想 関数型言語を学ぶため, 『プログラミング in OCaml』を読みました (出版社のページ). 関数型言語や関数型プログラミングといった言葉を何度か耳にして気になっていたので入門してみることにしました. OCaml という (マイナー?) な言語を選んだのにはそれほどの理由はありません. C++ を知っていれば Java や C# など他のオブジェクト指向言語もおおよそ似たようなものに感じられるように, 関数型言語を 1 つ学べば他の理解もスムーズになるだろうと思ったという程度です.
+関数型言語ならではの考え方に触れたり,他言語に輸入されたであろう機能を見たりして楽しめました. 後半で詳しく書いていますが, 木のようなデータ構造を型で表現できる機能や再帰を使ったエレガントな書き方には感動しました. 基礎から説明してあるので, 関数型言語を学んだことのない方にもおすすめの本です.
+印象に残ったこと いくつかピックアップして印象的な点を振り返ります.
+OCaml の歴史 ML というプラグラミング言語の処理系の 1 つらしいのですが, 祖先に当たる ML は元々コンピュータで数学の手切りを証明するためのシステムに起源を持つ言語のようです. この説明だけでも, ML やその派生言語が C 言語系 (ALGOL 系?) の言語と出自が異なるということが感じられます. 関数型言語では「プログラムを実行する = 関数を実行してその解を得る」という捉え方です. プログラムは複数の関数の組み合わせであり, その関数を実行していくことがプログラムの目的ということです. これが関数型と言われる所以だと思います.
+強力な型推論 型推論自体は多くのメジャーな静的型付け言語に備わっている機能だと思います. 本書では, OCaml は基本的に必要がなければ型は書かなくて良いというスタンスで, これは型推論が言語の中心的な機能として最初から考えられていたからこそのものだと思いました. 例えば C++ にも 型推論の auto はあります. これは C++11 から追加された機能で, 便利ですが乱用するのは良しとされない印象があります. あまりにも長い型名 (iterator など) や冗長な型宣言を省略するというあくまでも補助的な機能のように感じます.</description>
+    </item>
+    <item>
+      <title>『Effective C&#43;&#43;』は中級者への足がかりとなる濃密なガイドライン</title>
+      <link>http://localhost:1313/posts/effective-cpp/</link>
+      <pubDate>Sat, 21 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/effective-cpp/</guid>
+      <description>より良い C++ コードを書くためのガイドラインとなる『Effective C++』第 3 版を読みました. (出版社のページ). 有用な知識やアドバイスが多く非常に良い勉強になりました. 学んだことや感想を記します.
+感想 C++ の本として有名な本書の名前は聞いたことがあり昔軽く手にとってみたことがあったのですが, いまいちピンとこず, 大事なことが書いてあるのだろうけどよくわからない難しい本という印象をもっていました. しかし改めて読んでみると, C++ の経験をある程度積んだおかげか, 非常に有用で興味深い内容に感じられました. すでに知っていることが 3 割, 知らなかった or よく理解していなかったことが 7 割程度でした.
+今までこんなにも多くのことを知らずに C++ を使っていたのかと愕然としたり, こんなに細かいことまで気にしなければならないのかと 引いたり 驚いたりしました.
+印象に残ったこと 印象に残った項目をいくつかピックアップして振り返ります.
+7 項, 36 項 ポリモーフィズムのための基底クラスには仮想デストラクタを宣言する 非仮想関数を派生クラスで再定義するのは NG まず本書序盤の 7 項で「ポリモーフィズムのための基底クラスには仮想デストラクタを宣言しよう」というタイトルが付けられているのですが, 最初はタイトルを見ても何のことだかさっぱり分かりませんでした. 基底クラスのデストラクタを仮想にしておかないとメモリが正常に開放されないことがあるという内容で, へぇーと思ったのですが, ちゃんと理解できたのは後半の 36 項を読んでからでした. 36 項では, 非仮想関数を派生クラスで再定義すると, 呼び出し方によって基底/派生クラスのどちらの関数が呼ばれるか変わってしまうということが説明されています. これを読んでようやく 7 項の意味が分かりました. 派生クラスは必ずデストラクタを再定義するので, 基底クラスのデストラクタは仮想にしなければならないということです. この項だけでも継承, 仮想関数, コンパイラによるコンストラクタ/デストラクタの自動生成といったことへの知識が必要になり, 自分の知識のなさや理解の浅さを実感しました. そして, もしこれを知らないままポリモーフィズムを使っていた場合, 原因不明のメモリ異常に悩まされることになっていただろうと思うと恐ろしくもありました. C++ の奥深さに気付かされた印象的な項目でした.
+13 項 リソース管理にはオブジェクトを使う オブジェクトがスコープを抜けるときデストラクタが自動実行されることを利用してリソースの解法忘れを防ぐという内容です.</description>
+    </item>
+    <item>
+      <title>『コンピュータシステムの理論と実装』でハードとソフトをまたいでコンピュータを理解する</title>
+      <link>http://localhost:1313/posts/nand2tetris/</link>
+      <pubDate>Sun, 18 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/nand2tetris/</guid>
+      <description>コンピュータを 0 から自分の手で作り上げるという意欲的な内容です. 論理ゲートから始まって高水準言語を実装し,その言語で OS を作成するという過程は旅という言葉がしっくりくるほど濃密なものでした.
+内容 コンピュータの構築を通じてコンピュータ・サイエンスにおける重要なテーマを学びます ( 出版社のサイト ).
+ハードウェア (論理演算, CPU, メモリ) ハードとソフト全体が協調するシステムのアーキテクチャ プログラミング言語 (コンパイラ, オブジェクト指向) OS (メモリ管理, 数学/幾何アルゴリズム, I/O など) ソフトウェアエンジニアリング (モジュール化, テスト, API デザインなど) ハードウェア → ソフトウェアとボトムアップにコンピュータ構築を進めていきます. ハードウェア編では論理ゲートから始まって CPU とメモリを実装し, 最終的にノイマン型アーキテクチャのコンピュータを作り上げます. ソフトウェア編ではアセンブラ, バーチャルマシン, コンパイラと進んで高級言語を実装する過程がメインです. 最後に実装した高級言語で OS を作成します.
+自分の手で作るということが本書のテーマであり, 各章には説明と仕様だけがあり答えはありません. ハードウェアの設計にはハードウェア記述言語 (HDL) を用い, シミュレータで実行するので実際に電子部品を組み立てる必要はありません. ソフトウェア編で作成するコンパイラは自分の好みの言語で実装します.
+感想 ハードウェアの設計は初体験だったのですが, パズルを解くような感覚で楽しめました. 多少苦労した箇所もありましたが, ハードウェア編でかかった時間は各章 2 時間程度でした.
+それよりも遥かに苦戦したのはコンパイラの実装です. 今でこそ各章の内容が秩序立って理解できますが, 当初はそもそも何をすれば良いのかわからず, 何度も説明を読んだり試しに実装をしたりしてなんとか進めてきました. ソフトウェア編全体でかかった時間は 100 時間近いと思います. 本書に取り組んでいて迷ったときのコツですが, アセンブラとコンパイラは完成品が提供されているのでその挙動を見ると良いと思います. 私は最初コンパイラが何をすればよいのかさっぱりつかめなかったのですが, 提供されているコンパイラを実行して理解できました.
+大変な苦労はしましたが, 全体を通じて有意義な学びが多く取り組んで良かったと思っています. コンピュータの仕組みを実際に作りながら学びたいという方には非常におすすめです.</description>
+    </item>
+  </channel>
+</rss>

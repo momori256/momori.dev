@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Rust on Momori Nakano</title>
+    <link>http://localhost:1313/tags/rust/</link>
+    <description>Recent content in Rust on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Step-by-Step Guide to Building a WebSocket Chat App with Axum and React</title>
+      <link>http://localhost:1313/posts/building-a-websocket-chat-app-with-axum-and-react/</link>
+      <pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-a-websocket-chat-app-with-axum-and-react/</guid>
+      <description>In this guide, we&amp;rsquo;ll walk through the process of creating a full-stack chat app using WebSocket. Our backend will be built with Axum, a powerful Rust backend framework, and Shuttle, a development platform, while the frontend will be developed using React and Vite.
+We&amp;rsquo;ll cover
+Utilizing WebSocket in Axum and React. Generating unique identifiers using nanoid. Incorporating telemetry with tracing for enhanced logging. You can find the complete code for this project on GitHub.</description>
+    </item>
+    <item>
+      <title>Deploying a Rust WebAssembly (WASM) App to GitHub Pages</title>
+      <link>http://localhost:1313/posts/deploying-a-rust-wasm-app-to-github-pages/</link>
+      <pubDate>Tue, 05 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/deploying-a-rust-wasm-app-to-github-pages/</guid>
+      <description>In this tutorial, we&amp;rsquo;ll guide you through the step-by-step process of deploying a Rust WebAssembly (WASM) app on GitHub Pages. The final website will consist of a JavaScript frontend that utilizes WASM, generated from Rust code.
+The project we&amp;rsquo;ll use is called lp, a logical operation language that I created earlier. We won&amp;rsquo;t delve into the implementation details; instead, our focus will be on incorporating WASM into an existing Rust project.</description>
+    </item>
+    <item>
+      <title>Building a Lisp-like Language from Scratch in Rust</title>
+      <link>http://localhost:1313/posts/building-a-lisp-like-language-from-scratch-in-rust/</link>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-a-lisp-like-language-from-scratch-in-rust/</guid>
+      <description>This post delves into building an interpreter for a Lisp-like language using Rust. No knowledge beyond Rust basics is required to follow this post.
+Inspiration and Project Overview Inspired by Stepan Parunashvili&amp;rsquo;s article Risp (in (Rust) (Lisp)), I created lip, an interpreted language designed for logical operations with a Lisp-like syntax. This supports logical operations (not, and, or), branching (if expression), lambda functions, and variable definition.
+This post guides you through the process of building an interpreter, focusing on the core functionalities of tokenizing, parsing, and evaluating expressions.</description>
+    </item>
+    <item>
+      <title>PDF Summarizer with Ollama in 20 Lines of Rust</title>
+      <link>http://localhost:1313/posts/pdf-summarizer-with-ollama-in-20-lines-of-rust/</link>
+      <pubDate>Sat, 10 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/pdf-summarizer-with-ollama-in-20-lines-of-rust/</guid>
+      <description>Explore the simplicity of building a PDF summarization CLI app in Rust using Ollama, a tool similar to Docker for large language models (LLM). Ollama allows for local LLM execution, unlocking a myriad of possibilities. This post guides you through leveraging Ollama&amp;rsquo;s functionalities from Rust, illustrated by a concise example. Since PDF is a prevalent format for e-books or papers, it would be useful to be able to summarize it.</description>
+    </item>
+    <item>
+      <title>Rust Error Handling: thiserror, anyhow, and When to Use Each</title>
+      <link>http://localhost:1313/posts/rust-error-handling-thiserror-anyhow/</link>
+      <pubDate>Tue, 06 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/rust-error-handling-thiserror-anyhow/</guid>
+      <description>In this blog post, we&amp;rsquo;ll explore strategies for streamlining error handling in Rust using two popular libraries: thiserror and anyhow. We&amp;rsquo;ll discuss their features, use cases, and provide insights on when to choose each library.
+TL;DR thiserror simplifies the implementation of custom error type, removing boilerplates anyhow consolidates errors that implement std::error::Error While thiserror provides detailed error information for specific reactions, anyhow hides internal details Return Different Error Types from Function Let&amp;rsquo;s start by creating a function decode() for illustration.</description>
+    </item>
+    <item>
+      <title>Organize Rust Integration Tests Without Dead Code Warning</title>
+      <link>http://localhost:1313/posts/organize-rust-integration-tests-without-dead-code-warning/</link>
+      <pubDate>Mon, 05 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/organize-rust-integration-tests-without-dead-code-warning/</guid>
+      <description>In this blog post, we&amp;rsquo;ll explore strategies for organizing integration tests in Rust, addressing challenges like dead code warnings and maximizing modularity.
+Integration Testing In Rust Conventionally, integration test files are placed in tests directory at the top level of a project.
+Let&amp;rsquo;s create a project for illustration:
+1 cargo new --lib my-tests 1 2 3 4 5 6 7 8 ❯ exa --tree --level 2 . ├── Cargo.lock ├── Cargo.</description>
+    </item>
+    <item>
+      <title>Embarking on Backend Development with &#34;Zero To Production In Rust&#34;</title>
+      <link>http://localhost:1313/posts/zero-to-production-in-rust/</link>
+      <pubDate>Sun, 04 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/zero-to-production-in-rust/</guid>
+      <description>In this blog post, I will share insights gained from Zero To Production In Rust, a comprehensive guide to backend development in Rust.
+Through the development of a newsletter app, this book covers various important topics for developing an API server.
+TDD and User Stories: A Shared Vision This book adopts Test Driven Development (TDD) as a consistent approach, starting implementation with tests. This improves code reliability and, more importantly, facilitates a shared vision when collaborating with others.</description>
+    </item>
+  </channel>
+</rss>

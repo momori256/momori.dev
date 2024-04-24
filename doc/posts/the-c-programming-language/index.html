@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>C のエレガンスが詰まった『The C Programming Language』 | Momori Nakano</title>
+<meta name="keywords" content="c">
+<meta name="description" content="『The C Programming Language』 は C 言語の教科書です.
+最新の第二版が出版されたのが 1988 年ですから流石に時代を感じますが, C の原点を知る歴史読み物的な価値があります.
+個人的に, 配列やポインタ絡みの異常に複雑な型や typedef などの文法に疑問や不満を持っていたのですが, 本書を読み一部が解消されました.
+コンパクトな言語 C 言語はコンパクトな言語である. 本書はサンプルプログラムを交えつつ C の文法を解説しているが, 付録を除けば約 160 ページしかない. それでいてプログラムを書くのに必要な機能は一通り揃っているから, 小さいことは良いことであるという UNIX 哲学を体現したような言語だと思う.
+本書でよく引き合いに出される Pascal や FORTRAN といった言語が当時は流行っていたのだろうが, 著者の一人である Kernighan は Why Pascal is Not My Favorite Programming Language という論文を書いていたようだし, それらの改良版言語という意味もあるのかもしれない. 今となっては一般的となった概念も, C によってもたらされたものは多いのだろう.
+複雑な型の読み方 配列やポインタ絡みでやたらと型の記述が複雑になるが, その読み方を整理しよう.
+型を文に翻訳する方法 まずは簡単な型を見てみる.
+1 int *x x は int 型の値を指すポインタである.
+1 int *x[13] x は int 型の値を指すポインタの配列 (サイズ 13) である.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/the-c-programming-language/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.364d6b9256fe5f2d0b7be3f86155a0ceaa731e7ce41aaee3cb04a613cd629a45.css" integrity="sha256-Nk1rklb&#43;Xy0Le&#43;P4YVWgzqpzHnzkGq7jywSmE81imkU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/the-c-programming-language/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Momori Nakano (Alt + H)">Momori Nakano</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archive/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      C のエレガンスが詰まった『The C Programming Language』
+    </h1>
+    <div class="post-meta"><span title='2022-11-06 00:00:00 +0000 UTC'>November 6, 2022</span>&nbsp;·&nbsp;8 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#コンパクトな言語">コンパクトな言語</a></li>
+    <li><a href="#複雑な型の読み方">複雑な型の読み方</a>
+      <ul>
+        <li><a href="#型を文に翻訳する方法">型を文に翻訳する方法</a></li>
+        <li><a href="#文を型に翻訳する">文を型に翻訳する</a></li>
+        <li><a href="#型に名前を付ける">型に名前を付ける</a></li>
+      </ul>
+    </li>
+    <li><a href="#ストレージクラスとリンケージ">ストレージクラスとリンケージ</a></li>
+    <li><a href="#結語">結語</a></li>
+    <li><a href="#コンパクトな言語-1">コンパクトな言語</a></li>
+    <li><a href="#複雑な型の読み方-1">複雑な型の読み方</a>
+      <ul>
+        <li><a href="#型を文に翻訳する方法-1">型を文に翻訳する方法</a></li>
+        <li><a href="#文を型に翻訳する-1">文を型に翻訳する</a></li>
+        <li><a href="#型に名前を付ける-1">型に名前を付ける</a></li>
+      </ul>
+    </li>
+    <li><a href="#ストレージクラスとリンケージ-1">ストレージクラスとリンケージ</a></li>
+    <li><a href="#結語-1">結語</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p><a href="https://s3-us-west-2.amazonaws.com/belllabs-microsite-dritchie/cbook/index.html">『The C Programming Language』</a> は C 言語の教科書です.</p>
+<p>最新の第二版が出版されたのが 1988 年ですから流石に時代を感じますが, C の原点を知る歴史読み物的な価値があります.<br>
+個人的に, 配列やポインタ絡みの異常に複雑な型や <code>typedef</code> などの文法に疑問や不満を持っていたのですが, 本書を読み一部が解消されました.</p>
+<h2 id="コンパクトな言語">コンパクトな言語<a hidden class="anchor" aria-hidden="true" href="#コンパクトな言語">#</a></h2>
+<p>C 言語はコンパクトな言語である. 本書はサンプルプログラムを交えつつ C の文法を解説しているが, 付録を除けば約 160 ページしかない. それでいてプログラムを書くのに必要な機能は一通り揃っているから, 小さいことは良いことであるという UNIX 哲学を体現したような言語だと思う.</p>
+<p>本書でよく引き合いに出される Pascal や FORTRAN といった言語が当時は流行っていたのだろうが, 著者の一人である Kernighan は <a href="http://www.lysator.liu.se/c/bwk-on-pascal.html">Why Pascal is Not My Favorite Programming Language</a> という論文を書いていたようだし, それらの改良版言語という意味もあるのかもしれない. 今となっては一般的となった概念も, C によってもたらされたものは多いのだろう.</p>
+<h2 id="複雑な型の読み方">複雑な型の読み方<a hidden class="anchor" aria-hidden="true" href="#複雑な型の読み方">#</a></h2>
+<p>配列やポインタ絡みでやたらと型の記述が複雑になるが, その読み方を整理しよう.</p>
+<h3 id="型を文に翻訳する方法">型を文に翻訳する方法<a hidden class="anchor" aria-hidden="true" href="#型を文に翻訳する方法">#</a></h3>
+<p>まずは簡単な型を見てみる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#99d1db;font-weight:bold">*</span>x
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>x は int 型の値を指すポインタである.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#99d1db;font-weight:bold">*</span>x[<span style="color:#ef9f76">13</span>]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>x は int 型の値を指すポインタの配列 (サイズ 13) である.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> (<span style="color:#99d1db;font-weight:bold">*</span>x)[<span style="color:#ef9f76">13</span>]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>x は int 型配列を指すポインタである.<br>
+この辺りから型が何を意味しているのか, なぜ <code>()</code> が必要なのかといった疑問を持ち始めるのだが, 更に <code>char (*(*x())[])()</code> や <code>char (*(*x[3])())[5]</code> といった型も考えられる. これらは以下のルールに従って解読できる.</p>
+<ol>
+<li><code>*</code> = pointer to</li>
+<li><code>[]</code> = array of</li>
+<li><code>()</code> = function returning</li>
+<li><code>*</code> よりも <code>[]</code> と <code>()</code> の方が優先順位が高い</li>
+</ol>
+<p>まず <code>int *x[13]</code> から考えよう.
+スタート地点は <code>x</code>, つまり変数名である.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x</code> の隣には <code>*</code> と <code>[13]</code> があるが, 次に適用するのは <code>[13]</code> である. なぜなら <code>*</code> よりも <code>[]</code> の方が優先順位が高いからだ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is array[13] of
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>次は <code>*</code> だ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is array[13] of pointer to
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最後に <code>int</code> が来て完了となる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is array[13] of pointer to int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>このルールを理解すれば <code>int (*x)[13]</code> になぜ <code>(*x)</code> が必要なのか分かるだろう. <code>[]</code> よりも <code>*</code> を優先するためだ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is pointer to array[13] of int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>関数ポインタにも優先順位のための括弧が必要だ.<br>
+<code>int (*f)()</code> は <code>f is poiner to function returning int</code> となる. もし <code>int *f()</code> だったら <code>()</code> が先に解釈されて <code>f is function returning pointer to int</code>, つまり <code>int*</code> を返す関数を意味する型となる.</p>
+<p>複雑な型も同様の手順で読み解ける.</p>
+<p><code>char (*(*x())[])()</code> で試してみよう.
+<code>*x()</code> では <code>()</code> が優先されるため, <code>()</code> の次に <code>*</code> を適用する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is function returning pointer to
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>*(*x())[]</code> では <code>[]</code> が <code>*</code> よりも先に来る.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is function returning pointer to
+</span></span><span style="display:flex;"><span>  array[] of pointer to
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>次は <code>(*(*x())[])()</code> なので <code>()</code> を適用する. これまでに <code>(*(*x())[])</code> の型が解釈済みであることを考えると, 全体として <code>char &lt;type&gt;()</code> という形なので char を返す関数であることは直感的にも分かる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is function returning pointer to
+</span></span><span style="display:flex;"><span>  array[] of pointer to
+</span></span><span style="display:flex;"><span>  function returning char
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文にしても長いので実際のところ <code>x</code> が何なのかイメージしづらいが, コードでの説明を試みてみる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;assert.h&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// f1 is function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> <span style="color:#8caaee">f1</span>() { <span style="color:#ca9ee6">return</span> <span style="color:#a6d189">&#39;a&#39;</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// f2 is function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> <span style="color:#8caaee">f2</span>() { <span style="color:#ca9ee6">return</span> <span style="color:#a6d189">&#39;b&#39;</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// a is array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">*</span>a[])() <span style="color:#99d1db;font-weight:bold">=</span> {f1, f2};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// x is function returning pointer to
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">*</span>(<span style="color:#99d1db;font-weight:bold">*</span><span style="color:#8caaee">x</span>())[])() { <span style="color:#ca9ee6">return</span> <span style="color:#99d1db;font-weight:bold">&amp;</span>a; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#8caaee">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#737994;font-style:italic">// p is pointer to array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">*</span>(<span style="color:#99d1db;font-weight:bold">*</span>p)[])() <span style="color:#99d1db;font-weight:bold">=</span> <span style="color:#8caaee">x</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#e78284">char</span> r1 <span style="color:#99d1db;font-weight:bold">=</span> (<span style="color:#99d1db;font-weight:bold">*</span>p)[<span style="color:#ef9f76">0</span>]();
+</span></span><span style="display:flex;"><span>  <span style="color:#8caaee">assert</span>(r1 <span style="color:#99d1db;font-weight:bold">==</span> <span style="color:#a6d189">&#39;a&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#737994;font-style:italic">// fs is array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">**</span>fs)() <span style="color:#99d1db;font-weight:bold">=</span> <span style="color:#99d1db;font-weight:bold">*</span>p;
+</span></span><span style="display:flex;"><span>  <span style="color:#e78284">char</span> r2 <span style="color:#99d1db;font-weight:bold">=</span> fs[<span style="color:#ef9f76">1</span>]();
+</span></span><span style="display:flex;"><span>  <span style="color:#8caaee">assert</span>(r2 <span style="color:#99d1db;font-weight:bold">==</span> <span style="color:#a6d189">&#39;b&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ca9ee6">return</span> <span style="color:#ef9f76">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="文を型に翻訳する">文を型に翻訳する<a hidden class="anchor" aria-hidden="true" href="#文を型に翻訳する">#</a></h3>
+<p>手順を逆に適用すれば型の宣言を書くことも可能である. 以下の文を型に翻訳してみよう.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is
+</span></span><span style="display:flex;"><span>array[] of
+</span></span><span style="display:flex;"><span>pointer to
+</span></span><span style="display:flex;"><span>function returning
+</span></span><span style="display:flex;"><span>pointer to
+</span></span><span style="display:flex;"><span>array of int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>まず <code>x is array of</code> から始める.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x[]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to</code> で <code>*</code> を付与する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>*x[]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to function returning</code> では <code>function returing</code> に当たる <code>()</code> を付け足すのだが, 優先順位に注意が必要だ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(*x[])()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to function returning pointer to</code> では順当に <code>*</code> を追加する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>*(*x[])()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to function returning pointer to array of int</code> で完成だ. ここでも優先順位に気を付けて, <code>[]</code> が <code>*</code> よりも後に解釈されるようにする必要がある.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>int (*(*x[])())[]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="型に名前を付ける">型に名前を付ける<a hidden class="anchor" aria-hidden="true" href="#型に名前を付ける">#</a></h3>
+<p>型と文を相互に変換する方法は分かったが, それにしても読みにくいのは事実である. そんな時は <code>typedef</code> で型に別名を付けるのがおすすめだ.</p>
+<p>例えば関数ポインタの配列を考えよう.
+文だと <code>x is array[5] of pointer to function returning int</code>, 型は <code>int (*x[5])()</code> である. ここで関数ポインタに別名を付けると, 型は随分簡単になる. 複雑な型を表記するとき <code>typedef</code> が有用であることが分かるだろう.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ca9ee6">typedef</span> <span style="color:#8caaee">int</span> (<span style="color:#99d1db;font-weight:bold">*</span><span style="color:#e78284">fp_int_t</span>)();
+</span></span><span style="display:flex;"><span><span style="color:#e78284">fp_int_t</span> x[<span style="color:#ef9f76">5</span>];
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ちなみに, これまで <code>typedef</code> には疑問を持っていた. 順番が逆ではないかと思っていたのだ. つまり</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>typedef t int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>のように, 変数やマクロと同じ順番なら良かったのにと思っていたのである. しかし本書を読んで理解したのだが, <code>typedef</code> は変数宣言と同じ書き方で型を定義する構文なのだ. つまり変数宣言の先頭に <code>typedef</code> を付けることで, 変数の代わりに新たな型を宣言できる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> a[<span style="color:#ef9f76">5</span>];
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">typedef</span> <span style="color:#e78284">int</span> <span style="color:#e78284">a5_t</span>[<span style="color:#ef9f76">5</span>];
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文法上は <code>typedef</code> は <code>static</code> や <code>extern</code> などと同じ場所に書くキーワードなのだ. 小さなことだがようやく納得できた.<br>
+まあそれでも C++ の <code>using</code> の方が分かりやすいとは思うが.</p>
+<h2 id="ストレージクラスとリンケージ">ストレージクラスとリンケージ<a hidden class="anchor" aria-hidden="true" href="#ストレージクラスとリンケージ">#</a></h2>
+<p><code>static</code> や <code>extern</code> は文脈に応じて複数の意味を持つ場合があるし, その意味も分かりづらく, いまいち整理が付いていなかった.<br>
+これはストレージクラスとリンケージという二つの概念を把握していなかったからだ.</p>
+<p>ストレージクラスは変数の有効期限を指定する属性だ. 定義されたブロックの中でのみ有効なローカルな有効期間と, プログラム全体で有効なグローバルな有効期間の二つがあり, それぞれ <code>auto</code> と <code>static</code> と呼ばれる.<br>
+<code>auto</code> と <code>static</code> は変数宣言の先頭に付ける.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ca9ee6">auto</span> <span style="color:#e78284">short</span> x;
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">static</span> <span style="color:#e78284">int</span> y <span style="color:#99d1db;font-weight:bold">=</span> <span style="color:#ef9f76">10</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>auto</code> なんて見たことがなかったのだが, それは省略可能だからだ. 例えばローカル変数の場合, ストレージクラス指定子を省略すると <code>auto</code> であることになる. 同様にグローバル変数 (=関数外で定義する変数) には <code>static</code> が自動で補われる.</p>
+<p>もう一つの概念リンケージは変数や関数を参照可能な範囲についての規則だ. プログラム全体で参照可能なら external リンケージ, ファイル内やそのファイルを include したファイル (=翻訳単位) でのみ参照可能なら internal リンケージを持つ. ブロック内でのみ参照可能ならリンケージなしだ.</p>
+<p>ストレージクラスとリンケージという二つの要素が一つのキーワードによって決まるし, 省略されたときのデフォルト値が対象によって異なるので混乱する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">void</span> <span style="color:#8caaee">f1</span>() { <span style="color:#737994;font-style:italic">// linkage: external.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#e78284">int</span> x1; <span style="color:#737994;font-style:italic">// storage: auto, linkage: none.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#ca9ee6">auto</span> <span style="color:#e78284">int</span> x2; <span style="color:#737994;font-style:italic">// storage: auto, linkage: none.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#ca9ee6">static</span> <span style="color:#e78284">int</span> x3;  <span style="color:#737994;font-style:italic">// storage: static, linkage: none.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">extern</span> <span style="color:#e78284">void</span> <span style="color:#8caaee">f2</span>(); <span style="color:#737994;font-style:italic">// linkage: external.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#ca9ee6">static</span> <span style="color:#8caaee">f3</span>(); <span style="color:#737994;font-style:italic">// linkage: internal.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> x4; <span style="color:#737994;font-style:italic">// storage: static, linkage: external.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#ca9ee6">extern</span> <span style="color:#e78284">int</span> x5; <span style="color:#737994;font-style:italic">// storage: static, linkage: external.
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>例えばリンケージ指定子が external/internal/none, ストレージクラス指定子が local/global であれば明確で分かりやすいかもしれない. <code>internal global int x;</code> のようなイメージだ.<br>
+しかし <code>external local</code> のような宣言はおかしいので <code>3*2 = 6</code> 通り存在するわけではないから, 独立に指定できる必要はない. それに毎回の宣言/定義で書くには冗長なので省略可能なのは妥当だと思う.<br>
+<code>static</code> が内部リンケージの意味であったり, スコープを抜けても値が保持されるという意味であったりするのは, もしかすると予約語を増やさないという意図もあったのかもしれない. 何かまっとうな理由があったのだろうか.</p>
+<h2 id="結語">結語<a hidden class="anchor" aria-hidden="true" href="#結語">#</a></h2>
+<p>文法はおおよそ知っていましたが, C のコンパクトでエレガントな雰囲気を感じることができました.<br>
+型の読み方やストレージクラス, リンケージなど, よく分かっていなかったことが整理できたり, ANSI C 以前は関数宣言の文法が違っていた, <code>register</code> 修飾子というものがあったなど, 知らなかったことを知ることもできました. 本書を読んでいて知らなかった・驚いたのは以下のような事柄です.</p>
+<ul>
+<li>関数の仮引数がないとき void を書くのは旧式の記法と区別するため</li>
+<li>関数呼び出しで引数の値をコピーするのは画期的な方法だった</li>
+<li>コンパイラによる最適化のために <code>const</code> や <code>register</code> 修飾子があった</li>
+<li>int のサイズがマシン依存なのでサイズが変わっても通用するポータブルな書き方が推奨されている</li>
+<li><code>goto</code> は避けるべきと 1988 年の書籍に書かれている (もしかすると初版から?)</li>
+<li>早期 <code>continue</code> はこんなに古くから紹介されているテクニックだった</li>
+<li><code>char *s = &quot;...&quot;</code> のストレージクラスは static, つまり文字列は読み取り専用. ただし <code>char s[] = &quot;...&quot;</code> なら <code>auto</code> なので文字列を書き換え可能</li>
+</ul>
+<p>今では多くの入門書で見られる「hello, world」の元祖が本書であるというのは知っていましたが, 言語の作者が本を書く, サンプルプログラムを交えつつ文法を解説するといったスタイルは, 後世の技術書の基礎となった本だと思いました.
++++
+title = &ldquo;C のエレガンスが詰まった『The C Programming Language』&rdquo;
+date = 2022-11-06
+tags = [&ldquo;c&rdquo;]
+cover.image = &ldquo;<a href="https://source.unsplash.com/OiUDGKHHuN0%22">https://source.unsplash.com/OiUDGKHHuN0&quot;</a>
++++</p>
+<p><a href="https://s3-us-west-2.amazonaws.com/belllabs-microsite-dritchie/cbook/index.html">『The C Programming Language』</a> は C 言語の教科書です.</p>
+<p>最新の第二版が出版されたのが 1988 年ですから流石に時代を感じますが, C の原点を知る歴史読み物的な価値があります.<br>
+個人的に, 配列やポインタ絡みの異常に複雑な型や <code>typedef</code> などの文法に疑問や不満を持っていたのですが, 本書を読み一部が解消されました.</p>
+<h2 id="コンパクトな言語-1">コンパクトな言語<a hidden class="anchor" aria-hidden="true" href="#コンパクトな言語-1">#</a></h2>
+<p>C 言語はコンパクトな言語である. 本書はサンプルプログラムを交えつつ C の文法を解説しているが, 付録を除けば約 160 ページしかない. それでいてプログラムを書くのに必要な機能は一通り揃っているから, 小さいことは良いことであるという UNIX 哲学を体現したような言語だと思う.</p>
+<p>本書でよく引き合いに出される Pascal や FORTRAN といった言語が当時は流行っていたのだろうが, 著者の一人である Kernighan は <a href="http://www.lysator.liu.se/c/bwk-on-pascal.html">Why Pascal is Not My Favorite Programming Language</a> という論文を書いていたようだし, それらの改良版言語という意味もあるのかもしれない. 今となっては一般的となった概念も, C によってもたらされたものは多いのだろう.</p>
+<h2 id="複雑な型の読み方-1">複雑な型の読み方<a hidden class="anchor" aria-hidden="true" href="#複雑な型の読み方-1">#</a></h2>
+<p>配列やポインタ絡みでやたらと型の記述が複雑になるが, その読み方を整理しよう.</p>
+<h3 id="型を文に翻訳する方法-1">型を文に翻訳する方法<a hidden class="anchor" aria-hidden="true" href="#型を文に翻訳する方法-1">#</a></h3>
+<p>まずは簡単な型を見てみる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#99d1db;font-weight:bold">*</span>x
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>x は int 型の値を指すポインタである.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#99d1db;font-weight:bold">*</span>x[<span style="color:#ef9f76">13</span>]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>x は int 型の値を指すポインタの配列 (サイズ 13) である.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> (<span style="color:#99d1db;font-weight:bold">*</span>x)[<span style="color:#ef9f76">13</span>]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>x は int 型配列を指すポインタである.<br>
+この辺りから型が何を意味しているのか, なぜ <code>()</code> が必要なのかといった疑問を持ち始めるのだが, 更に <code>char (*(*x())[])()</code> や <code>char (*(*x[3])())[5]</code> といった型も考えられる. これらは以下のルールに従って解読できる.</p>
+<ol>
+<li><code>*</code> = pointer to</li>
+<li><code>[]</code> = array of</li>
+<li><code>()</code> = function returning</li>
+<li><code>*</code> よりも <code>[]</code> と <code>()</code> の方が優先順位が高い</li>
+</ol>
+<p>まず <code>int *x[13]</code> から考えよう.
+スタート地点は <code>x</code>, つまり変数名である.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x</code> の隣には <code>*</code> と <code>[13]</code> があるが, 次に適用するのは <code>[13]</code> である. なぜなら <code>*</code> よりも <code>[]</code> の方が優先順位が高いからだ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is array[13] of
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>次は <code>*</code> だ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is array[13] of pointer to
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最後に <code>int</code> が来て完了となる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is array[13] of pointer to int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>このルールを理解すれば <code>int (*x)[13]</code> になぜ <code>(*x)</code> が必要なのか分かるだろう. <code>[]</code> よりも <code>*</code> を優先するためだ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is pointer to array[13] of int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>関数ポインタにも優先順位のための括弧が必要だ.<br>
+<code>int (*f)()</code> は <code>f is poiner to function returning int</code> となる. もし <code>int *f()</code> だったら <code>()</code> が先に解釈されて <code>f is function returning pointer to int</code>, つまり <code>int*</code> を返す関数を意味する型となる.</p>
+<p>複雑な型も同様の手順で読み解ける.</p>
+<p><code>char (*(*x())[])()</code> で試してみよう.
+<code>*x()</code> では <code>()</code> が優先されるため, <code>()</code> の次に <code>*</code> を適用する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is function returning pointer to
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>*(*x())[]</code> では <code>[]</code> が <code>*</code> よりも先に来る.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is function returning pointer to
+</span></span><span style="display:flex;"><span>  array[] of pointer to
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>次は <code>(*(*x())[])()</code> なので <code>()</code> を適用する. これまでに <code>(*(*x())[])</code> の型が解釈済みであることを考えると, 全体として <code>char &lt;type&gt;()</code> という形なので char を返す関数であることは直感的にも分かる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is function returning pointer to
+</span></span><span style="display:flex;"><span>  array[] of pointer to
+</span></span><span style="display:flex;"><span>  function returning char
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文にしても長いので実際のところ <code>x</code> が何なのかイメージしづらいが, コードでの説明を試みてみる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#737994;font-style:italic">#include</span> <span style="color:#737994;font-weight:bold;font-style:italic">&lt;assert.h&gt;</span><span style="color:#737994;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// f1 is function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> <span style="color:#8caaee">f1</span>() { <span style="color:#ca9ee6">return</span> <span style="color:#a6d189">&#39;a&#39;</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// f2 is function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> <span style="color:#8caaee">f2</span>() { <span style="color:#ca9ee6">return</span> <span style="color:#a6d189">&#39;b&#39;</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// a is array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">*</span>a[])() <span style="color:#99d1db;font-weight:bold">=</span> {f1, f2};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// x is function returning pointer to
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic">// array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">*</span>(<span style="color:#99d1db;font-weight:bold">*</span><span style="color:#8caaee">x</span>())[])() { <span style="color:#ca9ee6">return</span> <span style="color:#99d1db;font-weight:bold">&amp;</span>a; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> <span style="color:#8caaee">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#737994;font-style:italic">// p is pointer to array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">*</span>(<span style="color:#99d1db;font-weight:bold">*</span>p)[])() <span style="color:#99d1db;font-weight:bold">=</span> <span style="color:#8caaee">x</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#e78284">char</span> r1 <span style="color:#99d1db;font-weight:bold">=</span> (<span style="color:#99d1db;font-weight:bold">*</span>p)[<span style="color:#ef9f76">0</span>]();
+</span></span><span style="display:flex;"><span>  <span style="color:#8caaee">assert</span>(r1 <span style="color:#99d1db;font-weight:bold">==</span> <span style="color:#a6d189">&#39;a&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#737994;font-style:italic">// fs is array[] of pointer to function returning char.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#e78284">char</span> (<span style="color:#99d1db;font-weight:bold">**</span>fs)() <span style="color:#99d1db;font-weight:bold">=</span> <span style="color:#99d1db;font-weight:bold">*</span>p;
+</span></span><span style="display:flex;"><span>  <span style="color:#e78284">char</span> r2 <span style="color:#99d1db;font-weight:bold">=</span> fs[<span style="color:#ef9f76">1</span>]();
+</span></span><span style="display:flex;"><span>  <span style="color:#8caaee">assert</span>(r2 <span style="color:#99d1db;font-weight:bold">==</span> <span style="color:#a6d189">&#39;b&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ca9ee6">return</span> <span style="color:#ef9f76">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="文を型に翻訳する-1">文を型に翻訳する<a hidden class="anchor" aria-hidden="true" href="#文を型に翻訳する-1">#</a></h3>
+<p>手順を逆に適用すれば型の宣言を書くことも可能である. 以下の文を型に翻訳してみよう.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x is
+</span></span><span style="display:flex;"><span>array[] of
+</span></span><span style="display:flex;"><span>pointer to
+</span></span><span style="display:flex;"><span>function returning
+</span></span><span style="display:flex;"><span>pointer to
+</span></span><span style="display:flex;"><span>array of int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>まず <code>x is array of</code> から始める.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x[]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to</code> で <code>*</code> を付与する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>*x[]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to function returning</code> では <code>function returing</code> に当たる <code>()</code> を付け足すのだが, 優先順位に注意が必要だ.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(*x[])()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to function returning pointer to</code> では順当に <code>*</code> を追加する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>*(*x[])()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>x is array[] of pointer to function returning pointer to array of int</code> で完成だ. ここでも優先順位に気を付けて, <code>[]</code> が <code>*</code> よりも後に解釈されるようにする必要がある.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>int (*(*x[])())[]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="型に名前を付ける-1">型に名前を付ける<a hidden class="anchor" aria-hidden="true" href="#型に名前を付ける-1">#</a></h3>
+<p>型と文を相互に変換する方法は分かったが, それにしても読みにくいのは事実である. そんな時は <code>typedef</code> で型に別名を付けるのがおすすめだ.</p>
+<p>例えば関数ポインタの配列を考えよう.
+文だと <code>x is array[5] of pointer to function returning int</code>, 型は <code>int (*x[5])()</code> である. ここで関数ポインタに別名を付けると, 型は随分簡単になる. 複雑な型を表記するとき <code>typedef</code> が有用であることが分かるだろう.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ca9ee6">typedef</span> <span style="color:#8caaee">int</span> (<span style="color:#99d1db;font-weight:bold">*</span><span style="color:#e78284">fp_int_t</span>)();
+</span></span><span style="display:flex;"><span><span style="color:#e78284">fp_int_t</span> x[<span style="color:#ef9f76">5</span>];
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ちなみに, これまで <code>typedef</code> には疑問を持っていた. 順番が逆ではないかと思っていたのだ. つまり</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>typedef t int
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>のように, 変数やマクロと同じ順番なら良かったのにと思っていたのである. しかし本書を読んで理解したのだが, <code>typedef</code> は変数宣言と同じ書き方で型を定義する構文なのだ. つまり変数宣言の先頭に <code>typedef</code> を付けることで, 変数の代わりに新たな型を宣言できる.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">int</span> a[<span style="color:#ef9f76">5</span>];
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">typedef</span> <span style="color:#e78284">int</span> <span style="color:#e78284">a5_t</span>[<span style="color:#ef9f76">5</span>];
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文法上は <code>typedef</code> は <code>static</code> や <code>extern</code> などと同じ場所に書くキーワードなのだ. 小さなことだがようやく納得できた.<br>
+まあそれでも C++ の <code>using</code> の方が分かりやすいとは思うが.</p>
+<h2 id="ストレージクラスとリンケージ-1">ストレージクラスとリンケージ<a hidden class="anchor" aria-hidden="true" href="#ストレージクラスとリンケージ-1">#</a></h2>
+<p><code>static</code> や <code>extern</code> は文脈に応じて複数の意味を持つ場合があるし, その意味も分かりづらく, いまいち整理が付いていなかった.<br>
+これはストレージクラスとリンケージという二つの概念を把握していなかったからだ.</p>
+<p>ストレージクラスは変数の有効期限を指定する属性だ. 定義されたブロックの中でのみ有効なローカルな有効期間と, プログラム全体で有効なグローバルな有効期間の二つがあり, それぞれ <code>auto</code> と <code>static</code> と呼ばれる.<br>
+<code>auto</code> と <code>static</code> は変数宣言の先頭に付ける.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ca9ee6">auto</span> <span style="color:#e78284">short</span> x;
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">static</span> <span style="color:#e78284">int</span> y <span style="color:#99d1db;font-weight:bold">=</span> <span style="color:#ef9f76">10</span>;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>auto</code> なんて見たことがなかったのだが, それは省略可能だからだ. 例えばローカル変数の場合, ストレージクラス指定子を省略すると <code>auto</code> であることになる. 同様にグローバル変数 (=関数外で定義する変数) には <code>static</code> が自動で補われる.</p>
+<p>もう一つの概念リンケージは変数や関数を参照可能な範囲についての規則だ. プログラム全体で参照可能なら external リンケージ, ファイル内やそのファイルを include したファイル (=翻訳単位) でのみ参照可能なら internal リンケージを持つ. ブロック内でのみ参照可能ならリンケージなしだ.</p>
+<p>ストレージクラスとリンケージという二つの要素が一つのキーワードによって決まるし, 省略されたときのデフォルト値が対象によって異なるので混乱する.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e78284">void</span> <span style="color:#8caaee">f1</span>() { <span style="color:#737994;font-style:italic">// linkage: external.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#e78284">int</span> x1; <span style="color:#737994;font-style:italic">// storage: auto, linkage: none.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#ca9ee6">auto</span> <span style="color:#e78284">int</span> x2; <span style="color:#737994;font-style:italic">// storage: auto, linkage: none.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>  <span style="color:#ca9ee6">static</span> <span style="color:#e78284">int</span> x3;  <span style="color:#737994;font-style:italic">// storage: static, linkage: none.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ca9ee6">extern</span> <span style="color:#e78284">void</span> <span style="color:#8caaee">f2</span>(); <span style="color:#737994;font-style:italic">// linkage: external.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#ca9ee6">static</span> <span style="color:#8caaee">f3</span>(); <span style="color:#737994;font-style:italic">// linkage: internal.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#e78284">int</span> x4; <span style="color:#737994;font-style:italic">// storage: static, linkage: external.
+</span></span></span><span style="display:flex;"><span><span style="color:#737994;font-style:italic"></span><span style="color:#ca9ee6">extern</span> <span style="color:#e78284">int</span> x5; <span style="color:#737994;font-style:italic">// storage: static, linkage: external.
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>例えばリンケージ指定子が external/internal/none, ストレージクラス指定子が local/global であれば明確で分かりやすいかもしれない. <code>internal global int x;</code> のようなイメージだ.<br>
+しかし <code>external local</code> のような宣言はおかしいので <code>3*2 = 6</code> 通り存在するわけではないから, 独立に指定できる必要はない. それに毎回の宣言/定義で書くには冗長なので省略可能なのは妥当だと思う.<br>
+<code>static</code> が内部リンケージの意味であったり, スコープを抜けても値が保持されるという意味であったりするのは, もしかすると予約語を増やさないという意図もあったのかもしれない. 何かまっとうな理由があったのだろうか.</p>
+<h2 id="結語-1">結語<a hidden class="anchor" aria-hidden="true" href="#結語-1">#</a></h2>
+<p>文法はおおよそ知っていましたが, C のコンパクトでエレガントな雰囲気を感じることができました.<br>
+型の読み方やストレージクラス, リンケージなど, よく分かっていなかったことが整理できたり, ANSI C 以前は関数宣言の文法が違っていた, <code>register</code> 修飾子というものがあったなど, 知らなかったことを知ることもできました. 本書を読んでいて知らなかった・驚いたのは以下のような事柄です.</p>
+<ul>
+<li>関数の仮引数がないとき void を書くのは旧式の記法と区別するため</li>
+<li>関数呼び出しで引数の値をコピーするのは画期的な方法だった</li>
+<li>コンパイラによる最適化のために <code>const</code> や <code>register</code> 修飾子があった</li>
+<li>int のサイズがマシン依存なのでサイズが変わっても通用するポータブルな書き方が推奨されている</li>
+<li><code>goto</code> は避けるべきと 1988 年の書籍に書かれている (もしかすると初版から?)</li>
+<li>早期 <code>continue</code> はこんなに古くから紹介されているテクニックだった</li>
+<li><code>char *s = &quot;...&quot;</code> のストレージクラスは static, つまり文字列は読み取り専用. ただし <code>char s[] = &quot;...&quot;</code> なら <code>auto</code> なので文字列を書き換え可能</li>
+</ul>
+<p>今では多くの入門書で見られる「hello, world」の元祖が本書であるというのは知っていましたが, 言語の作者が本を書く, サンプルプログラムを交えつつ文法を解説するといったスタイルは, 後世の技術書の基礎となった本だと思いました.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/c/">C</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/linux-pthreads/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>『Linux と pthreads による マルチスレッドプログラミング入門』で pthreads を実践する</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/computer-organization-and-desigin-2/">
+    <span class="title">Next »</span>
+    <br>
+    <span>『コンピュータの構成と設計 下』でプロセッサのこれからを考える</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on x"
+            href="https://x.com/intent/tweet/?text=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f&amp;hashtags=c">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f&amp;title=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f&amp;summary=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f&title=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on whatsapp"
+            href="https://api.whatsapp.com/send?text=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on telegram"
+            href="https://telegram.me/share/url?text=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share C のエレガンスが詰まった『The C Programming Language』 on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=C%20%e3%81%ae%e3%82%a8%e3%83%ac%e3%82%ac%e3%83%b3%e3%82%b9%e3%81%8c%e8%a9%b0%e3%81%be%e3%81%a3%e3%81%9f%e3%80%8eThe%20C%20Programming%20Language%e3%80%8f&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fthe-c-programming-language%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Momori Nakano</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

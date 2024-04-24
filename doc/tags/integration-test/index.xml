@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Integration-Test on Momori Nakano</title>
+    <link>http://localhost:1313/tags/integration-test/</link>
+    <description>Recent content in Integration-Test on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 05 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/integration-test/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Organize Rust Integration Tests Without Dead Code Warning</title>
+      <link>http://localhost:1313/posts/organize-rust-integration-tests-without-dead-code-warning/</link>
+      <pubDate>Mon, 05 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/organize-rust-integration-tests-without-dead-code-warning/</guid>
+      <description>In this blog post, we&amp;rsquo;ll explore strategies for organizing integration tests in Rust, addressing challenges like dead code warnings and maximizing modularity.
+Integration Testing In Rust Conventionally, integration test files are placed in tests directory at the top level of a project.
+Let&amp;rsquo;s create a project for illustration:
+1 cargo new --lib my-tests 1 2 3 4 5 6 7 8 ❯ exa --tree --level 2 . ├── Cargo.lock ├── Cargo.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Posts | Momori Nakano</title>
+<meta name="keywords" content="">
+<meta name="description" content="Posts - Momori Nakano">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.364d6b9256fe5f2d0b7be3f86155a0ceaa731e7ce41aaee3cb04a613cd629a45.css" integrity="sha256-Nk1rklb&#43;Xy0Le&#43;P4YVWgzqpzHnzkGq7jywSmE81imkU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/posts/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="list dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Momori Nakano (Alt + H)">Momori Nakano</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archive/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a></div>
+  <h1>
+    Posts
+    <a href="/posts/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『Effective C#』で C# に親しむ
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>様々な言語にある Effective シリーズの C# 版 『Effective C# 6.0/7.0』 です. 基本的な文法の説明などはなく, 実践的な問題に対するテクニックやアプローチの仕方が 50 項目掲載されています. C# の基本的なことは分かったという状態で読むと理解が深まるでしょう.
+50 項目のうち特に印象に残ったものを紹介します.
+項目 2 const よりも readonly を使用すること 混乱しがちな const と readonly についての項目です.
+両者の最も大きな違いは, const はコンパイル時, readonly は実行時に解決されるという点です. コンパイル時定数の const 変数は, コード中の使用箇所をその値で置き換えたような IL が生成されます.
+この仕組みによって const 変数が別アセンブリで参照される場合, 気づきにくいバグを生む可能性があります. const 変数の値を変更したとしても, その変数を使用しているアセンブリではリビルドするまで変更前の値のままになるのです.
+よって基本的にこの問題を回避できる readonly を使ったほうがよいという主張です.
+しかし, これは const 変数を外部のアセンブリに公開した場合のみに起こる現象なので, private や internal にしておけば済む話です. ライブラリではないプログラムの場合はそもそも外部のアセンブリに使われることがないので関係ありません.
+よってスローガンは「外部アセンブリに公開する変数は const よりも readonly を使用すること」の方がより正確だと思います. もちろん const にはパフォーマンスの利点しかないので, 柔軟性を重視して常に readonly を使うという考え方もありかもしれません. しかし, コンパイル時に決まる値ならコンパイル時に決めたほうが良いですし, デメリットを理解した上で const と readonly を適切に使い分けるべきということですね....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-07-10 00:00:00 +0000 UTC'>July 10, 2022</span>&nbsp;·&nbsp;10 min</footer>
+  <a class="entry-link" aria-label="post link to 『Effective C#』で C# に親しむ" href="http://localhost:1313/posts/effective-csharp/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『SQL パズル』は楽しさと実用を兼ねた SQL 例題集
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>『SQL パズル 第 2 版 プログラミングが変わる書き方／考え方』 は SQL 問題集です.
+収録数 75 問という圧巻の豊富さです. 具体的で実用的な題材によって, 問題へのアプローチの仕方や SQL の奥深さを知ることができます.
+タイトルには「パズル」とありますが, 本書は決してパズルのためのパズル本ではありません.
+あくまでも実用的な SQL を学ぶことを目的としているので, 実務にも大いに役立つでしょう. 一部まさにパズル的な問題もありますが, それは SQL の幅広さを知る小休止的なものだと思いました.
+本書を読まれる方には副読本として 訳者ミックさんのサポートベージ をおすすめします.
+以下印象に残った問題をいくつか紹介します.
+パズル 1 「会計年度テーブル」 会計年度を持つ以下のようなテーブルがあります.
+1 2 3 4 5 CREATE TABLE FiscalYears ( fiscal_year INTEGER, start_date DATE, end_date DATE ); このテーブルは, 各会計年度がいつ始まっていつ終わるのかを格納します. 会計年度は 10/1 から 9/30 までのアメリカ方式とします. 例えば以下のようなデータが入っています.
+1 2 3 4 fiscal_year | start_date | end_date -------------&#43;------------&#43;------------ 2021 | 2020-10-01 | 2021-09-30 2022 | 2021-10-01 | 2022-09-30 さて, 問題は「テーブルに不正な値が入らないように制約を付ける」です....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-05-18 00:00:00 +0000 UTC'>May 18, 2022</span>&nbsp;·&nbsp;17 min</footer>
+  <a class="entry-link" aria-label="post link to 『SQL パズル』は楽しさと実用を兼ねた SQL 例題集" href="http://localhost:1313/posts/sql-puzzle/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『C# による マルチコアのための非同期/並列処理プログラミング』で C# の非同期を概観する
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本書はタイトルの通り C# の非同期/並列処理についての書籍です.
+対象としているのはマルチスレッドの理論的な事柄ではありません. .NET や C# にすでに備わっている環境をどのように利用してプログラムを書くかということに焦点を当てています.
+そのため, 具体的な.NET のライブラリの使い方を, 実践を通じて知りたい方におすすめです.
+個人的な白眉は昔のバージョンから新しいバージョンまで, 各 .NET での実装が比較されている点です. バージョン 1.x 系の.NET ではこう書く, 2.x 系ではこう書く, といった風にして, 1.x 系から 4.5 まで扱います.
+今更昔のバージョンの .NET を利用することはないとはいえ, 歴史的な変遷を見られてためになりました. 昔はこんなに面倒だったのかと驚き, それによって新しいバージョンでの書き方では何が省略されているのかイメージを掴むことができました.
+非同期/並列処理の基礎 まずは非同期/並列処理とは何か, ということから始まります. マルチスレッド, レースコンディション, ロック, スレッド間同期といった主要なトピックスが紹介されています.
+この辺りのことはすでに一通り知っていたので新鮮さはなかったのですが, 同じことでも別の説明を読むのはためになります.
+いいなと思ったのは「非同期」と「並列」という言葉の使い分けです. 「並行」と「並列」が一般的ですが, これらは混同しやすいので本書では並行の代わりに非同期という言葉が使われています. 個人的にも「並行」と「並列」は言葉だけだといつも分からなくなるので「concurrent」と「parallel」で覚えていますが, 「非同期」と「並列」の方が分かりやすくて良いかもしれません.
+新旧 .NET で変遷を見る 例題を各バージョンの .NET で実装して違いを見る章があります.
+例題は「1-10 の数字を 3 桁に 0 埋めして画面に表示する」です. マルチスレッドで並列に計算することと, 画面をフリーズさせないように計算を非同期で行うという 2 つ問題を含んだ題材です.
+これを最初に見たとき, なぜこんな簡単なものが例題になりうるのだろうと思いました. 計算はAsParallel()を使って簡単に実装できます.
+1 2 3 4 Enumerable....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-04-18 00:00:00 +0000 UTC'>April 18, 2022</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to 『C# による マルチコアのための非同期/並列処理プログラミング』で C# の非同期を概観する" href="http://localhost:1313/posts/csharp-concurrency/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">キャリア 2 年目の終わり
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>社会人生活を始めてから 2 年が経過した. この 1 年の振り返りと次の 1 年の目標を整理する.
+2 年目の振り返り チームに約 2 年いて, 自分が果たすべき役割がかなりはっきりしてきた.
+作っているアプリに対して, 自分がやるべきこと, やれること, 今後どうなっていくのかということが見えてきた. また, 最初はアプリやソースコードの規模に圧倒されていたが, ようやく全体を把握できつつある. もちろんあらゆる細部までを把握したわけではないが, 主要なところは一通り抑えたという感覚がある.
+仕事をしていて意外だったのは, 案外ベテランでも知らないことはあるということ. 凄い人は何でも知っていそうに見えるが, 本当になんでも知っているわけではない (当たり前だが). 経験の浅い自分でも, 特定の分野に限って言えば凄い人の劣化版としてではなく一人前の活躍ができるという手応えが得られた.
+この経験の影響で, 一つに分野に集中して知識を深めることや, 他の人がカバーしてないマイナーな分野に力を入れることが有用であるという考えが形成されてきた気がする.
+プライベートの時間でも技術書を読んで勉強を続けてきた. メインテーマはコンピュータ・サイエンスを幅広く学び基礎を固めるということだった.
+どういった分野を学ぶか, どういった本を読むかを決めるため Teach Youself Computer Science というサイトを主に参考にした. このサイトによると, コンピュータ・サイエンスは大きく 9 つの領域に分けることができる.
+プログラミング コンピュータアーキテクチャ アルゴリズムとデータ構造 数学 OS ネットワーク データベース コンパイラ 分散システム それぞれの内容やおすすめの書籍, サイトなどが紹介されていて, とても分かりやすかったので勉強の指針とさせてもらっている.
+この分類だと, この一年は主にプログラミング, コンピュータアーキテクチャ, コンパイラ辺りを学んだ. ずっと重厚な本を読んでいると疲れてきて直接の関係はない本も読んだが, 中でも関数型言語に触れられたのは良かった. 結構好みかもしれないと思っている.
+どの書籍からも学ぶことが多く, 自分が如何にものを知らないか痛感する思いだった. まともな知識がないと考えることができないので, 知識があってようやくスタートラインに立てるということは日々実感している.
+本当は学生時代に真面目に勉強していればこういった基礎が一通り身についていたのかもしれないが, 後悔しても仕方ないので地道に勉強を続けるしかない....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-04-11 00:00:00 +0000 UTC'>April 11, 2022</span>&nbsp;·&nbsp;2 min</footer>
+  <a class="entry-link" aria-label="post link to キャリア 2 年目の終わり" href="http://localhost:1313/posts/review-year-2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『並行プログラミング入門』で並行処理のトピックスを網羅する
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本書は並行プログラミングに関する様々なトピックを紹介する本です (『並行プログラミング入門 ――Rust, C, アセンブリによる実装からのアプローチ』).
+副題にもある通り, アルゴリズムを C やアセンブリで低レベルに実装して, Rust で高レベルに使うというような流れです. 実践的な何かを作るというより, 仕組みを理解することに重点が置かれた本で, タイトルの通り並行プログラミングに入門したい方におすすめです.
+キーワードの一部
+レースコンディション デッドロック async/await マルチタスク アクターモデル λ計算, π計算 並行して実行されてはいけない処理 並行プログラミングを考える上で注意を払わなければならないのは, 複数のプロセスで同時に実行されてはいけない箇所の扱いです.
+複数プロセスで実行されてはいけないということは, 実行中を表すフラグを管理しておけばよいのではないかと思うわけですが, 以下のコードで問題はないでしょうか.
+1 2 3 4 5 6 7 8 9 10 11 12 13 bool is_in_progress = false; void f() { // Wait while other process is in progress. while (is_in_progress) {} is_in_progress = true; // Must not be executed concurrently. do_something(); is_in_progress = false; } 一見すると問題ないように思えます....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-03-20 00:00:00 +0000 UTC'>March 20, 2022</span>&nbsp;·&nbsp;5 min</footer>
+  <a class="entry-link" aria-label="post link to 『並行プログラミング入門』で並行処理のトピックスを網羅する" href="http://localhost:1313/posts/intro-to-concurrency/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『達人に学ぶ SQL 徹底指南書』で SQL の可能性を知る
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本書は SQL 初心者から中級者への架け橋となる本です (達人に学ぶ SQL 徹底指南書 第 2 版 初級者で終わりたくないあなたへ (翔泳社)).
+本書の目玉となる case 式やウィンドウ関数を始めとした便利な道具を使いこなすための説明 &#43; 練習問題に加え, SQL の理論的なバックグラウンドや歴史的経緯にも触れて, SQL がなぜそうなっているのかの疑問にも答えます (なぜループや変数がないのか, なぜ NULL 関係の動作が非直感的で複雑なのかなど).
+基本的な構文は一通り分かったけど, 更に脱初心者を目指して学びを深めたい方におすすめです.
+本記事では本書で挙げられた便利な道具について触れていきます.
+case 式 case 式は条件分岐を記述するための構文です.
+1 2 3 4 CASE WHEN [predicate] THEN [value] WHEN [predicate] THEN [value] ELSE [value] END 例を見ると分かりやすいです.
+テスト用にテーブルを作ります. ヤギのデータです.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 create table goats ( id int PRIMARY KEY, weight INT UNSIGNED, birthday DATE, color VARCHAR(1), name VARCHAR(10)); insert into goats values(1, 63, &#39;2016-03-02&#39;, &#39;W&#39;, &#39;Alice&#39;); insert into goats values(2, 79, &#39;2012-06-25&#39;, &#39;W&#39;, &#39;Bob&#39;); insert into goats values(3, 76, &#39;2020-02-01&#39;, &#39;W&#39;, &#39;Carl&#39;); insert into goats values(4, 75, &#39;2022-11-27&#39;, &#39;W&#39;, &#39;Dan&#39;); insert into goats values(5, 70, &#39;2014-08-29&#39;, &#39;B&#39;, &#39;Elie&#39;); insert into goats values(6, 69, &#39;2013-06-07&#39;, &#39;B&#39;, &#39;Fai&#39;); insert into goats values(7, 67, &#39;2013-01-16&#39;, &#39;B&#39;, &#39;Gabi&#39;); insert into goats values(8, 63, &#39;2014-05-14&#39;, &#39;B&#39;, &#39;Helen&#39;); 1 2 3 4 5 6 7 8 9 10 11 12 13 select * from goats; &#43;----&#43;--------&#43;------------&#43;-------&#43;-------&#43; | id | weight | birthday | color | name | &#43;----&#43;--------&#43;------------&#43;-------&#43;-------&#43; | 1 | 63 | 2016-03-02 | W | Alice | | 2 | 79 | 2012-06-25 | W | Bob | | 3 | 76 | 2020-02-01 | W | Carl | | 4 | 75 | 2022-11-27 | W | Dan | | 5 | 70 | 2014-08-29 | B | Elie | | 6 | 69 | 2013-06-07 | B | Fai | | 7 | 67 | 2013-01-16 | B | Gabi | | 8 | 63 | 2014-05-14 | B | Helen | &#43;----&#43;--------&#43;------------&#43;-------&#43;-------&#43; ヤギの体重が基準値に収まっているかどうかを調べることを考えます....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-03-12 00:00:00 +0000 UTC'>March 12, 2022</span>&nbsp;·&nbsp;19 min</footer>
+  <a class="entry-link" aria-label="post link to 『達人に学ぶ SQL 徹底指南書』で SQL の可能性を知る" href="http://localhost:1313/posts/sql-guidebook/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『プロを目指す人のための Ruby 入門』は丁寧で網羅的な入門書
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>始めに 誕生から 25 年以上経って, 今更ですが Ruby に入門しました. 本書は Ruby の重要なトピックスを網羅するのみならず, 開発の現場で役に立つようなテクニックの説明にも力を入れられています. Ruby をなんとなく知っているが改めてきちんと学びたい方や, 私のように他言語での経験はあるが Ruby は未経験という方におすすめです.
+親切な説明のおかげですらすら読めましたし, 静的型付け言語に親しんできた身からすると新鮮な驚きが多数あったので非常に楽しめました.
+3 行でまとめ
+丁寧な説明で読みやすい 静的型付け言語に親しんできた身からすると新鮮な驚きが多数あった 便利なスクリプト言語として使っていきたい あらゆるものがオブジェクト すべてがオブジェクト (「Ruby コミュニティサイト: Ruby とは」より)
+「すべて」の中には例えばリテラルも含まれます. 数値や文字列のリテラルもオブジェクトなので, メソッド呼び出しが可能です.
+1 2 3 &#34;hello&#34;.upcase # =&gt; HELLO 5.times { puts &#34;hello&#34; } [1, 2, 3].map { |n| n ** 2 } # =&gt; [1, 4, 9] ついでに, 範囲型や正規表現もリテラルとしてサポートされています.
+1 2 3 4 (1..10).include?(4.5) # =&gt; true /[a-z]\d&#43;/.class # =&gt; Regexp &#34;a123-4e56-789&#34;....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-02-12 00:00:00 +0000 UTC'>February 12, 2022</span>&nbsp;·&nbsp;5 min</footer>
+  <a class="entry-link" aria-label="post link to 『プロを目指す人のための Ruby 入門』は丁寧で網羅的な入門書" href="http://localhost:1313/posts/pro-ruby/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『Go 言語でつくるインタプリタ』を OCaml でやる
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>導入 出版社のページ
+実際にインタプリタを作りながら, インタプリタの仕組みを学ぶ本です.
+インタプリタを作るというのは, 例えば以下のようなものを作るということです.
+1 2 3 4 5 6 7 8 9 10 11 12 &gt;&gt; -5 &#43; 1 -4 &gt;&gt; (1 &lt; 2) == !true false &gt;&gt; if (1 &lt; 2) { 10 } else { 20 } 10 &gt;&gt; let add = fn (x, y) { x &#43; y; } &gt;&gt; add (1 &#43; 2, 3) 6 &gt;&gt; let fact = fn(n) { if (n == 0) { 1 } else { n * fact (n - 1) }}; &gt;&gt; fact(5) 120 以下のような方におすすめです....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-02-06 00:00:00 +0000 UTC'>February 6, 2022</span>&nbsp;·&nbsp;8 min</footer>
+  <a class="entry-link" aria-label="post link to 『Go 言語でつくるインタプリタ』を OCaml でやる" href="http://localhost:1313/posts/interpreter-in-go/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『Real World OCaml』で入門レベルを脱する
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本書は OCaml のベテランプログラマ 2 名による解説本です. 第 2 版が 2021 年にかかれていて, ネットで無料公開されています.
+全 3 章は以下のような構成で, OCaml 初心者でも読めますし, 深堀りされた解説からは経験者でも得るものがありそうです.
+OCaml の機能一通り (基礎文法, ヴァリアント, レコード, ファンクター, GADT, Class など) 具体例 (コマンドラインの引数パーズ, 非同期通信, json パーザ) OCaml のランタイムとコンパイラの仕組み 個人的にここ数か月 OCaml に興味を持って少しずつ触れてきたのですが, 入門の次に進むための知識が得たいと思い本書を読みました. 知りたかったことは例えば以下のような点です.
+標準ライブラリにはそれほど機能が揃っていないが, 便利なライブラリがあるのか (または自分でライブラリを整備するのが普通なのか) プロジェクトをどのようにファイル構成するか どの程度の規模でモジュールを分けるか テストはどうやって書くか こういった事柄はやや抽象的でそのものズバリ検索するのが難しいと思っていますが, 本書には知りたかったことは全て書いてありました. そのくらい網羅的で, もちろん知らなかったこと (知りたいとすら思わなかったこと) も満載でした.
+高度な機能や具体的なライブラリの使い方などは読んでもピンとこなかったり軽く読み飛ばしたりした箇所があるのですが, 今後必要になったときに改めて読み返そうと思うような内容でした.
+Base と Jane Street 本書では一貫して Base というライブラリが使われています. Base は OCaml の標準ライブラリを置き換えるべく作られたライブラリで, 今やデファクトスタンダードとなっている (らしい. 少なくとも私はそのような印象を受けた)OSS です.
+メインの開発元は Jane Street という企業です....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-12-29 00:00:00 +0000 UTC'>December 29, 2021</span>&nbsp;·&nbsp;5 min</footer>
+  <a class="entry-link" aria-label="post link to 『Real World OCaml』で入門レベルを脱する" href="http://localhost:1313/posts/real-world-ocaml/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『プログラミング言語の基礎概念』で型推論を実装する
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>出版社のページ
+プログラマーとして働いておきながらいまさら「基礎」かと思われそうなタイトルの本書ですが, 「プログラミングの基礎」ではなく「プログラミング言語の基礎」であることがポイントです.
+プログラミング言語を数学的に厳密に扱う意味論や, エラーを事前に検知するための型システムについての本で, プログラミングの入門本ではありません.
+本書では序盤中盤に書けて, プログラミング言語分析のための枠組みについての説明がされていますが, メインは型システム, 型推論だと思います.
+プログラムの実行や型推論の仕組みについて厳密に扱う方法を知りたい方におすすめです. 対象としている言語は OCaml なので, ある程度 OCaml についての知識があったほうが理解がスムーズだと思います. 分析については基礎から解説してあるので, 前提知識は不要です.
+導出システムについて 本書ではプログラムを厳密に扱うための枠組みとして導出システムを使います. 導出システムとは, 定義されたいくつかの規則に従って定理を導出する記述体系です.
+本書の流れに沿って, 実際のプログラミング言語を扱う前に, 自然数の加算乗算を対象とした導出システムの例を見ていきます.
+自然数を対象とした導出システム (natural numbers から Nat と名付けられている) では簡単のために S(...S(Z)...) のような記法で自然数を表します. 例えば以下のような感じです.
+1 2 3 0 -&gt; Z 1 -&gt; S(Z) 2 -&gt; S(S(Z)) 導出システムによって導出される結論を「判断」と言います. Nat での判断は以下の 2 つの形です.
+n1, n2, n3 は自然数で, 2 つの判断はそれぞれ加算と乗算に対応しています.
+1 2 n1 plus n2 is n3 n1 times n2 is n3 式を変形するための規則「推論規則」は以下の 4 つです....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-11-23 00:00:00 +0000 UTC'>November 23, 2021</span>&nbsp;·&nbsp;19 min</footer>
+  <a class="entry-link" aria-label="post link to 『プログラミング言語の基礎概念』で型推論を実装する" href="http://localhost:1313/posts/copl/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="http://localhost:1313/posts/page/2/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="http://localhost:1313/posts/page/4/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Momori Nakano</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

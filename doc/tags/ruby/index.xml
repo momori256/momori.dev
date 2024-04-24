@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ruby on Momori Nakano</title>
+    <link>http://localhost:1313/tags/ruby/</link>
+    <description>Recent content in Ruby on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『プロを目指す人のための Ruby 入門』は丁寧で網羅的な入門書</title>
+      <link>http://localhost:1313/posts/pro-ruby/</link>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/pro-ruby/</guid>
+      <description>始めに 誕生から 25 年以上経って, 今更ですが Ruby に入門しました. 本書は Ruby の重要なトピックスを網羅するのみならず, 開発の現場で役に立つようなテクニックの説明にも力を入れられています. Ruby をなんとなく知っているが改めてきちんと学びたい方や, 私のように他言語での経験はあるが Ruby は未経験という方におすすめです.
+親切な説明のおかげですらすら読めましたし, 静的型付け言語に親しんできた身からすると新鮮な驚きが多数あったので非常に楽しめました.
+3 行でまとめ
+丁寧な説明で読みやすい 静的型付け言語に親しんできた身からすると新鮮な驚きが多数あった 便利なスクリプト言語として使っていきたい あらゆるものがオブジェクト すべてがオブジェクト (「Ruby コミュニティサイト: Ruby とは」より)
+「すべて」の中には例えばリテラルも含まれます. 数値や文字列のリテラルもオブジェクトなので, メソッド呼び出しが可能です.
+1 2 3 &amp;#34;hello&amp;#34;.upcase # =&amp;gt; HELLO 5.times { puts &amp;#34;hello&amp;#34; } [1, 2, 3].map { |n| n ** 2 } # =&amp;gt; [1, 4, 9] ついでに, 範囲型や正規表現もリテラルとしてサポートされています.
+1 2 3 4 (1..10).include?(4.5) # =&amp;gt; true /[a-z]\d+/.class # =&amp;gt; Regexp &amp;#34;a123-4e56-789&amp;#34;.</description>
+    </item>
+  </channel>
+</rss>

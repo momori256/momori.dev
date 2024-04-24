@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Ocaml | Momori Nakano</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/tags/ocaml/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.364d6b9256fe5f2d0b7be3f86155a0ceaa731e7ce41aaee3cb04a613cd629a45.css" integrity="sha256-Nk1rklb&#43;Xy0Le&#43;P4YVWgzqpzHnzkGq7jywSmE81imkU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/ocaml/index.xml">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/ocaml/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="list dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Momori Nakano (Alt + H)">Momori Nakano</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archive/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/tags/">Tags</a></div>
+  <h1>
+    Ocaml
+    <a href="/tags/ocaml/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『Go 言語でつくるインタプリタ』を OCaml でやる
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>導入 出版社のページ
+実際にインタプリタを作りながら, インタプリタの仕組みを学ぶ本です.
+インタプリタを作るというのは, 例えば以下のようなものを作るということです.
+1 2 3 4 5 6 7 8 9 10 11 12 &gt;&gt; -5 &#43; 1 -4 &gt;&gt; (1 &lt; 2) == !true false &gt;&gt; if (1 &lt; 2) { 10 } else { 20 } 10 &gt;&gt; let add = fn (x, y) { x &#43; y; } &gt;&gt; add (1 &#43; 2, 3) 6 &gt;&gt; let fact = fn(n) { if (n == 0) { 1 } else { n * fact (n - 1) }}; &gt;&gt; fact(5) 120 以下のような方におすすめです....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-02-06 00:00:00 +0000 UTC'>February 6, 2022</span>&nbsp;·&nbsp;8 min</footer>
+  <a class="entry-link" aria-label="post link to 『Go 言語でつくるインタプリタ』を OCaml でやる" href="http://localhost:1313/posts/interpreter-in-go/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『Real World OCaml』で入門レベルを脱する
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本書は OCaml のベテランプログラマ 2 名による解説本です. 第 2 版が 2021 年にかかれていて, ネットで無料公開されています.
+全 3 章は以下のような構成で, OCaml 初心者でも読めますし, 深堀りされた解説からは経験者でも得るものがありそうです.
+OCaml の機能一通り (基礎文法, ヴァリアント, レコード, ファンクター, GADT, Class など) 具体例 (コマンドラインの引数パーズ, 非同期通信, json パーザ) OCaml のランタイムとコンパイラの仕組み 個人的にここ数か月 OCaml に興味を持って少しずつ触れてきたのですが, 入門の次に進むための知識が得たいと思い本書を読みました. 知りたかったことは例えば以下のような点です.
+標準ライブラリにはそれほど機能が揃っていないが, 便利なライブラリがあるのか (または自分でライブラリを整備するのが普通なのか) プロジェクトをどのようにファイル構成するか どの程度の規模でモジュールを分けるか テストはどうやって書くか こういった事柄はやや抽象的でそのものズバリ検索するのが難しいと思っていますが, 本書には知りたかったことは全て書いてありました. そのくらい網羅的で, もちろん知らなかったこと (知りたいとすら思わなかったこと) も満載でした.
+高度な機能や具体的なライブラリの使い方などは読んでもピンとこなかったり軽く読み飛ばしたりした箇所があるのですが, 今後必要になったときに改めて読み返そうと思うような内容でした.
+Base と Jane Street 本書では一貫して Base というライブラリが使われています. Base は OCaml の標準ライブラリを置き換えるべく作られたライブラリで, 今やデファクトスタンダードとなっている (らしい. 少なくとも私はそのような印象を受けた)OSS です.
+メインの開発元は Jane Street という企業です....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-12-29 00:00:00 +0000 UTC'>December 29, 2021</span>&nbsp;·&nbsp;5 min</footer>
+  <a class="entry-link" aria-label="post link to 『Real World OCaml』で入門レベルを脱する" href="http://localhost:1313/posts/real-world-ocaml/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『プログラミング言語の基礎概念』で型推論を実装する
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>出版社のページ
+プログラマーとして働いておきながらいまさら「基礎」かと思われそうなタイトルの本書ですが, 「プログラミングの基礎」ではなく「プログラミング言語の基礎」であることがポイントです.
+プログラミング言語を数学的に厳密に扱う意味論や, エラーを事前に検知するための型システムについての本で, プログラミングの入門本ではありません.
+本書では序盤中盤に書けて, プログラミング言語分析のための枠組みについての説明がされていますが, メインは型システム, 型推論だと思います.
+プログラムの実行や型推論の仕組みについて厳密に扱う方法を知りたい方におすすめです. 対象としている言語は OCaml なので, ある程度 OCaml についての知識があったほうが理解がスムーズだと思います. 分析については基礎から解説してあるので, 前提知識は不要です.
+導出システムについて 本書ではプログラムを厳密に扱うための枠組みとして導出システムを使います. 導出システムとは, 定義されたいくつかの規則に従って定理を導出する記述体系です.
+本書の流れに沿って, 実際のプログラミング言語を扱う前に, 自然数の加算乗算を対象とした導出システムの例を見ていきます.
+自然数を対象とした導出システム (natural numbers から Nat と名付けられている) では簡単のために S(...S(Z)...) のような記法で自然数を表します. 例えば以下のような感じです.
+1 2 3 0 -&gt; Z 1 -&gt; S(Z) 2 -&gt; S(S(Z)) 導出システムによって導出される結論を「判断」と言います. Nat での判断は以下の 2 つの形です.
+n1, n2, n3 は自然数で, 2 つの判断はそれぞれ加算と乗算に対応しています.
+1 2 n1 plus n2 is n3 n1 times n2 is n3 式を変形するための規則「推論規則」は以下の 4 つです....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-11-23 00:00:00 +0000 UTC'>November 23, 2021</span>&nbsp;·&nbsp;19 min</footer>
+  <a class="entry-link" aria-label="post link to 『プログラミング言語の基礎概念』で型推論を実装する" href="http://localhost:1313/posts/copl/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">『プログラミング in OCaml』で関数型言語に入門
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>感想 関数型言語を学ぶため, 『プログラミング in OCaml』を読みました (出版社のページ). 関数型言語や関数型プログラミングといった言葉を何度か耳にして気になっていたので入門してみることにしました. OCaml という (マイナー?) な言語を選んだのにはそれほどの理由はありません. C&#43;&#43; を知っていれば Java や C# など他のオブジェクト指向言語もおおよそ似たようなものに感じられるように, 関数型言語を 1 つ学べば他の理解もスムーズになるだろうと思ったという程度です.
+関数型言語ならではの考え方に触れたり,他言語に輸入されたであろう機能を見たりして楽しめました. 後半で詳しく書いていますが, 木のようなデータ構造を型で表現できる機能や再帰を使ったエレガントな書き方には感動しました. 基礎から説明してあるので, 関数型言語を学んだことのない方にもおすすめの本です.
+印象に残ったこと いくつかピックアップして印象的な点を振り返ります.
+OCaml の歴史 ML というプラグラミング言語の処理系の 1 つらしいのですが, 祖先に当たる ML は元々コンピュータで数学の手切りを証明するためのシステムに起源を持つ言語のようです. この説明だけでも, ML やその派生言語が C 言語系 (ALGOL 系?) の言語と出自が異なるということが感じられます. 関数型言語では「プログラムを実行する = 関数を実行してその解を得る」という捉え方です. プログラムは複数の関数の組み合わせであり, その関数を実行していくことがプログラムの目的ということです. これが関数型と言われる所以だと思います.
+強力な型推論 型推論自体は多くのメジャーな静的型付け言語に備わっている機能だと思います. 本書では, OCaml は基本的に必要がなければ型は書かなくて良いというスタンスで, これは型推論が言語の中心的な機能として最初から考えられていたからこそのものだと思いました. 例えば C&#43;&#43; にも 型推論の auto はあります. これは C&#43;&#43;11 から追加された機能で, 便利ですが乱用するのは良しとされない印象があります. あまりにも長い型名 (iterator など) や冗長な型宣言を省略するというあくまでも補助的な機能のように感じます....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-08-22 00:00:00 +0000 UTC'>August 22, 2021</span>&nbsp;·&nbsp;6 min</footer>
+  <a class="entry-link" aria-label="post link to 『プログラミング in OCaml』で関数型言語に入門" href="http://localhost:1313/posts/programming-in-ocaml/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Momori Nakano</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

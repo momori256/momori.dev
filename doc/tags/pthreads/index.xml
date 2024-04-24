@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pthreads on Momori Nakano</title>
+    <link>http://localhost:1313/tags/pthreads/</link>
+    <description>Recent content in Pthreads on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/pthreads/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『Linux と pthreads による マルチスレッドプログラミング入門』で pthreads を実践する</title>
+      <link>http://localhost:1313/posts/linux-pthreads/</link>
+      <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/linux-pthreads/</guid>
+      <description>Linux と pthreads による マルチスレッドプログラミング入門 は pthreads の入門書です. 基礎から説明してあるので Linux でのマルチスレッドプログラミングを学びたい方におすすめです.
+pthreads は知っていましたし, ミューテックスなどのマルチスレッドプログラミングの概念もある程度知っていたのですが, 改めて pthreads で実践してみようと思いました.
+必要なもの一通り スレッドの生成と破棄, ミューテックス, 条件変数など, 必要なものは一通り説明されている.
+多数ある pthreads の関数から特に重要なものがピックアップされており, 説明も深入りしすぎず手短なので気負わずにさくっと読める.
+もっと詳しく知りたい場合は man を参照すればよい. というか実際には主だった関数に限っても引数や返り値の意味を覚えられるわけではないので, 結局 man はいつも参照するから, 詳細が省かれていても手間は対して変わらない. 確かこういう関数があったかなぁとぼんやり覚えているくらいで十分だろう.
+説明をコンパクトにまとめることも大事である.
+スレッドプールを実装 本書の後半ではスレッドセーフなキューを実装する. そしてそのキューを使ってスレッドプールを備えた並行サーバを実装する.
+ミューテックスと条件変数があれば実装はそれほど難しくないだろうと思っていたが, 実際に手を動かして試してみるのは大事だと思う. 事実, ロック絡みで少しハマったりした.
+Linux の技術書ではソケット関連のサンプルが頻繁に登場するので随分見慣れた. ソケットのプログラムを書くたびに面倒さを感じつつお馴染みのコードを書いている.
+動きのあるサンプル CLI のプログラムだとどうしても絵的には退屈になりがちだが, 本書はエンタメ性を意識しているのか面白いサンプルが使われている. 端末上をハエが飛び回るのだ.
+ハエの数だけスレッドがあり, 並行にハエの位置が計算されている.
+CLI でのグラフィカルなプログラムを作るために ncurses を使ったことがあったのだが, エスケープシーケンス (printf(&amp;quot;\033[2J&amp;quot;) で画面クリアなど) でもこれくらいのものが簡単にできると知って感心した. 少し見た目にこだわりたいときはちょうどよいかもしれない.
+結語 マルチスレッドプログラミングは難しいと常々思っていますが, 基本的なライブラリを使うのはそれほど難しくありません. できる限りロジックをシンプルにするのが重要だと感じました.
+コンパクトな本書に倣って記事もコンパクトにしてみました. 本の紹介や学んだことのまとめをするのに毎回長い文章を書く必要はありませんし, 必要最小限はプログラマの美学ですし (ですよね？), たまにはこれくらい短い記事でも良いと思いました.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>K8s on Momori Nakano</title>
+    <link>http://localhost:1313/tags/k8s/</link>
+    <description>Recent content in K8s on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 May 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん』でようやく Docker の基本を理解する</title>
+      <link>http://localhost:1313/posts/elemental-docker-k8s/</link>
+      <pubDate>Sat, 06 May 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/elemental-docker-k8s/</guid>
+      <description>仕組みと使い方がわかる Docker＆Kubernetes のきほんのきほん は Docker の入門書です. イラストやハンズオンが豊富で, サーバや Linux の知識が豊富ではない人にも Docker の基本が分かるように書かれた本です.
+ネット上のコマンドを見様見真似でなんとなく Docker を使うことは難しくありませんが, 結局そのコマンドはどういう意味なのか, どういう仕組みで Docker が成り立っているのかを知らないと応用できません. これまで docker run や docker-compose up などのコマンドを使ってきたのに, その実何が起きているのか理解していなかったのですが, 本書の説明でようやく基本が理解できました.
+Docker コマンドのフォーマット Docker コマンドを使う上で最も重要だと感じたのがコマンドのフォーマットです.
+1 docker &amp;lt;上位コマンド&amp;gt; &amp;lt;下位コマンド&amp;gt; [オプション] &amp;lt;上位コマンド&amp;gt; は基本的に操作対象を, &amp;lt;下位コマンド&amp;gt; は操作を表しています. 例えば docker container start だと, コンテナを開始するという意味です.
+これがなぜ重要なのかと言うと, 操作対象を明確に意識できるからです. 自分が操作しようとしているのはコンテナなのかイメージなのかはっきりと分かります.
+これまで, Docker には, 隔離されたプログラムの実行環境であるコンテナと, コンテナの設計図であるイメージがあるというような説明を目にしたことがあったにも拘らず, それを各コマンドと結び付けられていなかったのですが, このフォーマットを知ることで疑問が氷解しました. コンテナ, イメージ, ネットワーク, ボリュームなど, 扱いたい対象が上位コマンドに来るというただそれだけなのです.
+混乱の原因となっていたのは, 上位コマンドは省略可能な場合があることです. 例えば docker ps はコンテナの状態を表示するコマンドですが container の文字がありません. 実はこれは docker container ps と同じ意味なのですが, 歴史的な経緯により ps でも container ps と同じことができます.</description>
+    </item>
+  </channel>
+</rss>

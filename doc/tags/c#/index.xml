@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>C# on Momori Nakano</title>
+    <link>http://localhost:1313/tags/c</link>
+    <description>Recent content in C# on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/c" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『Effective C#』で C# に親しむ</title>
+      <link>http://localhost:1313/posts/effective-csharp/</link>
+      <pubDate>Sun, 10 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/effective-csharp/</guid>
+      <description>様々な言語にある Effective シリーズの C# 版 『Effective C# 6.0/7.0』 です. 基本的な文法の説明などはなく, 実践的な問題に対するテクニックやアプローチの仕方が 50 項目掲載されています. C# の基本的なことは分かったという状態で読むと理解が深まるでしょう.
+50 項目のうち特に印象に残ったものを紹介します.
+項目 2 const よりも readonly を使用すること 混乱しがちな const と readonly についての項目です.
+両者の最も大きな違いは, const はコンパイル時, readonly は実行時に解決されるという点です. コンパイル時定数の const 変数は, コード中の使用箇所をその値で置き換えたような IL が生成されます.
+この仕組みによって const 変数が別アセンブリで参照される場合, 気づきにくいバグを生む可能性があります. const 変数の値を変更したとしても, その変数を使用しているアセンブリではリビルドするまで変更前の値のままになるのです.
+よって基本的にこの問題を回避できる readonly を使ったほうがよいという主張です.
+しかし, これは const 変数を外部のアセンブリに公開した場合のみに起こる現象なので, private や internal にしておけば済む話です. ライブラリではないプログラムの場合はそもそも外部のアセンブリに使われることがないので関係ありません.
+よってスローガンは「外部アセンブリに公開する変数は const よりも readonly を使用すること」の方がより正確だと思います. もちろん const にはパフォーマンスの利点しかないので, 柔軟性を重視して常に readonly を使うという考え方もありかもしれません. しかし, コンパイル時に決まる値ならコンパイル時に決めたほうが良いですし, デメリットを理解した上で const と readonly を適切に使い分けるべきということですね.</description>
+    </item>
+    <item>
+      <title>『C# による マルチコアのための非同期/並列処理プログラミング』で C# の非同期を概観する</title>
+      <link>http://localhost:1313/posts/csharp-concurrency/</link>
+      <pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/csharp-concurrency/</guid>
+      <description>本書はタイトルの通り C# の非同期/並列処理についての書籍です.
+対象としているのはマルチスレッドの理論的な事柄ではありません. .NET や C# にすでに備わっている環境をどのように利用してプログラムを書くかということに焦点を当てています.
+そのため, 具体的な.NET のライブラリの使い方を, 実践を通じて知りたい方におすすめです.
+個人的な白眉は昔のバージョンから新しいバージョンまで, 各 .NET での実装が比較されている点です. バージョン 1.x 系の.NET ではこう書く, 2.x 系ではこう書く, といった風にして, 1.x 系から 4.5 まで扱います.
+今更昔のバージョンの .NET を利用することはないとはいえ, 歴史的な変遷を見られてためになりました. 昔はこんなに面倒だったのかと驚き, それによって新しいバージョンでの書き方では何が省略されているのかイメージを掴むことができました.
+非同期/並列処理の基礎 まずは非同期/並列処理とは何か, ということから始まります. マルチスレッド, レースコンディション, ロック, スレッド間同期といった主要なトピックスが紹介されています.
+この辺りのことはすでに一通り知っていたので新鮮さはなかったのですが, 同じことでも別の説明を読むのはためになります.
+いいなと思ったのは「非同期」と「並列」という言葉の使い分けです. 「並行」と「並列」が一般的ですが, これらは混同しやすいので本書では並行の代わりに非同期という言葉が使われています. 個人的にも「並行」と「並列」は言葉だけだといつも分からなくなるので「concurrent」と「parallel」で覚えていますが, 「非同期」と「並列」の方が分かりやすくて良いかもしれません.
+新旧 .NET で変遷を見る 例題を各バージョンの .NET で実装して違いを見る章があります.
+例題は「1-10 の数字を 3 桁に 0 埋めして画面に表示する」です. マルチスレッドで並列に計算することと, 画面をフリーズさせないように計算を非同期で行うという 2 つ問題を含んだ題材です.
+これを最初に見たとき, なぜこんな簡単なものが例題になりうるのだろうと思いました. 計算はAsParallel()を使って簡単に実装できます.
+1 2 3 4 Enumerable.</description>
+    </item>
+  </channel>
+</rss>

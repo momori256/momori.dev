@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>『論理学をつくる』で論理学をつくる | Momori Nakano</title>
+<meta name="keywords" content="logic">
+<meta name="description" content="導入 記事のタイトルがトートロジーになっています. トートロジーというのは
+「トマトはなぜ赤いんだ？」
+「赤いから赤いんだよ」
+というような, 無意味な同じ言葉の繰り返しのことです.
+ところで, 論理学では常に真になる文のことをトートロジーと言います. 例えば「クジラは哺乳類であるか, 哺乳類でないかのどちらかだ」というような文は, クジラについて何もわかっていかなったとしても正しいとわかるトートロジーです.
+では以下の文はどうでしょう.
+この占い師が信用できるなら, 私の明日旧友と出会う この占い師は信用できる よって, 私の明日旧友と出会う 理屈は正しそうです. ではこれはどうでしょう.
+この占い師が信用できるなら, 私の明日旧友と出会う 私は翌日旧友と出会った よって, この占い師は信用できる 予言が当たったのなら本物感はありますが, インチキ占い師が適当なことを言ったのにも関わらず, たまたま予言が当たったという可能性もありそうです. ということでこの理屈は間違っていると言えそうです.
+常に正しい文, 論理的に正しい/間違った推論. こういった事柄を厳密に扱うのが論理学です.
+なんだ, 論理学は随分当たり前のことを研究するんだなぁと思うかもしれません. しかし, 推論の正しさや矛盾と言った事柄を一般的に, 明確に, 統一的に示すのは難しそうです. 普段行っている論理的判断であっても, それがなぜ正しいのか説明できなかったり, 対象が複雑になると判断がつかなくなったりします.
+本書は論理学を全く学んだことのない人のための教科書です.
+初学者でも独学できるように丁寧な説明や練習問題が満載です (ちゃんと練習問題に解説がついているのは嬉しいポイントです. というかなぜ大学の教科書のような本にはついてないことが多いのでしょう). 身近な例から始まって, 述語論理, 自然演繹, 非古典論理など, 様々な話題が盛り込まれています.
+序文によると, このような欲張りな目標を立てたために本が分厚くなった (B5 版 400 ページ以上) という事情のようです.
+論理学というといかにも堅苦しそうな分野ですが, 著者の軽妙な語り口も相まって気負わず読み進められます. 論理学には全く触れたことはないが, きちんと入門してみたいという方におすすめです.
+印象に残った点 タイトル通り, 論理というものを厳密に扱うための体系を少しずつ作っていくのが本書のスタイルです. 記号と抽象の奥深い世界が広がっています. 印象的な部分をまとめます.
+論理学を「つくる」とはどういうこと？ 論理を研究するに当たって最初に行う作業は, 論理を厳密に扱うことができる体系を作ることです. つまり, 論理を扱うのに都合の良い言語を作って, その人口言語を操作することで話が進みます.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/build-logic/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.364d6b9256fe5f2d0b7be3f86155a0ceaa731e7ce41aaee3cb04a613cd629a45.css" integrity="sha256-Nk1rklb&#43;Xy0Le&#43;P4YVWgzqpzHnzkGq7jywSmE81imkU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/build-logic/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Momori Nakano (Alt + H)">Momori Nakano</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archive/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      『論理学をつくる』で論理学をつくる
+    </h1>
+    <div class="post-meta"><span title='2021-10-24 00:00:00 +0000 UTC'>October 24, 2021</span>&nbsp;·&nbsp;11 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#導入">導入</a></li>
+    <li><a href="#印象に残った点">印象に残った点</a>
+      <ul>
+        <li><a href="#論理学をつくるとはどういうこと">論理学を「つくる」とはどういうこと？</a></li>
+        <li><a href="#l-を拡張して対象を広げる">L を拡張して対象を広げる</a></li>
+        <li><a href="#mpl-のさらなる拡張">MPL のさらなる拡張</a></li>
+        <li><a href="#シンタックスの視点から論理学を見る">シンタックスの視点から論理学を見る</a></li>
+        <li><a href="#非古典論理という世界があるらしい">非古典論理という世界があるらしい</a></li>
+      </ul>
+    </li>
+    <li><a href="#結び-論理学とプログラミング">結び: 論理学とプログラミング</a></li>
+    <li><a href="#導入-1">導入</a></li>
+    <li><a href="#印象に残った点-1">印象に残った点</a>
+      <ul>
+        <li><a href="#論理学をつくるとはどういうこと-1">論理学を「つくる」とはどういうこと？</a></li>
+        <li><a href="#l-を拡張して対象を広げる-1">L を拡張して対象を広げる</a></li>
+        <li><a href="#mpl-のさらなる拡張-1">MPL のさらなる拡張</a></li>
+        <li><a href="#シンタックスの視点から論理学を見る-1">シンタックスの視点から論理学を見る</a></li>
+        <li><a href="#非古典論理という世界があるらしい-1">非古典論理という世界があるらしい</a></li>
+      </ul>
+    </li>
+    <li><a href="#結び-論理学とプログラミング-1">結び: 論理学とプログラミング</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="導入">導入<a hidden class="anchor" aria-hidden="true" href="#導入">#</a></h2>
+<p>記事のタイトルがトートロジーになっています. トートロジーというのは</p>
+<blockquote>
+<p>「トマトはなぜ赤いんだ？」<br>
+「赤いから赤いんだよ」</p>
+</blockquote>
+<p>というような, 無意味な同じ言葉の繰り返しのことです.<br>
+ところで, 論理学では常に真になる文のことをトートロジーと言います. 例えば「クジラは哺乳類であるか, 哺乳類でないかのどちらかだ」というような文は, クジラについて何もわかっていかなったとしても正しいとわかるトートロジーです.</p>
+<p>では以下の文はどうでしょう.</p>
+<ol>
+<li>この占い師が信用できるなら, 私の明日旧友と出会う</li>
+<li>この占い師は信用できる</li>
+<li>よって, 私の明日旧友と出会う</li>
+</ol>
+<p>理屈は正しそうです. ではこれはどうでしょう.</p>
+<ol>
+<li>この占い師が信用できるなら, 私の明日旧友と出会う</li>
+<li>私は翌日旧友と出会った</li>
+<li>よって, この占い師は信用できる</li>
+</ol>
+<p>予言が当たったのなら本物感はありますが, インチキ占い師が適当なことを言ったのにも関わらず, たまたま予言が当たったという可能性もありそうです. ということでこの理屈は間違っていると言えそうです.</p>
+<p>常に正しい文, 論理的に正しい/間違った推論. こういった事柄を厳密に扱うのが論理学です.<br>
+なんだ, 論理学は随分当たり前のことを研究するんだなぁと思うかもしれません. しかし, 推論の正しさや矛盾と言った事柄を一般的に, 明確に, 統一的に示すのは難しそうです. 普段行っている論理的判断であっても, それがなぜ正しいのか説明できなかったり, 対象が複雑になると判断がつかなくなったりします.</p>
+<p>本書は論理学を全く学んだことのない人のための教科書です.<br>
+初学者でも独学できるように丁寧な説明や練習問題が満載です (ちゃんと練習問題に解説がついているのは嬉しいポイントです. というかなぜ大学の教科書のような本にはついてないことが多いのでしょう). 身近な例から始まって, 述語論理, 自然演繹, 非古典論理など, 様々な話題が盛り込まれています.<br>
+序文によると, このような欲張りな目標を立てたために本が分厚くなった (B5 版 400 ページ以上) という事情のようです.</p>
+<p>論理学というといかにも堅苦しそうな分野ですが, 著者の軽妙な語り口も相まって気負わず読み進められます. 論理学には全く触れたことはないが, きちんと入門してみたいという方におすすめです.</p>
+<h2 id="印象に残った点">印象に残った点<a hidden class="anchor" aria-hidden="true" href="#印象に残った点">#</a></h2>
+<p>タイトル通り, 論理というものを厳密に扱うための体系を少しずつ作っていくのが本書のスタイルです. 記号と抽象の奥深い世界が広がっています. 印象的な部分をまとめます.</p>
+<h3 id="論理学をつくるとはどういうこと">論理学を「つくる」とはどういうこと？<a hidden class="anchor" aria-hidden="true" href="#論理学をつくるとはどういうこと">#</a></h3>
+<p>論理を研究するに当たって最初に行う作業は, 論理を厳密に扱うことができる体系を作ることです. つまり, 論理を扱うのに都合の良い言語を作って, その人口言語を操作することで話が進みます.</p>
+<p>なぜ人工言語が必要なのかというと, 自然言語 (日本語や英語などの日常生活で使われる言葉のこと) では論理学が対象とする論理の形式が曖昧になってしまうことがあるからです.<br>
+例えば</p>
+<ol>
+<li>アリスはボブを愛している</li>
+<li>ボブはアリスに愛されている</li>
+</ol>
+<p>このペアは同じことを言っているので, 文の骨格を取り出して次のような形式であれば同じだとみなせるように思えます.</p>
+<ol>
+<li>A は B を愛している</li>
+<li>B は A に愛されている</li>
+</ol>
+<p>しかし, 次の例はどうでしょう.</p>
+<ol>
+<li>みんなは誰かを愛している</li>
+<li>誰かはみんなに愛されている</li>
+</ol>
+<p>この 2 文は言っていることが違います. 1 は誰もがそれぞれ愛する人を持っているということであるのに対し, 2 は全員に愛されるアイドルのような人がいるという内容です.<br>
+このように, 自然言語では論理の形式が文法によって見えづらくなることがあるわけです. そこで「推論の妥当性を明確にする」という目的に即した言語を作るというわけです.</p>
+<p>最初の人工言語 L(Logic の頭文字) は馴染みのあるものです.<br>
+「アリスはボブを愛している」というような単純な文を P, Q, R などのアルファベットで表します. そして, 「ならば」は「→」, 「かつ」は「∧」, 「または」は「∨」, 「ではない」は「¬」として記号で置き換えます.</p>
+<p>論証の例を見てみます.</p>
+<ol>
+<li>トムは東京か大阪にいる</li>
+<li>トムが大阪にいるならば, ジェリーも大阪にいる</li>
+<li>ジェリーは今大阪にいない</li>
+<li>よって, トムは今東京にいる</li>
+</ol>
+<p>これは次のように記号化できます.</p>
+<ol>
+<li>P ∨ Q</li>
+<li>Q → R</li>
+<li>¬Q</li>
+<li>よって, P</li>
+</ol>
+<p>PQR の意味は次のとおりです.</p>
+<ul>
+<li>P: トムは東京にいる</li>
+<li>Q: トムは大阪にいる</li>
+<li>R: ジェリーは大阪にいる</li>
+</ul>
+<p>「P」, 「Q → R」のような式のことを論理式と呼ぶことにします.<br>
+ここで, 各論理式の真偽には関係がありそうです. 例えば, Q が真なら¬Q は偽である, というような関係です. これを真理値表をとして定義しておきます.<br>
+例えば∨の真理値表は次のようにします. もちろん他の記号 (∧, ¬, →. これらを論理結合子と呼ぶ) についても定義します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>| P   | Q   | P ∨ Q |
+</span></span><span style="display:flex;"><span>| --- | --- | ----- |
+</span></span><span style="display:flex;"><span>| 0   | 0   | 0     |
+</span></span><span style="display:flex;"><span>| 0   | 1   | 1     |
+</span></span><span style="display:flex;"><span>| 1   | 0   | 1     |
+</span></span><span style="display:flex;"><span>| 1   | 1   | 1     |
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>さて, いよいよこの論証が正しいかどうかを確認します. 論証が正しいとは, 前提 (P ∨ Q, Q → R, ¬Q) がすべて真になっているとき, 必ず結論 (P) も真になることだと言えそうです.<br>
+というわけで真理値表を書いて分析します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>| P   | Q   | R   | P ∨ Q | Q → R | ¬Q  | P   |
+</span></span><span style="display:flex;"><span>| --- | --- | --- | ----- | ----- | --- | --- |
+</span></span><span style="display:flex;"><span>| 0   | 0   | 0   | 0     | 1     | 1   | 0   |
+</span></span><span style="display:flex;"><span>| 0   | 0   | 1   | 0     | 1     | 1   | 0   |
+</span></span><span style="display:flex;"><span>| 0   | 1   | 0   | 1     | 0     | 0   | 0   |
+</span></span><span style="display:flex;"><span>| 0   | 1   | 1   | 1     | 1     | 0   | 0   |
+</span></span><span style="display:flex;"><span>| 1   | 0   | 0   | 1     | 0     | 1   | 1   |
+</span></span><span style="display:flex;"><span>| 1   | 0   | 1   | 1     | 1     | 1   | 1   |
+</span></span><span style="display:flex;"><span>| 1   | 1   | 0   | 1     | 0     | 0   | 1   |
+</span></span><span style="display:flex;"><span>| 1   | 1   | 1   | 1     | 1     | 0   | 1   |
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>真理値表を見ると, 前提がすべて真になるのは下から 3 行目の場合のみで, このとき結論も真になっています. よってこの論証は正しいと言えます.<br>
+逆に, 前提がすべて 1 なのに結論が 0 になる組み合わせがある場合, その論証は正しくないと言えるわけです. 例えば「a^2=1 の答えは a=1 です. なぜなら a=1 を代入すると a^2=1 になるからです」という論証は正しくありません. P: a = 1, Q: a^2 = 1 として真理値表を書いてみると明らかになります.<br>
+このように, すべての論理式を同時に 1 にする真理値の割り当てが存在しない論理式の集合は矛盾していると言います.</p>
+<p>真理値表は見慣れたものですが, 「→」については説明が必要かもしれません. 「P → Q」が 0 になるのは, P = 1, Q = 0 のときのみです.<br>
+これは「もし明日雨が降ったら延期します」という発言が嘘になるのは「明日雨が降った」かつ「延期しなかった」ときに限られるということを考えると, 妥当な気もします. もっとも, 日本語を正確に翻訳できるわけではないので, 多少現実的な感覚と乖離があるのは仕方ありません.</p>
+<h3 id="l-を拡張して対象を広げる">L を拡張して対象を広げる<a hidden class="anchor" aria-hidden="true" href="#l-を拡張して対象を広げる">#</a></h3>
+<p>L を手に入れたので, どんな論証でも記号化して真理値表を書けば正しさを確認できそうな気がしてきました. しかし, 次の論証はどうでしょう.</p>
+<ol>
+<li>ゲーマーは負けず嫌いである</li>
+<li>アリスはゲーマーである</li>
+<li>よって, アリスは負けず嫌いである</li>
+</ol>
+<p>これは正しい論証だとわかりますが, L ではその正しさを分析できません. 記号化しようとしても「P, Q, よって R」の形にしかできません. 「ゲーマーである → 負けず嫌いである」のようになんとか分解を試みても限界があります.<br>
+そこで「A は B である」という述語の形式を以下のように記号化します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Px: x はゲーマーである
+</span></span><span style="display:flex;"><span>Qx: x は負けず嫌いである
+</span></span><span style="display:flex;"><span>a: アリス
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>さらに, 上記の 1 は特定の誰かというわけではなく, ゲーマーならばみんな負けず嫌いであるという内容です. この「みんな」というのを以下のような記号で表します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>どんな x に対しても (Px → Qx)
+</span></span><span style="display:flex;"><span>∀x(Px → Qx)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>∀は All の A に由来していて, 全称記号と言います. これらの記号を用いて, 上記の論証は以下のように記号化できます.</p>
+<ol>
+<li>∀x(Px → Qx)</li>
+<li>Pa</li>
+<li>よって, Qa</li>
+</ol>
+<p>「¬∀x(Px → Qx)」という記号の意味は, 日本語で言うとどうなるでしょう. 「すべてのゲーマーが負けず嫌いであるというわけではない」, つまり負けず嫌いでないゲーマーもいるという意味です.<br>
+この「~も存在する」を∃という記号を使って表すことにします (Exist の E から来ていて, 存在記号と呼ばれます).<br>
+このように, 述語を取り入れたバージョンの L を MPL と名付けます (Monadic Predicate Logic. Monadic の意味は後でわかります).</p>
+<p>さて, MPL では論証の分析をどのように行えば良いでしょうか.<br>
+論理式の集まりが矛盾しているかどうか判定するタブローの方法という便利なものがあります. タブローの方法とは, 前提がすべて真というところから出発して, 前提が真であるならば真でなければならない論理式を書き連ねていくことで, 最終的に前提と結論すべてを真にできるかどうかを判定するアルゴリズムです.</p>
+<p>例として次の式が矛盾しているかどうか (=同時に 1 になることがあり得ないか) を判定してみます.</p>
+<ol>
+<li>P ∧ Q</li>
+<li>¬P ∨ ¬Q</li>
+</ol>
+<p>P, Q のどの 01 の組み合わせでも 1, 2 両方が 1 になることはないので, この 2 つの式は矛盾していると言えそうです. これをタブローの方法で確認してみます.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> P ∧ Q
+</span></span><span style="display:flex;"><span>¬P ∨ ¬Q
+</span></span><span style="display:flex;"><span>--------
+</span></span><span style="display:flex;"><span>   P    (P ∧ Q: P=1 and Q=1)
+</span></span><span style="display:flex;"><span>   Q
+</span></span><span style="display:flex;"><span>  / \
+</span></span><span style="display:flex;"><span> ¬P ¬Q  (¬P ∨ ¬Q: ¬P=1 or ¬Q=1)
+</span></span><span style="display:flex;"><span> X   X  (すでに P, Q なので¬P, ¬Q は矛盾)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>まず最初に論理式を書き, その後∧や∨の規則に従って論理式を分解していきます. 最終的にすべての枝に X が付けば矛盾です.<br>
+逆に一つでも X が付かない枝があれば, その枝ではどの論理式も 1 にできるということなので矛盾ではありません.</p>
+<p>タブローの方法を使って論証が正しいことを確認するには, 結論を否定して矛盾することを示せばよいです (背理法ですね).<br>
+アリスが負けず嫌いであることを確認するには, 次の論理式から出発します.</p>
+<ol>
+<li>∀x(Px → Qx)</li>
+<li>Pa</li>
+<li>¬Qa</li>
+</ol>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> ∀x(Px → Qx)
+</span></span><span style="display:flex;"><span>    Pa
+</span></span><span style="display:flex;"><span>   ¬Qa
+</span></span><span style="display:flex;"><span>-------------
+</span></span><span style="display:flex;"><span> Pa → Qa  (∀x(Px → Qx))
+</span></span><span style="display:flex;"><span>   / \
+</span></span><span style="display:flex;"><span>¬Pa   Qa  (Pa → Qa: Pa=0 or Qa=1)
+</span></span><span style="display:flex;"><span> X     X  (すでに Pa, ¬Qa なので¬Pa, Qa は矛盾)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>∀x というのはすべての x について当てはまるという意味なので, 当然 a についても当てはまります. そのため「∀x(Px → Qx)」の一例として「Pa → Qa」も成り立っていると言えます.</p>
+<h3 id="mpl-のさらなる拡張">MPL のさらなる拡張<a hidden class="anchor" aria-hidden="true" href="#mpl-のさらなる拡張">#</a></h3>
+<p>拡張は更に続きます.</p>
+<ol>
+<li>マリンバはパーカッションである</li>
+<li>ということは, マリンバ奏者はパーカッショニストである</li>
+</ol>
+<p>この論証は明らかに正しいですが, MPL で正しさを分析するためにはマリンバとマリンバ奏者という関係を記号化する必要がありそうです.<br>
+これは「Pxy: x は y を演奏する」という記号を導入すると, 以下のように表せます.</p>
+<ol>
+<li>∀x(Mx → Px)</li>
+<li>∀x((Hx ∧ ∃y(Qxy ∧ My)) → (Hx ∧ ∃y(Qxy ∧ Py)))</li>
+</ol>
+<p>突然複雑になりましたが「マリンバ奏者」を以下のように記号化しています.</p>
+<ol>
+<li>「マリンバ奏者」 = 「x は人である ∧ x はマリンバを演奏する」</li>
+<li>「x はマリンバを演奏する」 = ∃y(Qxy ∧ My)</li>
+<li>「マリンバ奏者」 = Hx ∧ ∃y(Qxy ∧ My)</li>
+</ol>
+<p>さらに次のような例はどうでしょう.</p>
+<ol>
+<li>この大会の唯一の優勝者はトロフィーを手にした</li>
+<li>アリスはこの大会の優勝者である</li>
+<li>アリスはトロフィーを手にした</li>
+</ol>
+<p>これは「唯一の」という点がポイントで, 同一性を表す記号 (a=b) を導入することで表現できるようになります.</p>
+<p>このように, 最初に作った人工言語を徐々に拡張して扱う対象を広げていくのが本書の大筋です.<br>
+この記事で紹介した流れでは, L の文法, 論証の妥当性, L の完全性 (=L でどんな論理式でも表せるか), 矛盾といったことを曖昧にしか説明していません. 実際には厳密な定義や証明がつけられていて,</p>
+<ul>
+<li>L の式は一通りにしか解釈できないのか? 別の読み方が生まれてしまわないか</li>
+<li>述語論理 MPL における真理値の割り当てとはどのようなものか? ∀などをどう扱うか</li>
+<li>タブローの方法は正しいのか</li>
+</ul>
+<p>と言ったようなことが証明の題材になっています. 「L の文法規則に従うと, あらゆる論理式の <code>(</code> と <code>)</code> の数は一致する」という当たり前に思えるようなものでもちゃんと証明が書かれていて, 練習になります (私はそれほど興味を惹かれなかったので, 面白そうな証明以外は飛ばし読みしてしまいましたが).</p>
+<p>最初は日常生活に根ざした例を扱うところから出発して, 抽象化と証明によって一歩ずつ構築を進めていくという流れは面白いです.<br>
+もともと論証の正しさや矛盾といったことを厳密に扱うことを目標としていたのに, いつしか抽象化を重ねてどんな長さの論理式をも対象にできるようになったり, L 自体が興味深い研究対象になったりするところに奥深さを感じました.</p>
+<h3 id="シンタックスの視点から論理学を見る">シンタックスの視点から論理学を見る<a hidden class="anchor" aria-hidden="true" href="#シンタックスの視点から論理学を見る">#</a></h3>
+<p>これまで紹介した内容は, それぞれの論理結合子 (∧や→など) にどのような意味があるかを考えた上で話を進めていました. それに対して, 結合子は意味を持たないただの記号だと考えて, 純粋に式の形のみに注目する立場もあります. それぞれセマンティクス (意味論), シンタックス (構文論) と呼ばれています.</p>
+<p>シンタックスの立場では, 最初に絶対に正しいと思えるようなトートロジー(常に真になる論理式) と, トートロジーを変形して別のトートロジーを作り出すための変形規則を設定します. この出発点と変形規則を合わせて公理系と言います.<br>
+本書で主に扱われる公理系 APL(Axiomatic system for Propositinal Logic) は以下のようなものです. A が出発点, R が変形規則です.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>A1. A → (B → A)
+</span></span><span style="display:flex;"><span>A2. (A → (B → C)) → ((A → B) → (A → C))
+</span></span><span style="display:flex;"><span>A3. (¬B → ¬A) → ((¬B → A) → B)
+</span></span><span style="display:flex;"><span>R1. A と A → B から B を引き出して良い
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>この公理系のもとでは「P → P」の証明は以下のようになります.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1. P → ((P → P) → P)                                A1
+</span></span><span style="display:flex;"><span>2. (P → ((P → P) → P)) → ((P → (P → P)) → (P → P))  A2
+</span></span><span style="display:flex;"><span>3. (P → (P → P)) → (P → P)                          1, 2 から R1 より
+</span></span><span style="display:flex;"><span>4. P → (P → P)                                      A1
+</span></span><span style="display:flex;"><span>5. P → P                                            3, 4 から R1 より
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>「P → P」なんて当たり前だと思うかもしれませんが, それはセマンティクス的な見方です. シンタックスでは記号の意味は考えないので, 公理系から「P → P」が導出されるのは当たり前ではありません.</p>
+<p>このようにちょっとした証明でもかなり大変ですが, 実は自然演繹という便利な方法があります. これは前提から結論を一歩ずつ引き出す方法です. タブローの方法は与えられた論証が矛盾か妥当か評価するものでしたが, それに対して自然演繹は前提から結論を導くという手続きを構築する方法です.<br>
+例として, 「P → (Q → R) から Q → (P → R)」を導出する過程は以下のようになります.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>| P → (Q → R) Prem
+</span></span><span style="display:flex;"><span>|---------------------
+</span></span><span style="display:flex;"><span>| | Q Prem
+</span></span><span style="display:flex;"><span>| |-------------------
+</span></span><span style="display:flex;"><span>| | | P Prem
+</span></span><span style="display:flex;"><span>| | |-----------------
+</span></span><span style="display:flex;"><span>| | | P → (Q → R) Reit
+</span></span><span style="display:flex;"><span>| | | Q → R →elim
+</span></span><span style="display:flex;"><span>| | | R →elim
+</span></span><span style="display:flex;"><span>| | P → R →intro
+</span></span><span style="display:flex;"><span>| Q → (P → R) →intro
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一番上に仮定を書きます. Q を仮定すると&hellip;(中略)&hellip;「P → R」ということが導出される, よって「Q → (P → R)」というような流れです.</p>
+<p>自然演繹によって導出されたものも公理系での証明と同等に扱ってよいという定理があるので, シンタックス的論理学において自然演繹をかなり有用です. そして, 一度証明されたトートロジーは別の証明にも使って良いので, だんだん使えるトートロジーが増えていくことになります.</p>
+<h3 id="非古典論理という世界があるらしい">非古典論理という世界があるらしい<a hidden class="anchor" aria-hidden="true" href="#非古典論理という世界があるらしい">#</a></h3>
+<p>本書で主に扱われているのは古典論理と呼ばれる分野です. 古典と言っても古いという意味はなく, 1900 年頃にまとめられた論理学の基本となる体系のことを指します.</p>
+<p>非古典論理を置き換える, 新たな論理体系が考案されています. 例えばすべての論理式が真か偽のどちらかの値しか取らないという点に疑問を投げかけて生まれたファジー論理があります. 真理値はもはや 0 か 1 ではなく, その中間の値も取る連続した値になります.<br>
+確かに現実では真偽の区別が微妙なものもあります. 例えば「重い」の基準は曖昧です. 50kg 以上なら重い, 50kg 未満なら重くないなどとすることもできますが, では重いものを 0.1g 減らしただけで重くなくなるのかというと, そうではない気がします.<br>
+すべての人はハゲであることを証明する有名な帰納法の証明も, このファジー論理のもとでは間違っていると言えるようになります (髪が 0 本の人はハゲである, ハゲの人に髪を 1 本増やしてもハゲである, よって髪が何本あってもハゲであるというやつ).</p>
+<p>古典論理を置き換えるのではなく拡張しようとする立場もあります. 代表的なものは様相論理で, 「必ず~である」を意味する演算子□と「~が可能である」を意味する演算子◇を導入したものです. 他にも述語を関数化に拡張した言語 FOL(First-Order Logic) や, FOL を拡張して述語を量化することを認める第 2 階の論理があります.</p>
+<p>古典論理だけでも消化しきれていない身からすると次々と新たな論理体系が出てきてオーバーフローという感じですが, さらに論理学の学びを深めていく際には参考になりそうです.</p>
+<h2 id="結び-論理学とプログラミング">結び: 論理学とプログラミング<a hidden class="anchor" aria-hidden="true" href="#結び-論理学とプログラミング">#</a></h2>
+<p>読んでいる途中, 論理学とプログラミングには関係がありそうだと思いました.<br>
+真理値表は見慣れたものですし, 他にもいくつかのアナロジーを思いつきました.</p>
+<ul>
+<li>シンタックス的論理学で使える規則を証明して増やす vs. プログラムで新たな関数を定義して演算子を増やす</li>
+<li>述語を量化して扱う第 2 階の論理 vs. 関数を変数として扱う高階関数</li>
+</ul>
+<p>本書では「機械もすなる論理学」という章でタブローの方法が紹介されています.<br>
+タブローの方法はもともとコンピュータで実行することを念頭に置かれたアルゴリズムのようですし, 論証の妥当性を機械的に判定するというような試みは歴史が長いのかもしれません.<br>
+このあたりでプログラミング言語の　ML　を思い出しました. 当時 (OCaml に入門したとき) は証明のためのプログラミング言語と聞いてもイメージが付来ませんでしたが, 本書を読んだ今となっては, そういう発想が出てくるのは自然なことに思えます.</p>
+<p>そもそも現代のコンピュータ自体がブール演算を基礎とした論理コンピュータなわけですから, 論理学とプログラミングに関連があるのは当たり前かもしれません.<br>
+おそらくプログラムを分析するための体系を作って, 正しさを検証したり完全性を調べたりする分野があるのではないかと思います.</p>
+<p>これまで論理学というものを学んだことはなかったが, これで入口に立つことはできたのではないかと思います.<br>
+論理学を学んでも論理的に物事を考えられるようになるとかいうわけではなさそうですが, 言語を作って抽象的な記号の操作をするという営みには神秘的な雰囲気を感じます. 次のステップとしては, プログラミングと論理学の関係について勉強してみようと思います.
++++
+title = &ldquo;『論理学をつくる』で論理学をつくる&rdquo;
+date = 2021-10-24
+tags = [&ldquo;logic&rdquo;]
+cover.image = &ldquo;<a href="https://source.unsplash.com/LJhXYHxPfEY%22">https://source.unsplash.com/LJhXYHxPfEY&quot;</a>
++++</p>
+<h2 id="導入-1">導入<a hidden class="anchor" aria-hidden="true" href="#導入-1">#</a></h2>
+<p>記事のタイトルがトートロジーになっています. トートロジーというのは</p>
+<blockquote>
+<p>「トマトはなぜ赤いんだ？」<br>
+「赤いから赤いんだよ」</p>
+</blockquote>
+<p>というような, 無意味な同じ言葉の繰り返しのことです.<br>
+ところで, 論理学では常に真になる文のことをトートロジーと言います. 例えば「クジラは哺乳類であるか, 哺乳類でないかのどちらかだ」というような文は, クジラについて何もわかっていかなったとしても正しいとわかるトートロジーです.</p>
+<p>では以下の文はどうでしょう.</p>
+<ol>
+<li>この占い師が信用できるなら, 私の明日旧友と出会う</li>
+<li>この占い師は信用できる</li>
+<li>よって, 私の明日旧友と出会う</li>
+</ol>
+<p>理屈は正しそうです. ではこれはどうでしょう.</p>
+<ol>
+<li>この占い師が信用できるなら, 私の明日旧友と出会う</li>
+<li>私は翌日旧友と出会った</li>
+<li>よって, この占い師は信用できる</li>
+</ol>
+<p>予言が当たったのなら本物感はありますが, インチキ占い師が適当なことを言ったのにも関わらず, たまたま予言が当たったという可能性もありそうです. ということでこの理屈は間違っていると言えそうです.</p>
+<p>常に正しい文, 論理的に正しい/間違った推論. こういった事柄を厳密に扱うのが論理学です.<br>
+なんだ, 論理学は随分当たり前のことを研究するんだなぁと思うかもしれません. しかし, 推論の正しさや矛盾と言った事柄を一般的に, 明確に, 統一的に示すのは難しそうです. 普段行っている論理的判断であっても, それがなぜ正しいのか説明できなかったり, 対象が複雑になると判断がつかなくなったりします.</p>
+<p>本書は論理学を全く学んだことのない人のための教科書です.<br>
+初学者でも独学できるように丁寧な説明や練習問題が満載です (ちゃんと練習問題に解説がついているのは嬉しいポイントです. というかなぜ大学の教科書のような本にはついてないことが多いのでしょう). 身近な例から始まって, 述語論理, 自然演繹, 非古典論理など, 様々な話題が盛り込まれています.<br>
+序文によると, このような欲張りな目標を立てたために本が分厚くなった (B5 版 400 ページ以上) という事情のようです.</p>
+<p>論理学というといかにも堅苦しそうな分野ですが, 著者の軽妙な語り口も相まって気負わず読み進められます. 論理学には全く触れたことはないが, きちんと入門してみたいという方におすすめです.</p>
+<h2 id="印象に残った点-1">印象に残った点<a hidden class="anchor" aria-hidden="true" href="#印象に残った点-1">#</a></h2>
+<p>タイトル通り, 論理というものを厳密に扱うための体系を少しずつ作っていくのが本書のスタイルです. 記号と抽象の奥深い世界が広がっています. 印象的な部分をまとめます.</p>
+<h3 id="論理学をつくるとはどういうこと-1">論理学を「つくる」とはどういうこと？<a hidden class="anchor" aria-hidden="true" href="#論理学をつくるとはどういうこと-1">#</a></h3>
+<p>論理を研究するに当たって最初に行う作業は, 論理を厳密に扱うことができる体系を作ることです. つまり, 論理を扱うのに都合の良い言語を作って, その人口言語を操作することで話が進みます.</p>
+<p>なぜ人工言語が必要なのかというと, 自然言語 (日本語や英語などの日常生活で使われる言葉のこと) では論理学が対象とする論理の形式が曖昧になってしまうことがあるからです.<br>
+例えば</p>
+<ol>
+<li>アリスはボブを愛している</li>
+<li>ボブはアリスに愛されている</li>
+</ol>
+<p>このペアは同じことを言っているので, 文の骨格を取り出して次のような形式であれば同じだとみなせるように思えます.</p>
+<ol>
+<li>A は B を愛している</li>
+<li>B は A に愛されている</li>
+</ol>
+<p>しかし, 次の例はどうでしょう.</p>
+<ol>
+<li>みんなは誰かを愛している</li>
+<li>誰かはみんなに愛されている</li>
+</ol>
+<p>この 2 文は言っていることが違います. 1 は誰もがそれぞれ愛する人を持っているということであるのに対し, 2 は全員に愛されるアイドルのような人がいるという内容です.<br>
+このように, 自然言語では論理の形式が文法によって見えづらくなることがあるわけです. そこで「推論の妥当性を明確にする」という目的に即した言語を作るというわけです.</p>
+<p>最初の人工言語 L(Logic の頭文字) は馴染みのあるものです.<br>
+「アリスはボブを愛している」というような単純な文を P, Q, R などのアルファベットで表します. そして, 「ならば」は「→」, 「かつ」は「∧」, 「または」は「∨」, 「ではない」は「¬」として記号で置き換えます.</p>
+<p>論証の例を見てみます.</p>
+<ol>
+<li>トムは東京か大阪にいる</li>
+<li>トムが大阪にいるならば, ジェリーも大阪にいる</li>
+<li>ジェリーは今大阪にいない</li>
+<li>よって, トムは今東京にいる</li>
+</ol>
+<p>これは次のように記号化できます.</p>
+<ol>
+<li>P ∨ Q</li>
+<li>Q → R</li>
+<li>¬Q</li>
+<li>よって, P</li>
+</ol>
+<p>PQR の意味は次のとおりです.</p>
+<ul>
+<li>P: トムは東京にいる</li>
+<li>Q: トムは大阪にいる</li>
+<li>R: ジェリーは大阪にいる</li>
+</ul>
+<p>「P」, 「Q → R」のような式のことを論理式と呼ぶことにします.<br>
+ここで, 各論理式の真偽には関係がありそうです. 例えば, Q が真なら¬Q は偽である, というような関係です. これを真理値表をとして定義しておきます.<br>
+例えば∨の真理値表は次のようにします. もちろん他の記号 (∧, ¬, →. これらを論理結合子と呼ぶ) についても定義します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>| P   | Q   | P ∨ Q |
+</span></span><span style="display:flex;"><span>| --- | --- | ----- |
+</span></span><span style="display:flex;"><span>| 0   | 0   | 0     |
+</span></span><span style="display:flex;"><span>| 0   | 1   | 1     |
+</span></span><span style="display:flex;"><span>| 1   | 0   | 1     |
+</span></span><span style="display:flex;"><span>| 1   | 1   | 1     |
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>さて, いよいよこの論証が正しいかどうかを確認します. 論証が正しいとは, 前提 (P ∨ Q, Q → R, ¬Q) がすべて真になっているとき, 必ず結論 (P) も真になることだと言えそうです.<br>
+というわけで真理値表を書いて分析します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>| P   | Q   | R   | P ∨ Q | Q → R | ¬Q  | P   |
+</span></span><span style="display:flex;"><span>| --- | --- | --- | ----- | ----- | --- | --- |
+</span></span><span style="display:flex;"><span>| 0   | 0   | 0   | 0     | 1     | 1   | 0   |
+</span></span><span style="display:flex;"><span>| 0   | 0   | 1   | 0     | 1     | 1   | 0   |
+</span></span><span style="display:flex;"><span>| 0   | 1   | 0   | 1     | 0     | 0   | 0   |
+</span></span><span style="display:flex;"><span>| 0   | 1   | 1   | 1     | 1     | 0   | 0   |
+</span></span><span style="display:flex;"><span>| 1   | 0   | 0   | 1     | 0     | 1   | 1   |
+</span></span><span style="display:flex;"><span>| 1   | 0   | 1   | 1     | 1     | 1   | 1   |
+</span></span><span style="display:flex;"><span>| 1   | 1   | 0   | 1     | 0     | 0   | 1   |
+</span></span><span style="display:flex;"><span>| 1   | 1   | 1   | 1     | 1     | 0   | 1   |
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>真理値表を見ると, 前提がすべて真になるのは下から 3 行目の場合のみで, このとき結論も真になっています. よってこの論証は正しいと言えます.<br>
+逆に, 前提がすべて 1 なのに結論が 0 になる組み合わせがある場合, その論証は正しくないと言えるわけです. 例えば「a^2=1 の答えは a=1 です. なぜなら a=1 を代入すると a^2=1 になるからです」という論証は正しくありません. P: a = 1, Q: a^2 = 1 として真理値表を書いてみると明らかになります.<br>
+このように, すべての論理式を同時に 1 にする真理値の割り当てが存在しない論理式の集合は矛盾していると言います.</p>
+<p>真理値表は見慣れたものですが, 「→」については説明が必要かもしれません. 「P → Q」が 0 になるのは, P = 1, Q = 0 のときのみです.<br>
+これは「もし明日雨が降ったら延期します」という発言が嘘になるのは「明日雨が降った」かつ「延期しなかった」ときに限られるということを考えると, 妥当な気もします. もっとも, 日本語を正確に翻訳できるわけではないので, 多少現実的な感覚と乖離があるのは仕方ありません.</p>
+<h3 id="l-を拡張して対象を広げる-1">L を拡張して対象を広げる<a hidden class="anchor" aria-hidden="true" href="#l-を拡張して対象を広げる-1">#</a></h3>
+<p>L を手に入れたので, どんな論証でも記号化して真理値表を書けば正しさを確認できそうな気がしてきました. しかし, 次の論証はどうでしょう.</p>
+<ol>
+<li>ゲーマーは負けず嫌いである</li>
+<li>アリスはゲーマーである</li>
+<li>よって, アリスは負けず嫌いである</li>
+</ol>
+<p>これは正しい論証だとわかりますが, L ではその正しさを分析できません. 記号化しようとしても「P, Q, よって R」の形にしかできません. 「ゲーマーである → 負けず嫌いである」のようになんとか分解を試みても限界があります.<br>
+そこで「A は B である」という述語の形式を以下のように記号化します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Px: x はゲーマーである
+</span></span><span style="display:flex;"><span>Qx: x は負けず嫌いである
+</span></span><span style="display:flex;"><span>a: アリス
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>さらに, 上記の 1 は特定の誰かというわけではなく, ゲーマーならばみんな負けず嫌いであるという内容です. この「みんな」というのを以下のような記号で表します.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>どんな x に対しても (Px → Qx)
+</span></span><span style="display:flex;"><span>∀x(Px → Qx)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>∀は All の A に由来していて, 全称記号と言います. これらの記号を用いて, 上記の論証は以下のように記号化できます.</p>
+<ol>
+<li>∀x(Px → Qx)</li>
+<li>Pa</li>
+<li>よって, Qa</li>
+</ol>
+<p>「¬∀x(Px → Qx)」という記号の意味は, 日本語で言うとどうなるでしょう. 「すべてのゲーマーが負けず嫌いであるというわけではない」, つまり負けず嫌いでないゲーマーもいるという意味です.<br>
+この「~も存在する」を∃という記号を使って表すことにします (Exist の E から来ていて, 存在記号と呼ばれます).<br>
+このように, 述語を取り入れたバージョンの L を MPL と名付けます (Monadic Predicate Logic. Monadic の意味は後でわかります).</p>
+<p>さて, MPL では論証の分析をどのように行えば良いでしょうか.<br>
+論理式の集まりが矛盾しているかどうか判定するタブローの方法という便利なものがあります. タブローの方法とは, 前提がすべて真というところから出発して, 前提が真であるならば真でなければならない論理式を書き連ねていくことで, 最終的に前提と結論すべてを真にできるかどうかを判定するアルゴリズムです.</p>
+<p>例として次の式が矛盾しているかどうか (=同時に 1 になることがあり得ないか) を判定してみます.</p>
+<ol>
+<li>P ∧ Q</li>
+<li>¬P ∨ ¬Q</li>
+</ol>
+<p>P, Q のどの 01 の組み合わせでも 1, 2 両方が 1 になることはないので, この 2 つの式は矛盾していると言えそうです. これをタブローの方法で確認してみます.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> P ∧ Q
+</span></span><span style="display:flex;"><span>¬P ∨ ¬Q
+</span></span><span style="display:flex;"><span>--------
+</span></span><span style="display:flex;"><span>   P    (P ∧ Q: P=1 and Q=1)
+</span></span><span style="display:flex;"><span>   Q
+</span></span><span style="display:flex;"><span>  / \
+</span></span><span style="display:flex;"><span> ¬P ¬Q  (¬P ∨ ¬Q: ¬P=1 or ¬Q=1)
+</span></span><span style="display:flex;"><span> X   X  (すでに P, Q なので¬P, ¬Q は矛盾)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>まず最初に論理式を書き, その後∧や∨の規則に従って論理式を分解していきます. 最終的にすべての枝に X が付けば矛盾です.<br>
+逆に一つでも X が付かない枝があれば, その枝ではどの論理式も 1 にできるということなので矛盾ではありません.</p>
+<p>タブローの方法を使って論証が正しいことを確認するには, 結論を否定して矛盾することを示せばよいです (背理法ですね).<br>
+アリスが負けず嫌いであることを確認するには, 次の論理式から出発します.</p>
+<ol>
+<li>∀x(Px → Qx)</li>
+<li>Pa</li>
+<li>¬Qa</li>
+</ol>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> ∀x(Px → Qx)
+</span></span><span style="display:flex;"><span>    Pa
+</span></span><span style="display:flex;"><span>   ¬Qa
+</span></span><span style="display:flex;"><span>-------------
+</span></span><span style="display:flex;"><span> Pa → Qa  (∀x(Px → Qx))
+</span></span><span style="display:flex;"><span>   / \
+</span></span><span style="display:flex;"><span>¬Pa   Qa  (Pa → Qa: Pa=0 or Qa=1)
+</span></span><span style="display:flex;"><span> X     X  (すでに Pa, ¬Qa なので¬Pa, Qa は矛盾)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>∀x というのはすべての x について当てはまるという意味なので, 当然 a についても当てはまります. そのため「∀x(Px → Qx)」の一例として「Pa → Qa」も成り立っていると言えます.</p>
+<h3 id="mpl-のさらなる拡張-1">MPL のさらなる拡張<a hidden class="anchor" aria-hidden="true" href="#mpl-のさらなる拡張-1">#</a></h3>
+<p>拡張は更に続きます.</p>
+<ol>
+<li>マリンバはパーカッションである</li>
+<li>ということは, マリンバ奏者はパーカッショニストである</li>
+</ol>
+<p>この論証は明らかに正しいですが, MPL で正しさを分析するためにはマリンバとマリンバ奏者という関係を記号化する必要がありそうです.<br>
+これは「Pxy: x は y を演奏する」という記号を導入すると, 以下のように表せます.</p>
+<ol>
+<li>∀x(Mx → Px)</li>
+<li>∀x((Hx ∧ ∃y(Qxy ∧ My)) → (Hx ∧ ∃y(Qxy ∧ Py)))</li>
+</ol>
+<p>突然複雑になりましたが「マリンバ奏者」を以下のように記号化しています.</p>
+<ol>
+<li>「マリンバ奏者」 = 「x は人である ∧ x はマリンバを演奏する」</li>
+<li>「x はマリンバを演奏する」 = ∃y(Qxy ∧ My)</li>
+<li>「マリンバ奏者」 = Hx ∧ ∃y(Qxy ∧ My)</li>
+</ol>
+<p>さらに次のような例はどうでしょう.</p>
+<ol>
+<li>この大会の唯一の優勝者はトロフィーを手にした</li>
+<li>アリスはこの大会の優勝者である</li>
+<li>アリスはトロフィーを手にした</li>
+</ol>
+<p>これは「唯一の」という点がポイントで, 同一性を表す記号 (a=b) を導入することで表現できるようになります.</p>
+<p>このように, 最初に作った人工言語を徐々に拡張して扱う対象を広げていくのが本書の大筋です.<br>
+この記事で紹介した流れでは, L の文法, 論証の妥当性, L の完全性 (=L でどんな論理式でも表せるか), 矛盾といったことを曖昧にしか説明していません. 実際には厳密な定義や証明がつけられていて,</p>
+<ul>
+<li>L の式は一通りにしか解釈できないのか? 別の読み方が生まれてしまわないか</li>
+<li>述語論理 MPL における真理値の割り当てとはどのようなものか? ∀などをどう扱うか</li>
+<li>タブローの方法は正しいのか</li>
+</ul>
+<p>と言ったようなことが証明の題材になっています. 「L の文法規則に従うと, あらゆる論理式の <code>(</code> と <code>)</code> の数は一致する」という当たり前に思えるようなものでもちゃんと証明が書かれていて, 練習になります (私はそれほど興味を惹かれなかったので, 面白そうな証明以外は飛ばし読みしてしまいましたが).</p>
+<p>最初は日常生活に根ざした例を扱うところから出発して, 抽象化と証明によって一歩ずつ構築を進めていくという流れは面白いです.<br>
+もともと論証の正しさや矛盾といったことを厳密に扱うことを目標としていたのに, いつしか抽象化を重ねてどんな長さの論理式をも対象にできるようになったり, L 自体が興味深い研究対象になったりするところに奥深さを感じました.</p>
+<h3 id="シンタックスの視点から論理学を見る-1">シンタックスの視点から論理学を見る<a hidden class="anchor" aria-hidden="true" href="#シンタックスの視点から論理学を見る-1">#</a></h3>
+<p>これまで紹介した内容は, それぞれの論理結合子 (∧や→など) にどのような意味があるかを考えた上で話を進めていました. それに対して, 結合子は意味を持たないただの記号だと考えて, 純粋に式の形のみに注目する立場もあります. それぞれセマンティクス (意味論), シンタックス (構文論) と呼ばれています.</p>
+<p>シンタックスの立場では, 最初に絶対に正しいと思えるようなトートロジー(常に真になる論理式) と, トートロジーを変形して別のトートロジーを作り出すための変形規則を設定します. この出発点と変形規則を合わせて公理系と言います.<br>
+本書で主に扱われる公理系 APL(Axiomatic system for Propositinal Logic) は以下のようなものです. A が出発点, R が変形規則です.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>A1. A → (B → A)
+</span></span><span style="display:flex;"><span>A2. (A → (B → C)) → ((A → B) → (A → C))
+</span></span><span style="display:flex;"><span>A3. (¬B → ¬A) → ((¬B → A) → B)
+</span></span><span style="display:flex;"><span>R1. A と A → B から B を引き出して良い
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>この公理系のもとでは「P → P」の証明は以下のようになります.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>1. P → ((P → P) → P)                                A1
+</span></span><span style="display:flex;"><span>2. (P → ((P → P) → P)) → ((P → (P → P)) → (P → P))  A2
+</span></span><span style="display:flex;"><span>3. (P → (P → P)) → (P → P)                          1, 2 から R1 より
+</span></span><span style="display:flex;"><span>4. P → (P → P)                                      A1
+</span></span><span style="display:flex;"><span>5. P → P                                            3, 4 から R1 より
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>「P → P」なんて当たり前だと思うかもしれませんが, それはセマンティクス的な見方です. シンタックスでは記号の意味は考えないので, 公理系から「P → P」が導出されるのは当たり前ではありません.</p>
+<p>このようにちょっとした証明でもかなり大変ですが, 実は自然演繹という便利な方法があります. これは前提から結論を一歩ずつ引き出す方法です. タブローの方法は与えられた論証が矛盾か妥当か評価するものでしたが, それに対して自然演繹は前提から結論を導くという手続きを構築する方法です.<br>
+例として, 「P → (Q → R) から Q → (P → R)」を導出する過程は以下のようになります.</p>
+<div class="highlight"><div style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#838ba7">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#c6d0f5;background-color:#303446;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>| P → (Q → R) Prem
+</span></span><span style="display:flex;"><span>|---------------------
+</span></span><span style="display:flex;"><span>| | Q Prem
+</span></span><span style="display:flex;"><span>| |-------------------
+</span></span><span style="display:flex;"><span>| | | P Prem
+</span></span><span style="display:flex;"><span>| | |-----------------
+</span></span><span style="display:flex;"><span>| | | P → (Q → R) Reit
+</span></span><span style="display:flex;"><span>| | | Q → R →elim
+</span></span><span style="display:flex;"><span>| | | R →elim
+</span></span><span style="display:flex;"><span>| | P → R →intro
+</span></span><span style="display:flex;"><span>| Q → (P → R) →intro
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一番上に仮定を書きます. Q を仮定すると&hellip;(中略)&hellip;「P → R」ということが導出される, よって「Q → (P → R)」というような流れです.</p>
+<p>自然演繹によって導出されたものも公理系での証明と同等に扱ってよいという定理があるので, シンタックス的論理学において自然演繹をかなり有用です. そして, 一度証明されたトートロジーは別の証明にも使って良いので, だんだん使えるトートロジーが増えていくことになります.</p>
+<h3 id="非古典論理という世界があるらしい-1">非古典論理という世界があるらしい<a hidden class="anchor" aria-hidden="true" href="#非古典論理という世界があるらしい-1">#</a></h3>
+<p>本書で主に扱われているのは古典論理と呼ばれる分野です. 古典と言っても古いという意味はなく, 1900 年頃にまとめられた論理学の基本となる体系のことを指します.</p>
+<p>非古典論理を置き換える, 新たな論理体系が考案されています. 例えばすべての論理式が真か偽のどちらかの値しか取らないという点に疑問を投げかけて生まれたファジー論理があります. 真理値はもはや 0 か 1 ではなく, その中間の値も取る連続した値になります.<br>
+確かに現実では真偽の区別が微妙なものもあります. 例えば「重い」の基準は曖昧です. 50kg 以上なら重い, 50kg 未満なら重くないなどとすることもできますが, では重いものを 0.1g 減らしただけで重くなくなるのかというと, そうではない気がします.<br>
+すべての人はハゲであることを証明する有名な帰納法の証明も, このファジー論理のもとでは間違っていると言えるようになります (髪が 0 本の人はハゲである, ハゲの人に髪を 1 本増やしてもハゲである, よって髪が何本あってもハゲであるというやつ).</p>
+<p>古典論理を置き換えるのではなく拡張しようとする立場もあります. 代表的なものは様相論理で, 「必ず~である」を意味する演算子□と「~が可能である」を意味する演算子◇を導入したものです. 他にも述語を関数化に拡張した言語 FOL(First-Order Logic) や, FOL を拡張して述語を量化することを認める第 2 階の論理があります.</p>
+<p>古典論理だけでも消化しきれていない身からすると次々と新たな論理体系が出てきてオーバーフローという感じですが, さらに論理学の学びを深めていく際には参考になりそうです.</p>
+<h2 id="結び-論理学とプログラミング-1">結び: 論理学とプログラミング<a hidden class="anchor" aria-hidden="true" href="#結び-論理学とプログラミング-1">#</a></h2>
+<p>読んでいる途中, 論理学とプログラミングには関係がありそうだと思いました.<br>
+真理値表は見慣れたものですし, 他にもいくつかのアナロジーを思いつきました.</p>
+<ul>
+<li>シンタックス的論理学で使える規則を証明して増やす vs. プログラムで新たな関数を定義して演算子を増やす</li>
+<li>述語を量化して扱う第 2 階の論理 vs. 関数を変数として扱う高階関数</li>
+</ul>
+<p>本書では「機械もすなる論理学」という章でタブローの方法が紹介されています.<br>
+タブローの方法はもともとコンピュータで実行することを念頭に置かれたアルゴリズムのようですし, 論証の妥当性を機械的に判定するというような試みは歴史が長いのかもしれません.<br>
+このあたりでプログラミング言語の　ML　を思い出しました. 当時 (OCaml に入門したとき) は証明のためのプログラミング言語と聞いてもイメージが付来ませんでしたが, 本書を読んだ今となっては, そういう発想が出てくるのは自然なことに思えます.</p>
+<p>そもそも現代のコンピュータ自体がブール演算を基礎とした論理コンピュータなわけですから, 論理学とプログラミングに関連があるのは当たり前かもしれません.<br>
+おそらくプログラムを分析するための体系を作って, 正しさを検証したり完全性を調べたりする分野があるのではないかと思います.</p>
+<p>これまで論理学というものを学んだことはなかったが, これで入口に立つことはできたのではないかと思います.<br>
+論理学を学んでも論理的に物事を考えられるようになるとかいうわけではなさそうですが, 言語を作って抽象的な記号の操作をするという営みには神秘的な雰囲気を感じます. 次のステップとしては, プログラミングと論理学の関係について勉強してみようと思います.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/logic/">Logic</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/copl/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>『プログラミング言語の基礎概念』で型推論を実装する</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/linux-system-programming/">
+    <span class="title">Next »</span>
+    <br>
+    <span>『例解 UNIX/Linux プログラミング教室』でシステムプログラミングを学ぶ</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on x"
+            href="https://x.com/intent/tweet/?text=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f&amp;hashtags=logic">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f&amp;title=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b&amp;summary=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f&title=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on whatsapp"
+            href="https://api.whatsapp.com/send?text=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on telegram"
+            href="https://telegram.me/share/url?text=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『論理学をつくる』で論理学をつくる on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=%e3%80%8e%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b%e3%80%8f%e3%81%a7%e8%ab%96%e7%90%86%e5%ad%a6%e3%82%92%e3%81%a4%e3%81%8f%e3%82%8b&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fbuild-logic%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Momori Nakano</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

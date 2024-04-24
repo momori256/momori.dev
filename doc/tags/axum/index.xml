@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Axum on Momori Nakano</title>
+    <link>http://localhost:1313/tags/axum/</link>
+    <description>Recent content in Axum on Momori Nakano</description>
+    <generator>Hugo -- 0.123.7</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/axum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Step-by-Step Guide to Building a WebSocket Chat App with Axum and React</title>
+      <link>http://localhost:1313/posts/building-a-websocket-chat-app-with-axum-and-react/</link>
+      <pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/building-a-websocket-chat-app-with-axum-and-react/</guid>
+      <description>In this guide, we&amp;rsquo;ll walk through the process of creating a full-stack chat app using WebSocket. Our backend will be built with Axum, a powerful Rust backend framework, and Shuttle, a development platform, while the frontend will be developed using React and Vite.
+We&amp;rsquo;ll cover
+Utilizing WebSocket in Axum and React. Generating unique identifiers using nanoid. Incorporating telemetry with tracing for enhanced logging. You can find the complete code for this project on GitHub.</description>
+    </item>
+  </channel>
+</rss>

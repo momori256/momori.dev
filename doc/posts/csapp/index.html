@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる | Momori Nakano</title>
+<meta name="keywords" content="cs">
+<meta name="description" content="『コンピュータ・システム プログラマの視点から』 はコンピュータ・サイエンスの教科書です.
+コードを書いて, コンパイルして, プログラムを実行する一連の流れにおいて, コンピュータの中では実際のところ何が起きているのかを知りたい人のための本です.
+扱う範囲が幅広く
+CPU アーキテクチャ メモリ階層 リンクの仕組み 仮想メモリ 並行プログラミング など, 盛り沢山な内容となっています.
+非常に分厚い本で 900 ページ近くあるのですが, これでも内容は絞られています.
+副題の「プログラマの視点から」というのは大事な指針です. 多岐に渡る本書の内容は, どれも「C 言語を書くときに知っておいたほうが良いかどうか」という基準で取捨選択されています.
+例えばアセンブラを学びますが, アセンブラを自力で書けるようになることは目的としていません. そうではなく, コンパイラが出力したアセンブラを読んで挙動を追ったり性能を最適化したりすることができるようになることが目的です.
+ほぼ全てのものが順を追って説明されるので前提となる知識は少ないです (大学のコンピュータ・サイエンス入門コースを元にした本らしい). 例えば CPU のパイプライン制御の章では「論理ゲートとは」というところから話が始まります.
+個人的には, これまで学んできたことが関連付けられたり補強されたり, 知識や理解を整理する良い機会となりました.
+以下印象に残った点をかいつまんでまとめます.
+浮動小数点 浮動小数点はなんとなく地味な存在だと思っていて, これまであまり深く考えたことがなかったのですが, 今更ながらよく考えられたフォーマットだなと思いました.
+昇順に並べた時ビットが符号なし整数と同じになる, 非正規化数から最小の正規化数まで等間隔に滑らかにつながると言う事実を知って驚きました. かつては仕様が乱立していた時代もあったそうですが, 今の形に落ち着いたのも納得です.
+実用的には小数と整数の変換で誤差が出るかどうか, 丸めがどのように行われるのかといったことは把握しておくと役に立つかもしれないと思いました.
+アセンブリ C 言語がどのようにアセンブリに変換されるのかが説明されています. 例えば if は条件ジャンプを使って実現されることをなどを学びます.
+このあたりは昔 『コンピュータシステムの理論と実装』で自力で考えたことがありました が, 本書を先に読んでいれば楽だったかもしれないと思いました.
+多くは既知の内容でしたが, switch については認識を改めました. これまで if-else と同じようなものだろうと思っていたのですが, アセンブリのレベルで見ると実装方法が異なります. switch はジャンプテーブルを用いて対象の case に直接ジャンプするので効率が良いです. if-else の連続だとその回数分条件式が評価されますしね.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/csapp/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.364d6b9256fe5f2d0b7be3f86155a0ceaa731e7ce41aaee3cb04a613cd629a45.css" integrity="sha256-Nk1rklb&#43;Xy0Le&#43;P4YVWgzqpzHnzkGq7jywSmE81imkU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/csapp/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Momori Nakano (Alt + H)">Momori Nakano</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archive/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる
+    </h1>
+    <div class="post-meta"><span title='2022-08-14 00:00:00 +0000 UTC'>August 14, 2022</span>&nbsp;·&nbsp;3 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#浮動小数点">浮動小数点</a></li>
+    <li><a href="#アセンブリ">アセンブリ</a></li>
+    <li><a href="#cpu-のパイプライン処理">CPU のパイプライン処理</a></li>
+    <li><a href="#プログラムの性能最適化">プログラムの性能最適化</a></li>
+    <li><a href="#リンカ">リンカ</a></li>
+    <li><a href="#仮想メモリ">仮想メモリ</a></li>
+    <li><a href="#並行処理">並行処理</a></li>
+    <li><a href="#結語">結語</a></li>
+    <li><a href="#浮動小数点-1">浮動小数点</a></li>
+    <li><a href="#アセンブリ-1">アセンブリ</a></li>
+    <li><a href="#cpu-のパイプライン処理-1">CPU のパイプライン処理</a></li>
+    <li><a href="#プログラムの性能最適化-1">プログラムの性能最適化</a></li>
+    <li><a href="#リンカ-1">リンカ</a></li>
+    <li><a href="#仮想メモリ-1">仮想メモリ</a></li>
+    <li><a href="#並行処理-1">並行処理</a></li>
+    <li><a href="#結語-1">結語</a></li>
+  </ul>
+</nav>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p><a href="https://www.maruzen-publishing.co.jp/item/?book_no=295109">『コンピュータ・システム プログラマの視点から』</a> はコンピュータ・サイエンスの教科書です.<br>
+コードを書いて, コンパイルして, プログラムを実行する一連の流れにおいて, コンピュータの中では実際のところ何が起きているのかを知りたい人のための本です.</p>
+<p>扱う範囲が幅広く</p>
+<ul>
+<li>CPU アーキテクチャ</li>
+<li>メモリ階層</li>
+<li>リンクの仕組み</li>
+<li>仮想メモリ</li>
+<li>並行プログラミング</li>
+</ul>
+<p>など, 盛り沢山な内容となっています.</p>
+<p>非常に分厚い本で 900 ページ近くあるのですが, これでも内容は絞られています.<br>
+副題の「プログラマの視点から」というのは大事な指針です. 多岐に渡る本書の内容は, どれも「C 言語を書くときに知っておいたほうが良いかどうか」という基準で取捨選択されています.<br>
+例えばアセンブラを学びますが, アセンブラを自力で書けるようになることは目的としていません. そうではなく, コンパイラが出力したアセンブラを読んで挙動を追ったり性能を最適化したりすることができるようになることが目的です.</p>
+<p>ほぼ全てのものが順を追って説明されるので前提となる知識は少ないです (大学のコンピュータ・サイエンス入門コースを元にした本らしい). 例えば CPU のパイプライン制御の章では「論理ゲートとは」というところから話が始まります.</p>
+<p>個人的には, これまで学んできたことが関連付けられたり補強されたり, 知識や理解を整理する良い機会となりました.<br>
+以下印象に残った点をかいつまんでまとめます.</p>
+<h2 id="浮動小数点">浮動小数点<a hidden class="anchor" aria-hidden="true" href="#浮動小数点">#</a></h2>
+<p>浮動小数点はなんとなく地味な存在だと思っていて, これまであまり深く考えたことがなかったのですが, 今更ながらよく考えられたフォーマットだなと思いました.<br>
+昇順に並べた時ビットが符号なし整数と同じになる, 非正規化数から最小の正規化数まで等間隔に滑らかにつながると言う事実を知って驚きました. かつては仕様が乱立していた時代もあったそうですが, 今の形に落ち着いたのも納得です.</p>
+<p>実用的には小数と整数の変換で誤差が出るかどうか, 丸めがどのように行われるのかといったことは把握しておくと役に立つかもしれないと思いました.</p>
+<h2 id="アセンブリ">アセンブリ<a hidden class="anchor" aria-hidden="true" href="#アセンブリ">#</a></h2>
+<p>C 言語がどのようにアセンブリに変換されるのかが説明されています. 例えば if は条件ジャンプを使って実現されることをなどを学びます.<br>
+このあたりは昔 <a href="https://momori-nakano.hashnode.dev/nand2tetris">『コンピュータシステムの理論と実装』で自力で考えたことがありました</a> が, 本書を先に読んでいれば楽だったかもしれないと思いました.</p>
+<p>多くは既知の内容でしたが, switch については認識を改めました. これまで if-else と同じようなものだろうと思っていたのですが, アセンブリのレベルで見ると実装方法が異なります. switch はジャンプテーブルを用いて対象の case に直接ジャンプするので効率が良いです. if-else の連続だとその回数分条件式が評価されますしね.<br>
+switch の case には定数しか書けないというような制約があったりして疑問に思っていたのですが, アセンブリを知れば納得です.</p>
+<h2 id="cpu-のパイプライン処理">CPU のパイプライン処理<a hidden class="anchor" aria-hidden="true" href="#cpu-のパイプライン処理">#</a></h2>
+<p>命令レベル並列化が行われているということは知っていましたが, 具体的な仕組みは全く知りませんでした. 一つの機械語命令を実行する処理をいくつかのステージに分けて, 回路の間に挟んだレジスタに計算結果を保存することで並行処理が可能になるという素晴らしいアイデアです.</p>
+<p>本書では x86-64 を元にした独自の小さな命令セット Y86-64 を定義して, HDL (ハードウェア記述言語) で実装していくという流れです.<br>
+後半のパイプライン制御のあたりでは話が複雑過ぎて, じっくり読む気にもならず半分も理解できてない気がします.<br>
+特に複雑なのは例外的なパターンへの対処で, 前の命令への依存, return アドレス, 分岐予測といったことが特殊な場合として扱われます. そしてこれらが各ステージに存在する組み合わせも考えると, いよいよ特殊ケースが複雑になりすぎます.<br>
+これは別に本書のやり方が悪いというわけではなく, そもそも命令を並列に行うといういかにも難しそうな処理なので実装が難しいのは仕方ないかもしれません. それにしても, もっときれいな解決法がないものかなぁと思いますが.</p>
+<h2 id="プログラムの性能最適化">プログラムの性能最適化<a hidden class="anchor" aria-hidden="true" href="#プログラムの性能最適化">#</a></h2>
+<p>ある小さなコードを題材とし, アセンブラや CPU のアーキテクチャの知識を動員して性能の最適化を進めて行きます.<br>
+いくつかの工夫を経て着実に最適化を進めて, 最終的には CPU の命令レベル並列化を利用しスループット限界に迫る流れは読んでいてわくわくしました.</p>
+<p>実用的にどこまで最適化をするかというのは考えどころかもしれません.
+個人的には, 簡単にやれることは常にやる, それ以上の最適化は特別に高速化が必要なときに行うという指針が良いのではないかと思いました. 限界まで最適化するとマシンの性能に依存したコードになって移植性が落ちたり, 可読性が下がったりするためです.</p>
+<ul>
+<li>常に意識すること
+<ul>
+<li>関数呼び出しを減らす</li>
+<li>メモリアクセスを減らす (ポインタの指す値をローカル変数にキャッシュするなど)</li>
+</ul>
+</li>
+<li>普段はやらないこと
+<ul>
+<li>ループアンローリング</li>
+<li>条件演算を条件付き move にコンパイルしやすいように書き直す</li>
+</ul>
+</li>
+</ul>
+<p>続く章でキャッシュの仕組みについての説明があります. ハードウェアレベルの仕組みがいかにプログラムの性能に影響を与えるかを知って驚きました.</p>
+<h2 id="リンカ">リンカ<a hidden class="anchor" aria-hidden="true" href="#リンカ">#</a></h2>
+<p>少し浮いているように見えるリンカの章ですが, リンカの仕組みを理解していれば, 不可解なエラーに苛立つことをなくせたり, 共有ライブラリを便利に使ったりできるとのことです.</p>
+<p>リンカの役割は大雑把に言えば以下の 2 つです.</p>
+<ul>
+<li>シンボル解決: シンボルの参照をシンボルの定義に対応付ける</li>
+<li>再配置: 最終的なシンボルのアドレスを決めて参照を修正する</li>
+</ul>
+<p>オブジェクトファイルの構造を知って, これがメモリにロードされるのかと感動しました. <code>objdump</code> や <code>readelf</code> でファイルの中を見るのは理解の大きな助けになりました.<br>
+同名のシンボルがあるときの微妙な挙動や静的ライブラリ利用時の参照解決の仕方などは知らないとハマりそうで, 学ぶ機会があって良かったと思いました.</p>
+<h2 id="仮想メモリ">仮想メモリ<a hidden class="anchor" aria-hidden="true" href="#仮想メモリ">#</a></h2>
+<p>仮想メモリは各プロセスがメモリ全体を専有しているように見せる抽象化の仕組みです. 仮想メモリのアドレスを物理メモリのアドレスに変換する仕組みや, 動的なメモリ割り当てについて説明されています.<br>
+仮想メモリを知って, ようやく fork 時に何が共有されるのかということや, 共有ライブラリがどのように共有されるのかが腑に落ちた気がします.</p>
+<p><code>mmap</code> というライブラリ関数を使って, ファイルの内容を仮想メモリに直接読み込めるのは驚きました. 仕組みを知れば, 確かにこういう関数があっても不思議ではないと思います. しかし, <code>read</code> を使わずにファイルの中身を得ることができるのですが, どういった用途があるのでしょう. ファイルディスクリプタやストリームが不要なら <code>read</code> や <code>fread</code> を使うよりも効率が良い?</p>
+<h2 id="並行処理">並行処理<a hidden class="anchor" aria-hidden="true" href="#並行処理">#</a></h2>
+<p>最後はソケットと HTTP サーバです.<br>
+並行処理はプロセス, スレッド, IO 多重化という方法があるという話です.</p>
+<p>このあたり, いまいちよく納得できていないので更に深く学んでみたいところです. おそらく実際のサーバはこれらを組み合わせて使っているのではないかと思いますが, どうなのでしょう. 少し調べてみたところ, イベント駆動, C10K 問題などがキーワードになりそうです.<br>
+考えてみれば Go の goroutine などは, おそらく従来の平行処理の課題に対する回答なのでしょうね. まずは何が課題なのかを理解するところから勉強を進めたいと思っています.</p>
+<p>CGI を使って動的にコンテンツを生成する HTTP サーバの例も紹介されていました. 高度な仕組みでも低レベルな仕組みの組み合わせで作られているのだろうという実感が湧いてきます.<br>
+おそらく CGI のようなアイデアは昔からあって, 今の Web 界隈ではさらに洗練された手法が取られているのではないかと思いますが, 知らなかったのでためになりました.</p>
+<h2 id="結語">結語<a hidden class="anchor" aria-hidden="true" href="#結語">#</a></h2>
+<p>読み切るのにかなり時間が掛かりましたが, 幅広いトピックに触れられて楽しく読めました. 本当は本書にあるような内容をもっと早いうちから習得して常識にできていればよかったのでしょうが, 楽しみながら読めるだけ成長したと思いたいです.</p>
+<p>たとえ高級言語を使ってプログラミングをするにしても, 深いところまでたどって物事を考えるには低レイヤーの知識が必要だと実感しました. 低レイヤーは学びがいがあって面白いです.
++++
+title = &ldquo;『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる&rdquo;
+date = 2022-08-14
+tags = [&ldquo;cs&rdquo;]
+cover.image = &ldquo;<a href="https://source.unsplash.com/GHtexrNESAI%22">https://source.unsplash.com/GHtexrNESAI&quot;</a>
++++</p>
+<p><a href="https://www.maruzen-publishing.co.jp/item/?book_no=295109">『コンピュータ・システム プログラマの視点から』</a> はコンピュータ・サイエンスの教科書です.<br>
+コードを書いて, コンパイルして, プログラムを実行する一連の流れにおいて, コンピュータの中では実際のところ何が起きているのかを知りたい人のための本です.</p>
+<p>扱う範囲が幅広く</p>
+<ul>
+<li>CPU アーキテクチャ</li>
+<li>メモリ階層</li>
+<li>リンクの仕組み</li>
+<li>仮想メモリ</li>
+<li>並行プログラミング</li>
+</ul>
+<p>など, 盛り沢山な内容となっています.</p>
+<p>非常に分厚い本で 900 ページ近くあるのですが, これでも内容は絞られています.<br>
+副題の「プログラマの視点から」というのは大事な指針です. 多岐に渡る本書の内容は, どれも「C 言語を書くときに知っておいたほうが良いかどうか」という基準で取捨選択されています.<br>
+例えばアセンブラを学びますが, アセンブラを自力で書けるようになることは目的としていません. そうではなく, コンパイラが出力したアセンブラを読んで挙動を追ったり性能を最適化したりすることができるようになることが目的です.</p>
+<p>ほぼ全てのものが順を追って説明されるので前提となる知識は少ないです (大学のコンピュータ・サイエンス入門コースを元にした本らしい). 例えば CPU のパイプライン制御の章では「論理ゲートとは」というところから話が始まります.</p>
+<p>個人的には, これまで学んできたことが関連付けられたり補強されたり, 知識や理解を整理する良い機会となりました.<br>
+以下印象に残った点をかいつまんでまとめます.</p>
+<h2 id="浮動小数点-1">浮動小数点<a hidden class="anchor" aria-hidden="true" href="#浮動小数点-1">#</a></h2>
+<p>浮動小数点はなんとなく地味な存在だと思っていて, これまであまり深く考えたことがなかったのですが, 今更ながらよく考えられたフォーマットだなと思いました.<br>
+昇順に並べた時ビットが符号なし整数と同じになる, 非正規化数から最小の正規化数まで等間隔に滑らかにつながると言う事実を知って驚きました. かつては仕様が乱立していた時代もあったそうですが, 今の形に落ち着いたのも納得です.</p>
+<p>実用的には小数と整数の変換で誤差が出るかどうか, 丸めがどのように行われるのかといったことは把握しておくと役に立つかもしれないと思いました.</p>
+<h2 id="アセンブリ-1">アセンブリ<a hidden class="anchor" aria-hidden="true" href="#アセンブリ-1">#</a></h2>
+<p>C 言語がどのようにアセンブリに変換されるのかが説明されています. 例えば if は条件ジャンプを使って実現されることをなどを学びます.<br>
+このあたりは昔 <a href="https://momori-nakano.hashnode.dev/nand2tetris">『コンピュータシステムの理論と実装』で自力で考えたことがありました</a> が, 本書を先に読んでいれば楽だったかもしれないと思いました.</p>
+<p>多くは既知の内容でしたが, switch については認識を改めました. これまで if-else と同じようなものだろうと思っていたのですが, アセンブリのレベルで見ると実装方法が異なります. switch はジャンプテーブルを用いて対象の case に直接ジャンプするので効率が良いです. if-else の連続だとその回数分条件式が評価されますしね.<br>
+switch の case には定数しか書けないというような制約があったりして疑問に思っていたのですが, アセンブリを知れば納得です.</p>
+<h2 id="cpu-のパイプライン処理-1">CPU のパイプライン処理<a hidden class="anchor" aria-hidden="true" href="#cpu-のパイプライン処理-1">#</a></h2>
+<p>命令レベル並列化が行われているということは知っていましたが, 具体的な仕組みは全く知りませんでした. 一つの機械語命令を実行する処理をいくつかのステージに分けて, 回路の間に挟んだレジスタに計算結果を保存することで並行処理が可能になるという素晴らしいアイデアです.</p>
+<p>本書では x86-64 を元にした独自の小さな命令セット Y86-64 を定義して, HDL (ハードウェア記述言語) で実装していくという流れです.<br>
+後半のパイプライン制御のあたりでは話が複雑過ぎて, じっくり読む気にもならず半分も理解できてない気がします.<br>
+特に複雑なのは例外的なパターンへの対処で, 前の命令への依存, return アドレス, 分岐予測といったことが特殊な場合として扱われます. そしてこれらが各ステージに存在する組み合わせも考えると, いよいよ特殊ケースが複雑になりすぎます.<br>
+これは別に本書のやり方が悪いというわけではなく, そもそも命令を並列に行うといういかにも難しそうな処理なので実装が難しいのは仕方ないかもしれません. それにしても, もっときれいな解決法がないものかなぁと思いますが.</p>
+<h2 id="プログラムの性能最適化-1">プログラムの性能最適化<a hidden class="anchor" aria-hidden="true" href="#プログラムの性能最適化-1">#</a></h2>
+<p>ある小さなコードを題材とし, アセンブラや CPU のアーキテクチャの知識を動員して性能の最適化を進めて行きます.<br>
+いくつかの工夫を経て着実に最適化を進めて, 最終的には CPU の命令レベル並列化を利用しスループット限界に迫る流れは読んでいてわくわくしました.</p>
+<p>実用的にどこまで最適化をするかというのは考えどころかもしれません.
+個人的には, 簡単にやれることは常にやる, それ以上の最適化は特別に高速化が必要なときに行うという指針が良いのではないかと思いました. 限界まで最適化するとマシンの性能に依存したコードになって移植性が落ちたり, 可読性が下がったりするためです.</p>
+<ul>
+<li>常に意識すること
+<ul>
+<li>関数呼び出しを減らす</li>
+<li>メモリアクセスを減らす (ポインタの指す値をローカル変数にキャッシュするなど)</li>
+</ul>
+</li>
+<li>普段はやらないこと
+<ul>
+<li>ループアンローリング</li>
+<li>条件演算を条件付き move にコンパイルしやすいように書き直す</li>
+</ul>
+</li>
+</ul>
+<p>続く章でキャッシュの仕組みについての説明があります. ハードウェアレベルの仕組みがいかにプログラムの性能に影響を与えるかを知って驚きました.</p>
+<h2 id="リンカ-1">リンカ<a hidden class="anchor" aria-hidden="true" href="#リンカ-1">#</a></h2>
+<p>少し浮いているように見えるリンカの章ですが, リンカの仕組みを理解していれば, 不可解なエラーに苛立つことをなくせたり, 共有ライブラリを便利に使ったりできるとのことです.</p>
+<p>リンカの役割は大雑把に言えば以下の 2 つです.</p>
+<ul>
+<li>シンボル解決: シンボルの参照をシンボルの定義に対応付ける</li>
+<li>再配置: 最終的なシンボルのアドレスを決めて参照を修正する</li>
+</ul>
+<p>オブジェクトファイルの構造を知って, これがメモリにロードされるのかと感動しました. <code>objdump</code> や <code>readelf</code> でファイルの中を見るのは理解の大きな助けになりました.<br>
+同名のシンボルがあるときの微妙な挙動や静的ライブラリ利用時の参照解決の仕方などは知らないとハマりそうで, 学ぶ機会があって良かったと思いました.</p>
+<h2 id="仮想メモリ-1">仮想メモリ<a hidden class="anchor" aria-hidden="true" href="#仮想メモリ-1">#</a></h2>
+<p>仮想メモリは各プロセスがメモリ全体を専有しているように見せる抽象化の仕組みです. 仮想メモリのアドレスを物理メモリのアドレスに変換する仕組みや, 動的なメモリ割り当てについて説明されています.<br>
+仮想メモリを知って, ようやく fork 時に何が共有されるのかということや, 共有ライブラリがどのように共有されるのかが腑に落ちた気がします.</p>
+<p><code>mmap</code> というライブラリ関数を使って, ファイルの内容を仮想メモリに直接読み込めるのは驚きました. 仕組みを知れば, 確かにこういう関数があっても不思議ではないと思います. しかし, <code>read</code> を使わずにファイルの中身を得ることができるのですが, どういった用途があるのでしょう. ファイルディスクリプタやストリームが不要なら <code>read</code> や <code>fread</code> を使うよりも効率が良い?</p>
+<h2 id="並行処理-1">並行処理<a hidden class="anchor" aria-hidden="true" href="#並行処理-1">#</a></h2>
+<p>最後はソケットと HTTP サーバです.<br>
+並行処理はプロセス, スレッド, IO 多重化という方法があるという話です.</p>
+<p>このあたり, いまいちよく納得できていないので更に深く学んでみたいところです. おそらく実際のサーバはこれらを組み合わせて使っているのではないかと思いますが, どうなのでしょう. 少し調べてみたところ, イベント駆動, C10K 問題などがキーワードになりそうです.<br>
+考えてみれば Go の goroutine などは, おそらく従来の平行処理の課題に対する回答なのでしょうね. まずは何が課題なのかを理解するところから勉強を進めたいと思っています.</p>
+<p>CGI を使って動的にコンテンツを生成する HTTP サーバの例も紹介されていました. 高度な仕組みでも低レベルな仕組みの組み合わせで作られているのだろうという実感が湧いてきます.<br>
+おそらく CGI のようなアイデアは昔からあって, 今の Web 界隈ではさらに洗練された手法が取られているのではないかと思いますが, 知らなかったのでためになりました.</p>
+<h2 id="結語-1">結語<a hidden class="anchor" aria-hidden="true" href="#結語-1">#</a></h2>
+<p>読み切るのにかなり時間が掛かりましたが, 幅広いトピックに触れられて楽しく読めました. 本当は本書にあるような内容をもっと早いうちから習得して常識にできていればよかったのでしょうが, 楽しみながら読めるだけ成長したと思いたいです.</p>
+<p>たとえ高級言語を使ってプログラミングをするにしても, 深いところまでたどって物事を考えるには低レイヤーの知識が必要だと実感しました. 低レイヤーは学びがいがあって面白いです.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/cs/">Cs</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/intro-to-unix-shell/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>『入門 UNIX シェルプログラミング』で UNIX の世界を学ぶ</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/standard-linux-programming/">
+    <span class="title">Next »</span>
+    <br>
+    <span>『ふつうの Linux プログラミング』で 3 本の柱をものにする</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on x"
+            href="https://x.com/intent/tweet/?text=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f&amp;hashtags=cs">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f&amp;title=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b&amp;summary=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f&title=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on whatsapp"
+            href="https://api.whatsapp.com/send?text=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on telegram"
+            href="https://telegram.me/share/url?text=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share 『コンピュータ・システム プログラマの視点から』で知識の糸を織りあげる on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=%e3%80%8e%e3%82%b3%e3%83%b3%e3%83%94%e3%83%a5%e3%83%bc%e3%82%bf%e3%83%bb%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0%20%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9e%e3%81%ae%e8%a6%96%e7%82%b9%e3%81%8b%e3%82%89%e3%80%8f%e3%81%a7%e7%9f%a5%e8%ad%98%e3%81%ae%e7%b3%b8%e3%82%92%e7%b9%94%e3%82%8a%e3%81%82%e3%81%92%e3%82%8b&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fcsapp%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Momori Nakano</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
