@@ -1,4 +1,4 @@
-baseURL = "https://momori256.github.io/"
+baseURL = "https://momori256.github.io/momori.dev"
 languageCode = "en-us"
 title = "Momori Nakano"
 theme = ["PaperMod"]
@@ -20,11 +20,11 @@ UseHugoToc = true
 
   [params.assets]
   disableHLJS = false
-  favicon = "/favicon.ico"
-  favicon16x16 = "/favicon-16x16.png"
-  favicon32x32 = "/favicon-32x32.png"
-  apple_touch_icon = "/apple-touch-icon.png"
-  safari_pinned_tab = "/safari-pinned-tab.svg"
+  favicon = "/assets/favicon.ico"
+  favicon16x16 = "/assets/favicon-16x16.png"
+  favicon32x32 = "/assets/favicon-32x32.png"
+  apple_touch_icon = "/assets/apple-touch-icon.png"
+  safari_pinned_tab = "/assets/safari-pinned-tab.svg"
 
   [params.profileMode]
   enabled = true
