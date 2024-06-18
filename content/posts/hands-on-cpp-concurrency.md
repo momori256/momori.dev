@@ -2,7 +2,7 @@
 title = "Hands-On C++ Concurrency: Quick Sort and Hash Table"
 date = 2024-06-17
 tags = ["C++", "multithreading"]
-cover.image = "https://source.unsplash.com/mZNRsYE9Qi4"
+cover.image = "https://source.unsplash.com/EA4MvInOSy0"
 +++
 
 In this hands-on tutorial, we will explore concurrent programming in C++ through the implementation of a concurrent quick sort and a lock-based hash table.
