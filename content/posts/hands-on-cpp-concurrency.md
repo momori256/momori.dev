@@ -1,23 +1,23 @@
 +++
 title = "Hands-On C++ Concurrency: Quick Sort and Hash Table"
 date = 2024-06-17
-tags = ["C++", "concurrency"]
+tags = ["C++", "multithreading"]
 cover.image = "https://source.unsplash.com/mZNRsYE9Qi4"
 +++
 
-In this hands-on tutorial, we will implement concurrent programming in C++ through the implementation of quick sort and a lock-based hash table.
+In this hands-on tutorial, we will explore concurrent programming in C++ through the implementation of a concurrent quick sort and a lock-based hash table.
 
 ## Building Blocks
 
-Before diving into the detailed implementation, let's first understand the building blocks of concurrent programming in C++.
+Before diving into the detailed implementation, let's first go through the building blocks of concurrent programming in C++.
 
 ### `std::thread`
 
 [`std::thread`](https://cplusplus.com/reference/thread/thread/) is a class that represents a single thread of execution. It can be used to create new threads that run concurrently with the calling thread.
 
 ```cpp
-#include <thread>
 #include <iostream>
+#include <thread>
 
 void thread_ex1() {
     std::thread t([] { std::cout << "Hello, World!" << std::endl; });
@@ -30,9 +30,9 @@ A thread can be created by passing a callable object (e.g., a lambda function) t
 Here is another example of using `std::thread` to call a member function of a class:
 
 ```cpp
-#include <thread>
-#include <iostream>
 #include <cassert>
+#include <iostream>
+#include <thread>
 
 struct A {
     int x = 2;
@@ -51,11 +51,11 @@ void thread_ex2() {
 
 ### `std::future`
 
-[`std::future`](https://cplusplus.com/reference/future/future/) is a class representing the result that will be available in the future. It can be created using `std::async`, which abstracts away the thread management, making it simpler to run a function asynchronously and getting the result later.
+[`std::future`](https://cplusplus.com/reference/future/future/) is a class representing the result that will be available in the future. It can be created using `std::async`, which abstracts away the thread management, making it simpler to run a function asynchronously and get the result later.
 
 ```cpp
-#include <future>
 #include <cassert>
+#include <future>
 
 void future_ex1() {
     std::future<int> fut = std::async([] { return 25; });
@@ -63,12 +63,12 @@ void future_ex1() {
 }
 ```
 
-There are other two ways to create a `std::future` object: [`std::promise`](https://cplusplus.com/reference/future/promise/) and [`std::packaged_task`](https://cplusplus.com/reference/future/packaged_task/). Briefly, `std::promise` is used to separate the producer and consumer of the value, and `std::packaged_task` is for decoupling function execution and future retrival.
+There are two other ways to create a `std::future` object: [`std::promise`](https://cplusplus.com/reference/future/promise/) and [`std::packaged_task`](https://cplusplus.com/reference/future/packaged_task/). Briefly, `std::promise` is used to separate the producer and consumer of the value, and `std::packaged_task` is for decoupling function execution and future retrieval.
 
 ```cpp
 #include <cassert>
-#include <thread>
 #include <future>
+#include <thread>
 
 void producer(std::promise<int>&& prom) {
     using namespace std::chrono_literals;
@@ -79,9 +79,9 @@ void producer(std::promise<int>&& prom) {
 void future_ex2() {
     std::promise<int> prom;
     std::future fut = prom.get_future();
-    producer(std::move(prom));
-    auto consumer = [&fut] { return assert(6 == fut.get()); };
-    consumer();
+    std::thread t(producer, std::move(prom));
+    assert(6 == fut.get());
+    t.join();
 }
 
 void future_ex3() {
@@ -100,6 +100,7 @@ void future_ex3() {
 
 ```cpp
 #include <mutex>
+
 void mutex_ex1() {
     std::mutex mut;
     mut.lock();
@@ -114,8 +115,8 @@ void mutex_ex1() {
 void mutex_ex2() {
     std::mutex mut;
     std::lock_guard lock(mut);
+    // access shared resource
 }
-
 ```
 
 ### `std::shared_mutex`
@@ -124,6 +125,7 @@ void mutex_ex2() {
 
 ```cpp
 #include <shared_mutex>
+
 void shared_mutex_ex1() {
     std::shared_mutex mut;
     {
@@ -139,12 +141,12 @@ void shared_mutex_ex1() {
 
 ## Quick Sort
 
-Let's take a look at how to utilize multiple threads in the implementation of quick sort. To begin with, the below is a non-paralled quick sort implementation.
+Let's take a look at how to utilize multiple threads in the implementation of quick sort. To begin with, the below is a non-parallel quick sort implementation.
 
 ```cpp
+#include <algorithm>
 #include <cassert>
 #include <vector>
-#include <algorithm>
 
 template <typename Iterator>
 void quick_sort(Iterator first, Iterator last) {
@@ -152,7 +154,7 @@ void quick_sort(Iterator first, Iterator last) {
         return;
     }
 
-    const auto pivot = *first;
+    const auto& pivot = *first;
     const Iterator divide_point = std::partition(
         std::next(first), last,
         [&](const auto& x) { return x < pivot; });
@@ -169,15 +171,15 @@ void quick_sort_ex1() {
 }
 ```
 
-The key to parallelize quick sort is the fact that it has two tasks: sorting the left and right parititions of the array. We can use `std::async` to sort the left part in a new thread and sort the right part in the current thread.
+The key to parallelizing quick sort is the fact that it has two tasks: sorting the left and right partitions of the array. We can use `std::async` to sort the left part in a new thread and sort the right part in the current thread.
 
 ```cpp
-#include <cassert>
-#include <vector>
 #include <algorithm>
-#include <thread>
+#include <cassert>
 #include <future>
 #include <iostream>
+#include <thread>
+#include <vector>
 
 template <typename Iterator>
 void parallel_quick_sort(Iterator first, Iterator last) {
@@ -199,7 +201,7 @@ void parallel_quick_sort(Iterator first, Iterator last) {
 }
 ```
 
-How many threads are created by the above code? Well, it depends. std::async` launches a new thread to execute the funtion immediately or defferes the execution until the result is needed (e.g. `get()` is called). If the behavior is not specified, the implementation can choose either way depending on factors such as resource availability and optimization strategies.
+How many threads are created by the above code? Well, it depends. `std::async` can launch a new thread to execute the function immediately or defer the execution until the result is needed (e.g., when `get()` is called). If the behavior is not specified, the implementation can choose either way depending on factors such as resource availability and optimization strategies.
 
 ## Hash Table
 
@@ -230,7 +232,10 @@ public:
         return data[key];
     }
 
-    void remove(K key) { /* ... */ }
+    void remove(K key) {
+        std::lock_guard lk(mut);
+        data.erase(key);
+    }
 };
 
 void hash_table_ex1() {
@@ -244,11 +249,19 @@ void hash_table_ex1() {
 }
 ```
 
-The above implementation is simple. However, it is not efficient because after all, only one thread can access the hash table at a time. While a readers-writer lock will surely improve the situation, it is still not optimal.
+The above implementation is simple. However, it is not efficient because, after all, only one thread can access the hash table at a time. While a readers-writer lock will surely improve the situation, it is still not optimal.
 
 To maximize the potential of concurrency, we can use more fine-grained locking. Each bucket in the hash table has its own mutex, allowing multiple threads to access different buckets concurrently.
 
 ```cpp
+#include <algorithm>
+#include <cassert>
+#include <list>
+#include <mutex>
+#include <shared_mutex>
+#include <string>
+#include <vector>
+
 template <typename K, typename V, typename Hash = std::hash<K>>
 class hash_table {
 private:
@@ -258,13 +271,13 @@ private:
 
         bucket() = default;
 
-        V get(K key) {
+        V get(const K& key) {
             std::shared_lock lock(mut);
             const auto it = find(key);
             return it == data.end() ? V() : it->second;
         }
 
-        void insert(K key, V value) {
+        void insert(const K& key, const V& value) {
             std::unique_lock lock(mut);
             const auto it = find(key);
             if (it == data.end()) {
@@ -274,7 +287,7 @@ private:
             it->second = value;
         }
 
-        void remove(K key) {
+        void remove(const K& key) {
             std::unique_lock<std::shared_mutex> lock(mut);
             std::erase_if(data, [&](const auto& kv) { return kv.first == key; });
         }
@@ -283,30 +296,30 @@ private:
         std::list<value_type> data;
         std::shared_mutex mut;
 
-        typename decltype(data)::iterator find(K key) {
+        typename decltype(data)::iterator find(const K& key) {
             return std::find_if(data.begin(), data.end(),
                 [&](const auto& kv) { return kv.first == key; });
         }
     };
 
 public:
-    hash_table(std::size_t size) : size(size), buckets(size), hasher() {}
+    hash_table(std::size_t size, Hash hasher = Hash())
+        : size(size), buckets(size), hasher(hasher) {}
 
-    // disable copy and move
     hash_table(const hash_table& other) = delete;
     hash_table(hash_table&& other) = delete;
     hash_table& operator=(const hash_table& other) = delete;
     hash_table& operator=(hash_table&& other) = delete;
 
-    V get(K key) {
+    V get(const K& key) {
         return find(key).get(key);
     }
 
-    void insert(K key, V value) {
+    void insert(const K& key, const V& value) {
         find(key).insert(key, value);
     }
 
-    void remove(K key) {
+    void remove(const K& key) {
         find(key).remove(key);
     }
 
@@ -321,6 +334,8 @@ private:
 };
 ```
 
-Most of the heavy-lifting is done by the `bucket` class, which is responsible for managing the data in each bucket. The `hash_table` class itself forwards the operations to the appropriate bucket based on the hash of the key.
+Most of the heavy lifting is done by the `bucket` class, which is responsible for managing the data in each bucket. The `hash_table` class itself forwards the operations to the appropriate bucket based on the hash of the key.
 
 ## Conclusion
+
+In this tutorial, we explored the foundational concepts of concurrent programming in C++ and demonstrated practical implementations of a parallel quick sort algorithm and a lock-based hash table. By utilizing concurrency features such as `std::thread`, `std::future`, and various mutex types, we can significantly improve the performance and responsiveness of our programs.
