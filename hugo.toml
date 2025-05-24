@@ -29,7 +29,7 @@ UseHugoToc = true
   [params.profileMode]
   enabled = true
   title = "Momori Nakano"
-  subtitle = "Softwar Engineer in Vancouver, from Japan"
+  subtitle = "Software Engineer in Vancouver, from Japan"
   imageUrl = "/assets/profile.png"
   imageTitle = "profile"
 
