@@ -287,6 +287,6 @@ commitTs <= startTs
 
 Of course, distributed clocks make that deceptively simple rule much harder to implement correctly. Limitless combines bounded clocks, Hybrid Logical Clocks, two-phase commit, and clock barriers to make it work.
 
-There is much more in the paper, including query optimization, failover, backup and recovery, and online resharding. But I found time-based MVCC the most interesting because it sits at the heart of how Limitless turns PostgreSQL into a horizontally scalable distributed database.
+There is much more in the paper, including query optimization, failover, and backup and recovery. But I found time-based MVCC the most interesting because it sits at the heart of how Limitless turns PostgreSQL into a horizontally scalable distributed database.
 
 Thanks for reading!
